@@ -2,6 +2,7 @@ CMakeFiles/dkj_client.dir/src/net.c.obj: \
  C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c \
  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
+ C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/constants.h \
  C:/msys64/mingw64/include/SDL3/SDL.h \
  C:/msys64/mingw64/include/SDL3/SDL_stdinc.h \
  C:/msys64/mingw64/include/SDL3/SDL_platform_defines.h \
@@ -87,7 +88,6 @@ CMakeFiles/dkj_client.dir/src/net.c.obj: \
  C:/msys64/mingw64/include/SDL3/SDL_tray.h \
  C:/msys64/mingw64/include/SDL3/SDL_version.h \
  C:/msys64/mingw64/include/SDL3/SDL_oldnames.h \
- C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/constants.h \
  C:/msys64/mingw64/include/stdio.h \
  C:/msys64/mingw64/include/sec_api/stdio_s.h \
  C:/msys64/mingw64/include/pthread.h C:/msys64/mingw64/include/errno.h \

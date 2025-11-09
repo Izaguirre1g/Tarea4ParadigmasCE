@@ -16,7 +16,7 @@ int main() {
     net_send_line(sock, "JOIN player DKJr");
     net_start_receiver(sock, &gs);
 
-    Gfx gfx; if (gfx_init(&gfx) != 0) return 2;
+    Gfx gfx; if (gfx_init(&gfx) != 0) return 1;
 
     int running = 1;
     while (running) {
@@ -40,7 +40,7 @@ int main() {
             }
         }
 
-        gfx_draw(&gfx, &gs);
+        gfx_draw_env(&gfx, &gs);
         SDL_Delay(TICK_MS);
     }
 

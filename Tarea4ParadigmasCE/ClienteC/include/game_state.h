@@ -1,7 +1,7 @@
 #pragma once
+#include "constants.h"
 #include <SDL3/SDL.h>
 #include <stdbool.h>
-#include "constants.h"
 
 typedef struct { int v; } Score;     // value-objects simples
 typedef struct { int v; } Lives;

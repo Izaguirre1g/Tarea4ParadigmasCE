@@ -8,4 +8,4 @@ typedef struct {
 
 int  gfx_init(Gfx* g);
 void gfx_shutdown(Gfx* g);
-void gfx_draw(Gfx* g, const GameState* gs);
+void gfx_draw_env(Gfx* g, const GameState* gs);
