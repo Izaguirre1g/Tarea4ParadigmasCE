@@ -1,54 +1,50 @@
-cmake_minimum_required(VERSION 4.0)
-project(ClienteC C)
+cmake_minimum_required(VERSION 3.16)
+project(DonkeyKongJr_Client C)
 
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
-# Opción para forzar SDL2 aunque SDL3 esté instalada
-option(FORCE_SDL2 "Prefer SDL2 even if SDL3 is found" OFF)
+# --- Rutas ---
+include_directories(include)
+file(GLOB SRC_FILES src/*.c)
 
-# Aquí definimos el ejecutable con la ruta correcta
-add_executable(cliente src/main.c)
+# --- Buscar SDL3 ---
+# En sistemas modernos (vcpkg, brew, MSYS2) se instala como SDL3Config.cmake
+find_package(SDL3 REQUIRED)
 
-# En Windows, enlazar la librería de sockets
-if (WIN32)
-    target_link_libraries(cliente ws2_32)
+# --- Crear ejecutable ---
+add_executable(dkj_client ${SRC_FILES})
+
+# --- Enlace de librerías ---
+target_link_libraries(dkj_client PRIVATE SDL3::SDL3)
+
+if(WIN32)
+    target_link_libraries(dkj_client PRIVATE ws2_32)
+elseif(UNIX AND NOT APPLE)
+    target_link_libraries(dkj_client PRIVATE pthread)
 endif()
 
-# Opción para habilitar interfaz gráfica con SDL
-option(USE_SDL "Enable SDL3 GUI (adds cliente_sdl executable)" OFF)
+# pthread solo en sistemas UNIX
+if(UNIX AND NOT APPLE)
+    target_link_libraries(dkj_client PRIVATE pthread)
+endif()
 
-if (USE_SDL)
-    if (NOT FORCE_SDL2)
-        # Intentamos encontrar SDL3 (instalado vía vcpkg, MSYS2 o paquete sistem)
-        # Preferimos el modo CONFIG que funciona con vcpkg/SDL3Config.cmake
-        find_package(SDL3 CONFIG QUIET)
-    endif()
+# --- Configuración visual ---
+set_target_properties(dkj_client PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+if(WIN32)
+    # Ruta por defecto en MSYS2/MinGW64
+    set(SDL3_DLL "C:/msys64/mingw64/bin/SDL3.dll")
 
-    if (SDL3_FOUND AND NOT FORCE_SDL2)
-        message(STATUS "Found SDL3 (using SDL3)")
-        add_executable(cliente_sdl src/sdl_demo.c)
-        target_link_libraries(cliente_sdl PRIVATE SDL3::SDL3)
+    # Si la DLL existe, crea un paso post-build que la copie junto al .exe
+    if(EXISTS "${SDL3_DLL}")
+        add_custom_command(TARGET dkj_client POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${SDL3_DLL}" $<TARGET_FILE_DIR:dkj_client>
+                COMMENT "Copiando SDL3.dll al directorio bin..."
+        )
     else()
-        # Fallback o forzado a SDL2 si SDL3 no está disponible o si FORCE_SDL2 está ON
-        if (FORCE_SDL2)
-            message(STATUS "FORCE_SDL2 is ON: preferring SDL2 even if SDL3 is present")
-        endif()
-        find_package(SDL2 QUIET)
-        if (SDL2_FOUND)
-            message(STATUS "Using SDL2")
-            add_executable(cliente_sdl src/sdl_demo.c)
-            target_compile_definitions(cliente_sdl PRIVATE USE_SDL2)
-            # SDL2 on MinGW needs SDL2main to provide WinMain wrapper
-            # SDL2main depends on SDL2; link SDL2main first then SDL2 so the linker
-            # can resolve symbols properly (order matters for static libraries).
-            target_link_libraries(cliente_sdl PRIVATE SDL2::SDL2main SDL2::SDL2)
-        else()
-            message(FATAL_ERROR "Neither SDL3 nor SDL2 were found. Instala SDL3 o SDL2 y vuelve a intentar.")
-        endif()
-    endif()
-
-    # Si el proyecto necesita también ws2_32 para networking, enlazarlo en Windows
-    if (WIN32)
-        target_link_libraries(cliente_sdl PRIVATE ws2_32)
+        message(WARNING "No se encontró SDL3.dll en ${SDL3_DLL}. Copiala manualmente si falla la ejecución.")
     endif()
 endif()

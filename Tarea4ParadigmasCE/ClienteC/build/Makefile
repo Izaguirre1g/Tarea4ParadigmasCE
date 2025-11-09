@@ -91,13 +91,6 @@ all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : all
 
-# The main codegen target
-codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\\CMakeFiles\progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
-.PHONY : codegen
-
 # The main clean target
 clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 clean
@@ -123,37 +116,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cliente
+# Target rules for targets named dkj_client
 
 # Build rule for target.
-cliente: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cliente
-.PHONY : cliente
+dkj_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 dkj_client
+.PHONY : dkj_client
 
 # fast build rule for target.
-cliente/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/build
-.PHONY : cliente/fast
+dkj_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/build
+.PHONY : dkj_client/fast
 
-#=============================================================================
-# Target rules for targets named cliente_sdl
+src/game_state.obj: src/game_state.c.obj
+.PHONY : src/game_state.obj
 
-# Build rule for target.
-cliente_sdl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cliente_sdl
-.PHONY : cliente_sdl
+# target to build an object file
+src/game_state.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.obj
+.PHONY : src/game_state.c.obj
 
-# fast build rule for target.
-cliente_sdl/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente_sdl.dir\build.make CMakeFiles/cliente_sdl.dir/build
-.PHONY : cliente_sdl/fast
+src/game_state.i: src/game_state.c.i
+.PHONY : src/game_state.i
+
+# target to preprocess a source file
+src/game_state.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.i
+.PHONY : src/game_state.c.i
+
+src/game_state.s: src/game_state.c.s
+.PHONY : src/game_state.s
+
+# target to generate assembly for a file
+src/game_state.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.s
+.PHONY : src/game_state.c.s
 
 src/main.obj: src/main.c.obj
 .PHONY : src/main.obj
 
 # target to build an object file
 src/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/src/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/main.c.obj
 .PHONY : src/main.c.obj
 
 src/main.i: src/main.c.i
@@ -161,7 +165,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -169,32 +173,56 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/main.c.s
 .PHONY : src/main.c.s
 
-src/sdl_demo.obj: src/sdl_demo.c.obj
-.PHONY : src/sdl_demo.obj
+src/net.obj: src/net.c.obj
+.PHONY : src/net.obj
 
 # target to build an object file
-src/sdl_demo.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente_sdl.dir\build.make CMakeFiles/cliente_sdl.dir/src/sdl_demo.c.obj
-.PHONY : src/sdl_demo.c.obj
+src/net.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.obj
+.PHONY : src/net.c.obj
 
-src/sdl_demo.i: src/sdl_demo.c.i
-.PHONY : src/sdl_demo.i
+src/net.i: src/net.c.i
+.PHONY : src/net.i
 
 # target to preprocess a source file
-src/sdl_demo.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente_sdl.dir\build.make CMakeFiles/cliente_sdl.dir/src/sdl_demo.c.i
-.PHONY : src/sdl_demo.c.i
+src/net.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.i
+.PHONY : src/net.c.i
 
-src/sdl_demo.s: src/sdl_demo.c.s
-.PHONY : src/sdl_demo.s
+src/net.s: src/net.c.s
+.PHONY : src/net.s
 
 # target to generate assembly for a file
-src/sdl_demo.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente_sdl.dir\build.make CMakeFiles/cliente_sdl.dir/src/sdl_demo.c.s
-.PHONY : src/sdl_demo.c.s
+src/net.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.s
+.PHONY : src/net.c.s
+
+src/render.obj: src/render.c.obj
+.PHONY : src/render.obj
+
+# target to build an object file
+src/render.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.obj
+.PHONY : src/render.c.obj
+
+src/render.i: src/render.c.i
+.PHONY : src/render.i
+
+# target to preprocess a source file
+src/render.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.i
+.PHONY : src/render.c.i
+
+src/render.s: src/render.c.s
+.PHONY : src/render.s
+
+# target to generate assembly for a file
+src/render.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.s
+.PHONY : src/render.c.s
 
 # Help Target
 help:
@@ -202,17 +230,21 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... codegen
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... cliente
-	@echo ... cliente_sdl
+	@echo ... dkj_client
+	@echo ... src/game_state.obj
+	@echo ... src/game_state.i
+	@echo ... src/game_state.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
-	@echo ... src/sdl_demo.obj
-	@echo ... src/sdl_demo.i
-	@echo ... src/sdl_demo.s
+	@echo ... src/net.obj
+	@echo ... src/net.i
+	@echo ... src/net.s
+	@echo ... src/render.obj
+	@echo ... src/render.i
+	@echo ... src/render.s
 .PHONY : help
 
 

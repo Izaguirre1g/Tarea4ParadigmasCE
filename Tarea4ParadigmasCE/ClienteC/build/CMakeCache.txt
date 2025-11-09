@@ -131,7 +131,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=ClienteC
+CMAKE_PROJECT_NAME:STATIC=DonkeyKongJr_Client
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/msys64/mingw64/bin/ranlib.exe
@@ -225,11 +225,23 @@ ClienteC_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 ClienteC_SOURCE_DIR:STATIC=C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC
 
+//Value Computed by CMake
+DonkeyKongJr_Client_BINARY_DIR:STATIC=C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build
+
+//Value Computed by CMake
+DonkeyKongJr_Client_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+DonkeyKongJr_Client_SOURCE_DIR:STATIC=C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC
+
 //Prefer SDL2 even if SDL3 is found
 FORCE_SDL2:BOOL=ON
 
 //The directory containing a CMake configuration file for SDL2.
 SDL2_DIR:PATH=C:/msys64/mingw64/lib/cmake/SDL2
+
+//The directory containing a CMake configuration file for SDL3.
+SDL3_DIR:PATH=C:/msys64/mingw64/lib/cmake/SDL3
 
 //Enable SDL3 GUI (adds cliente_sdl executable)
 USE_SDL:BOOL=ON

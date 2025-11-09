@@ -1,13 +1,11 @@
 package entities;
 
-/**
- * Cocodrilo que desciende por la liana y luego cae al suelo.
- * Implementación mínima para compilar; la lógica real vendrá luego.
- */
-public class CocodriloAzul extends Cocodrilo {
+import model.Liana;
+import patterns.strategy.BlueCrocStrategy;
+import utils.TipoCocodrilo;
 
-    @Override
-    public void mover() {
-        // Stub: aquí irá la lógica de descenso/caída.
+public class CocodriloAzul extends Cocodrilo {
+    public CocodriloAzul(int id, Liana liana, double limiteInferior) {
+        super(id, liana, TipoCocodrilo.AZUL, new BlueCrocStrategy(limiteInferior));
     }
 }

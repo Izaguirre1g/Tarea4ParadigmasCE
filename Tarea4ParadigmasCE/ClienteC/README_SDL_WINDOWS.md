@@ -19,35 +19,17 @@ pacman -S --needed mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x
 ```
 3. Instalar SDL2 o SDL3 (los nombres de paquete pueden variar por mirror):
 ```bash
-# intentar SDL3 (si está disponible en tu mirror)
-pacman -S mingw-w64-x86_64-SDL3 || true
-# si SDL3 no está disponible o prefieres SDL2
-pacman -S mingw-w64-x86_64-SDL2
+pacman -Syu      # (opcional) actualiza todo el sistema
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-SDL3
+
 ```
 
 Compilar desde MSYS2 (ejemplo)
-- Compilar intentando usar SDL3 (por defecto):
+- Compilar intentando usar SDL3:
 ```bash
-cd /c/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC
-rm -rf build
-mkdir -p build && cd build
-cmake -G "MinGW Makefiles" -DUSE_SDL=ON -DCMAKE_PREFIX_PATH=/mingw64 ..
-mingw32-make
-./cliente_sdl.exe
-```
-- Forzar SDL2 si quieres asegurar compatibilidad:
-```bash
-rm -rf build
-mkdir -p build && cd build
-cmake -G "MinGW Makefiles" -DUSE_SDL=ON -DFORCE_SDL2=ON -DCMAKE_PREFIX_PATH=/mingw64 ..
-mingw32-make
-./cliente_sdl.exe
-```
-
-Ejecución desde cmd.exe (Windows)
-- Si ejecutas el ejecutable desde la línea de comandos de Windows, asegúrate de que las DLLs de MSYS2 estén en el PATH o copia las DLLs al directorio del ejecutable:
-```cmd
-cd /d C:\ruta\al\repositorio\ClienteC\build
-set PATH=C:\msys64\mingw64\bin;%PATH%
-cliente_sdl.exe
+cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC"
+cmake -B build -G "MinGW Makefiles"
+cmake --build build
+cd build/bin
+./dkj_client.exe
 ```

@@ -2,36 +2,43 @@ package entities;
 
 import model.Liana;
 import model.Posicion;
+import patterns.strategy.MovementStrategy;
 import utils.TipoCocodrilo;
 
-/**
- * Clase abstracta base para cocodrilos. Contiene los campos y setters
- * que usan las fábricas (setLianaActual, setAltura, setVelocidad, setTipo).
- * La lógica de mover() se implementará en subclases.
- */
 public abstract class Cocodrilo {
 
-    protected Integer id;
-    protected Posicion posicion;          // posición aproximada
-    protected Liana lianaActual;          // liana donde se mueve
-    protected Double velocidad;           // unidades por tick (stub)
-    protected TipoCocodrilo tipo;         // ROJO o AZUL
-    protected Integer altura;             // altura sobre la base de la liana (stub)
+    protected int id;
+    protected Liana liana;
+    protected Posicion posicion;
+    protected double velocidad;
+    protected boolean vivo;
+    protected TipoCocodrilo tipo;
+    protected MovementStrategy strategy;
 
-    // --- Getters/Setters requeridos por las fábricas ---
-    public void setLianaActual(Liana liana) { this.lianaActual = liana; }
-    public void setAltura(Integer altura) { this.altura = altura; }
-    public void setVelocidad(Double v) { this.velocidad = v; }
-    public void setTipo(TipoCocodrilo t) { this.tipo = t; }
+    public Cocodrilo(int id, Liana liana, TipoCocodrilo tipo, MovementStrategy strategy) {
+        this.id = id;
+        this.liana = liana;
+        this.tipo = tipo;
+        this.strategy = strategy;
+        this.posicion = new Posicion(liana.getX(), 0);
+        this.velocidad = 0.1; // velocidad base
+        this.vivo = true;
+    }
 
-    public Liana getLianaActual() { return lianaActual; }
-    public Integer getAltura() { return altura; }
-    public Double getVelocidad() { return velocidad; }
-    public TipoCocodrilo getTipo() { return tipo; }
+    public void update(double delta) {
+        if (!vivo) return;
+        posicion = strategy.nextPosition(posicion, delta, velocidad);
 
+        // En caso de ser un cocodrilo azul que "muere" al caer
+        if (strategy instanceof patterns.strategy.BlueCrocStrategy blue) {
+            this.vivo = blue.isAlive();
+        }
+    }
+
+    // Getters
     public Posicion getPosicion() { return posicion; }
-    public void setPosicion(Posicion p) { this.posicion = p; }
-
-    // --- Comportamiento a definir por cada subclase ---
-    public abstract void mover();
+    public Liana getLiana() { return liana; }
+    public int getId() { return id; }
+    public boolean isVivo() { return vivo; }
+    public TipoCocodrilo getTipo() { return tipo; }
 }
