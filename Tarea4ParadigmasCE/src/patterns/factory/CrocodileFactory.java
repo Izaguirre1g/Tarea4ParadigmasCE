@@ -1,25 +1,44 @@
 package patterns.factory;
 
 import entities.Cocodrilo;
-import entities.CocodriloRojo;
 import entities.CocodriloAzul;
-import model.Liana;
+import entities.CocodriloRojo;
+import model.Posicion;
 import utils.TipoCocodrilo;
+import utils.GameConstants;
 
+/**
+ * Factory que crea cocodrilos rojos o azules
+ * usando el patrón Factory Method.
+ */
 public class CrocodileFactory {
 
-    public static Cocodrilo createCrocodile(int id, TipoCocodrilo tipo, Liana liana) {
+    /**
+     * Crea un cocodrilo según el tipo especificado.
+     * @param tipo TipoCocodrilo (ROJO o AZUL)
+     * @param pos  Posición inicial del cocodrilo
+     * @return instancia de Cocodrilo con estrategia asignada
+     */
+    public Cocodrilo createCrocodile(TipoCocodrilo tipo, Posicion pos) {
+        Cocodrilo c = null;
+
         switch (tipo) {
             case ROJO:
-                // Suben y bajan entre y=100 y y=400
-                return new CocodriloRojo(id, liana, 100, 400);
+                c = new CocodriloRojo(pos);
+                break;
 
             case AZUL:
-                // Caen hasta y=500
-                return new CocodriloAzul(id, liana, 500);
-
-            default:
-                throw new IllegalArgumentException("Tipo de cocodrilo desconocido: " + tipo);
+                c = new CocodriloAzul(pos);
+                break;
         }
+
+        // Seguridad: velocidad y límites por defecto
+        if (c != null) {
+            if (c.getVelocidad() <= 0) c.setVelocidad(GameConstants.CROC_SPEED);
+            if (c.getPosicion().y < GameConstants.CROC_MIN_Y)
+                c.getPosicion().y = GameConstants.CROC_MIN_Y + 50;
+        }
+
+        return c;
     }
 }

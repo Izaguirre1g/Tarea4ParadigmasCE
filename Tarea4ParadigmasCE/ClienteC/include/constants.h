@@ -21,20 +21,26 @@
 #define COLOR_LIANA      0,200,0,255
 #define COLOR_CROC_RED   220,40,40,255
 #define COLOR_CROC_BLUE  60,100,255,255
-#define COLOR_FRUIT_RED  255,60,60,255
-#define COLOR_FRUIT_YEL  255,230,60,255
-#define COLOR_FRUIT_PUR  200,60,255,255
+#define COLOR_FRUIT_BANANA 255,255,80,255
+#define COLOR_FRUIT_NARANJA 255,140,0,255
+#define COLOR_FRUIT_CEREZA 255,0,100,255
+#define COLOR_HUD        255,255,255,255
 
-#define N_PLAT 3
+#define N_PLAT 5
 static const float PLATFORMS[N_PLAT][4] = {
     {100, 525, 760, 15},  // suelo
-    {200, 360, 500, 10},
-    {150, 240, 300, 10}
+    {150, 420, 600, 10},  // plataforma baja
+    {250, 320, 400, 10},  // plataforma media
+    {100, 220, 500, 10},  // plataforma alta
+    {0,   120, 300, 10}   // parte superior (donde está Donkey Kong)
 };
 
-#define N_LIANA 3
+#define N_LIANA 6
 static const float LIANAS[N_LIANA][4] = {
-    {300, 100, 300, 525},
-    {480,  60, 480, 360},
-    {660, 100, 660, 525}
+    {160, 120, 160, 525}, // izquierda
+    {240, 120, 240, 525},
+    {400, 220, 400, 525}, // central
+    {480, 220, 480, 525},
+    {640, 120, 640, 525}, // derecha
+    {720, 120, 720, 525}
 };

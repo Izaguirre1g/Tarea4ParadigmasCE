@@ -1,26 +1,45 @@
 package entities;
 
-import model.Liana;
+import model.Posicion;
 import utils.TipoFruta;
 
-/**
- * Clase abstracta base para frutas. Las fábricas usan estos setters:
- * setLiana, setAlturaEnLiana, setPuntos, setTipo.
- */
-public abstract class Fruta {
+public class Fruta {
+    protected TipoFruta tipo;
+    protected Posicion posicion;
+    protected int puntos;
+    protected boolean activa = true;
 
-    protected Integer id;
-    protected Liana liana;            // liana donde cuelga la fruta
-    protected Integer alturaEnLiana;  // posición vertical
-    protected Integer puntos;         // puntaje al recolectar
-    protected TipoFruta tipo;         // BANANA/NARANJA
-    protected Boolean recolectada = false;
+    public Fruta(TipoFruta tipo, Posicion pos) {
+        this.tipo = tipo;
+        this.posicion = pos;
+        this.puntos = tipo.getPuntos();
+    }
 
-    // --- Setters usados por la fábrica ---
-    public void setLiana(Liana l) { this.liana = l; }
-    public void setAlturaEnLiana(Integer a) { this.alturaEnLiana = a; }
-    public void setPuntos(Integer p) { this.puntos = p; }
-    public void setTipo(TipoFruta t) { this.tipo = t; }
+    public boolean checkCollision(Posicion jugador, int w, int h) {
+        double dx = Math.abs(jugador.x - posicion.x);
+        double dy = Math.abs(jugador.y - posicion.y);
+        return dx < w && dy < h;
+    }
 
-    public Integer obtenerPuntos() { return puntos; }
+    public String toNetworkString() {
+        return String.format("FRUIT id=%d type=%s x=%.0f y=%.0f points=%d active=%d",
+            this.hashCode(),
+            tipo.name(),
+            posicion.x,
+            posicion.y,
+            puntos,
+            activa ? 1 : 0);
+    }
+
+
+    // ✅ Getters y setters
+    public boolean isActiva() { return activa; }
+    public void setActiva(boolean activa) { this.activa = activa; }
+    public int getPuntos() { return puntos; }
+    public TipoFruta getTipo() { return tipo; }
+
+    // 👇 Agrega este método
+    public Posicion getPosicion() {
+        return posicion;
+    }
 }

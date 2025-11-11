@@ -1,11 +1,11 @@
 package entities;
 
-import model.Liana;
+import model.Posicion;
 import patterns.strategy.BlueCrocStrategy;
-import utils.TipoCocodrilo;
 
 public class CocodriloAzul extends Cocodrilo {
-    public CocodriloAzul(int id, Liana liana, double limiteInferior) {
-        super(id, liana, TipoCocodrilo.AZUL, new BlueCrocStrategy(limiteInferior));
+
+    public CocodriloAzul(Posicion posicion) {
+        super(posicion, 1.2, new BlueCrocStrategy());
     }
 }

@@ -1,44 +1,46 @@
 package entities;
 
-import model.Liana;
 import model.Posicion;
 import patterns.strategy.MovementStrategy;
-import utils.TipoCocodrilo;
 
-public abstract class Cocodrilo {
+public class Cocodrilo {
 
-    protected int id;
-    protected Liana liana;
-    protected Posicion posicion;
-    protected double velocidad;
-    protected boolean vivo;
-    protected TipoCocodrilo tipo;
-    protected MovementStrategy strategy;
+    private Posicion posicion;
+    private double velocidad;
+    private int direccion; // 1 = abajo, -1 = arriba
+    private boolean activo = true;
+    private MovementStrategy strategy;
 
-    public Cocodrilo(int id, Liana liana, TipoCocodrilo tipo, MovementStrategy strategy) {
-        this.id = id;
-        this.liana = liana;
-        this.tipo = tipo;
+    public Cocodrilo(Posicion posicion, double velocidad, MovementStrategy strategy) {
+        this.posicion = posicion;
+        this.velocidad = velocidad;
         this.strategy = strategy;
-        this.posicion = new Posicion(liana.getX(), 0);
-        this.velocidad = 0.1; // velocidad base
-        this.vivo = true;
+        this.direccion = 1; // por defecto bajando
     }
 
-    public void update(double delta) {
-        if (!vivo) return;
-        posicion = strategy.nextPosition(posicion, delta, velocidad);
-
-        // En caso de ser un cocodrilo azul que "muere" al caer
-        if (strategy instanceof patterns.strategy.BlueCrocStrategy blue) {
-            this.vivo = blue.isAlive();
-        }
+    public void update() {
+        if (strategy != null) strategy.move(this);
     }
 
-    // Getters
+    // --- Getters y setters ---
     public Posicion getPosicion() { return posicion; }
-    public Liana getLiana() { return liana; }
-    public int getId() { return id; }
-    public boolean isVivo() { return vivo; }
-    public TipoCocodrilo getTipo() { return tipo; }
+    public double getVelocidad() { return velocidad; }
+
+    public void setVelocidad(double velocidad) { this.velocidad = velocidad; }
+
+    public int getDireccion() { return direccion; }
+    public void setDireccion(int direccion) { this.direccion = direccion; }
+
+    public boolean isActivo() { return activo; }
+    public void setActivo(boolean activo) { this.activo = activo; }
+
+    public MovementStrategy getStrategy() { return strategy; }
+    public void setStrategy(MovementStrategy strategy) { this.strategy = strategy; }
+
+    // --- Serialización para enviar al cliente ---
+    public String toNetworkString() {
+        String tipo = this.getClass().getSimpleName().contains("Rojo") ? "RED" : "BLUE";
+        return String.format("CROC id=%d type=%s x=%.0f y=%.0f alive=%d",
+                this.hashCode(), tipo, posicion.x, posicion.y, activo ? 1 : 0);
+    }
 }

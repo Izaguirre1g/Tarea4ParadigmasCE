@@ -1,32 +1,18 @@
 package patterns.strategy;
 
-import model.Posicion;
+import entities.Cocodrilo;
+import utils.GameConstants;
 
-/**
- * Estrategia de movimiento para cocodrilos azules:
- * descienden verticalmente hasta "caer" (fuera de pantalla).
- */
 public class BlueCrocStrategy implements MovementStrategy {
-
-    private final double limiteInferior;
-    private boolean alive = true;
-
-    public BlueCrocStrategy(double limiteInferior) {
-        this.limiteInferior = limiteInferior;
-    }
+    private double velocidad = GameConstants.CROC_SPEED * 0.8; // un poco más lento
 
     @Override
-    public Posicion nextPosition(Posicion actual, double delta, double velocidad) {
-        if (!alive) return actual;
+    public void move(Cocodrilo c) {
+        c.getPosicion().y += velocidad;
 
-        double nuevaY = actual.getY() + velocidad * delta;
-        if (nuevaY >= limiteInferior) {
-            alive = false; // Se cae
+        // si sale de la pantalla, reaparece arriba
+        if (c.getPosicion().y > GameConstants.CROC_MAX_Y + 20) {
+            c.getPosicion().y = GameConstants.CROC_MIN_Y;
         }
-        return new Posicion(actual.getX(), nuevaY);
-    }
-
-    public boolean isAlive() {
-        return alive;
     }
 }

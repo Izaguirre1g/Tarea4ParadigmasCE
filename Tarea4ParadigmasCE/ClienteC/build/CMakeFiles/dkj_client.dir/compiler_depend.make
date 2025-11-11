@@ -192,7 +192,6 @@ CMakeFiles/dkj_client.dir/src/main.c.obj: C:/Users/kenfe/OneDrive/Documentos/Pro
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h
 
 CMakeFiles/dkj_client.dir/src/net.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c \
-  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/constants.h \
   C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
   C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
   C:/msys64/mingw64/include/SDL3/SDL.h \
@@ -570,6 +569,7 @@ CMakeFiles/dkj_client.dir/src/net.c.obj: C:/Users/kenfe/OneDrive/Documentos/Prog
 CMakeFiles/dkj_client.dir/src/render.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c \
   C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/constants.h \
   C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
+  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/render.h \
   C:/msys64/mingw64/include/SDL3/SDL.h \
   C:/msys64/mingw64/include/SDL3/SDL_assert.h \
   C:/msys64/mingw64/include/SDL3/SDL_asyncio.h \
@@ -644,11 +644,13 @@ CMakeFiles/dkj_client.dir/src/render.c.obj: C:/Users/kenfe/OneDrive/Documentos/P
   C:/msys64/mingw64/include/inttypes.h \
   C:/msys64/mingw64/include/process.h \
   C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
+  C:/msys64/mingw64/include/sec_api/stdio_s.h \
   C:/msys64/mingw64/include/sec_api/string_s.h \
   C:/msys64/mingw64/include/sec_api/wchar_s.h \
   C:/msys64/mingw64/include/stdarg.h \
   C:/msys64/mingw64/include/stddef.h \
   C:/msys64/mingw64/include/stdint.h \
+  C:/msys64/mingw64/include/stdio.h \
   C:/msys64/mingw64/include/string.h \
   C:/msys64/mingw64/include/swprintf.inl \
   C:/msys64/mingw64/include/sys/types.h \

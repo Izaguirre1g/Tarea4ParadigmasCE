@@ -1,24 +1,21 @@
 package patterns.factory;
 
-import entities.Cocodrilo;
-import entities.Fruta;
-import model.Liana;
+import entities.*;
+import model.Posicion;
 import utils.TipoCocodrilo;
 import utils.TipoFruta;
 
-/**
- * Clase abstracta de la Abstract Factory.
- * Define los métodos de creación para cocodrilos y frutas.
- */
-public abstract class GameObjectFactory {
+public class GameObjectFactory {
 
-    /**
-     * Crea un cocodrilo del tipo indicado, en la liana y altura dadas.
-     */
-    public abstract Cocodrilo crearCocodrilo(TipoCocodrilo tipo, Liana liana, Integer altura);
+    private final CrocodileFactory crocFactory = new CrocodileFactory();
+    private final FruitFactory fruitFactory = new FruitFactory();
 
-    /**
-     * Crea una fruta del tipo indicado, en la liana y altura dadas, con puntaje.
-     */
-    public abstract Fruta crearFruta(TipoFruta tipo, Liana liana, Integer altura, Integer puntos);
+    public Object create(String category, String type, Posicion pos) {
+        if (category.equalsIgnoreCase("crocodile")) {
+            return crocFactory.createCrocodile(TipoCocodrilo.valueOf(type.toUpperCase()), pos);
+        } else if (category.equalsIgnoreCase("fruit")) {
+            return fruitFactory.createFruit(TipoFruta.valueOf(type.toUpperCase()), pos);
+        }
+        throw new IllegalArgumentException("Tipo de objeto desconocido: " + category);
+    }
 }

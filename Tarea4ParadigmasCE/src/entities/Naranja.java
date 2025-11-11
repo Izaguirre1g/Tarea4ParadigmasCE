@@ -1,9 +1,12 @@
 package entities;
 
-/**
- * Naranja: fruta de +200 puntos (por defecto).
- * Clase concreta mínima para instanciar desde la fábrica.
- */
+import model.Posicion;
+import utils.TipoFruta;
+
 public class Naranja extends Fruta {
-    // Sin lógica adicional por ahora.
+
+    public Naranja(Posicion pos, int puntos) {
+        super(TipoFruta.NARANJA, pos);
+        this.puntos = puntos;
+    }
 }

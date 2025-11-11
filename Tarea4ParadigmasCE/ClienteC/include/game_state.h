@@ -1,58 +1,30 @@
 #pragma once
-#include "constants.h"
 #include <SDL3/SDL.h>
-#include <stdbool.h>
-
-typedef struct { int v; } Score;     // value-objects simples
-typedef struct { int v; } Lives;
-
-typedef struct { float x, y; } Vec2;
-
-typedef enum { CROC_RED=0, CROC_BLUE=1 } CrocType;
 
 typedef struct {
-    int   id;
-    Vec2  pos;
-    Lives lives;
-    Score score;
-    bool  active;
+    float x, y;
+    int lives, score;
 } Player;
 
 typedef struct {
-    int id;
-    CrocType type;
-    int liana;
-    Vec2 pos;
-    bool alive;
+    float x, y;
+    int alive;
+    int isRed; // 1 = rojo, 0 = azul
 } Croc;
 
 typedef struct {
-    int id;
-    int liana;
-    Vec2 pos;
+    float x, y;
     int points;
-    bool active;
+    int active;
+    char type[16];
 } Fruit;
 
 typedef struct {
-    int levelIdx;
-    float speedScale;
-    int ladders;
-} LevelInfo;
-
-typedef struct {
-    Player players[MAX_PLAYERS];
-    int    playersCount;
-
-    Croc   crocs[MAX_CROCS];
-    int    crocsCount;
-
-    Fruit  fruits[MAX_FRUITS];
-    int    fruitsCount;
-
-    LevelInfo level;
-    Uint64 timeMs;
+    Player player;
+    Croc crocs[32];
+    Fruit fruits[32];
+    int crocsCount;
+    int fruitsCount;
 } GameState;
 
-void gs_init(GameState* gs);
 void gs_apply_line(GameState* gs, const char* line);

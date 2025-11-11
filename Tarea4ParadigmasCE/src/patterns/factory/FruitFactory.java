@@ -1,44 +1,26 @@
 package patterns.factory;
 
-import entities.Banana;
-import entities.Fruta;
-import entities.Naranja;
-import model.Liana;
+import entities.*;
+import model.Posicion;
 import utils.TipoFruta;
 
 /**
- * Fábrica concreta para crear frutas.
- * NO crea cocodrilos (retorna null en ese método).
+ * FruitFactory
+ * -----------------------------------------------------
+ * Crea instancias de frutas según su tipo (BANANA, NARANJA, CEREZA).
  */
-public class FruitFactory extends GameObjectFactory {
+public class FruitFactory {
 
-    @Override
-    public entities.Cocodrilo crearCocodrilo(utils.TipoCocodrilo tipo, Liana liana, Integer altura) {
-        // Esta fábrica solo crea frutas.
-        return null;
-    }
-
-    @Override
-    public Fruta crearFruta(TipoFruta tipo, Liana liana, Integer altura, Integer puntos) {
+    public Fruta createFruit(TipoFruta tipo, Posicion pos) {
         switch (tipo) {
-            case BANANA: {
-                Banana banana = new Banana();
-                banana.setLiana(liana);
-                banana.setAlturaEnLiana(altura);
-                banana.setPuntos(puntos != null ? puntos : 100);
-                banana.setTipo(TipoFruta.BANANA);
-                return banana;
-            }
-            case NARANJA: {
-                Naranja naranja = new Naranja();
-                naranja.setLiana(liana);
-                naranja.setAlturaEnLiana(altura);
-                naranja.setPuntos(puntos != null ? puntos : 200);
-                naranja.setTipo(TipoFruta.NARANJA);
-                return naranja;
-            }
+            case BANANA:
+                return new Banana(pos, tipo.getPuntos());
+            case NARANJA:
+                return new Naranja(pos, tipo.getPuntos());
+            case CEREZA:
+                return new Fruta(tipo, pos);
             default:
-                throw new IllegalArgumentException("Tipo de fruta no válido: " + tipo);
+                throw new IllegalArgumentException("Tipo de fruta desconocido: " + tipo);
         }
     }
 }
