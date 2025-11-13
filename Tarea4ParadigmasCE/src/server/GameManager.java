@@ -1,5 +1,6 @@
 package server;
 
+import com.google.gson.Gson;
 import entities.Cocodrilo;
 import entities.Fruta;
 import model.GameState;
@@ -17,12 +18,12 @@ import java.util.*;
  * Clase GameManager
  * -------------------------------
  * Controla la lógica principal del juego:
- * - Creación de entidades (cocodrilos, frutas)
- * - Eliminación dinámica
- * - Actualización de partidas
- * - Notificación a los observadores (clientes)
+ * - Creación y eliminación de entidades
+ * - Notificación de estado del juego a los clientes
+ * - Comunicación serializada en formato JSON
  *
- * Implementa el patrón Abstract Factory para crear entidades.
+ * Implementa el patrón Abstract Factory y usa Gson
+ * para serializar el estado (GameState) antes de enviarlo.
  */
 public class GameManager {
 
@@ -39,12 +40,16 @@ public class GameManager {
     /** Contador global de entidades creadas */
     private Integer nextEntityId = 1;
 
+    /** Instancia de Gson para serialización JSON */
+    private final Gson gson = new Gson();
+
     // ==========================================================
     // MÉTODOS DE CREACIÓN
     // ==========================================================
 
     /**
      * Crea y agrega un nuevo cocodrilo a la partida especificada.
+     * El nuevo estado se envía automáticamente a todos los clientes en JSON.
      */
     public Boolean agregarCocodrilo(Integer partidaId, TipoCocodrilo tipo, Integer lianaId, Integer altura) {
         GameState estado = partidas.get(partidaId);
@@ -66,7 +71,7 @@ public class GameManager {
             return false;
         }
 
-        cocodrilo.setId(nextEntityId++); // ✅ Usa setter público
+        cocodrilo.setId(nextEntityId++);
         estado.getCocodrilos().add(cocodrilo);
 
         System.out.println("[GameManager] Cocodrilo agregado → ID: " + cocodrilo.getId() +
@@ -80,6 +85,7 @@ public class GameManager {
 
     /**
      * Crea y agrega una nueva fruta a la partida especificada.
+     * El nuevo estado se envía automáticamente a todos los clientes en JSON.
      */
     public Boolean agregarFruta(Integer partidaId, TipoFruta tipo, Integer lianaId, Integer altura, Integer puntos) {
         GameState estado = partidas.get(partidaId);
@@ -101,7 +107,7 @@ public class GameManager {
             return false;
         }
 
-        fruta.setId(nextEntityId++); // ✅ Usa setter público
+        fruta.setId(nextEntityId++);
         estado.getFrutas().add(fruta);
 
         System.out.println("[GameManager] Fruta agregada → ID: " + fruta.getId() +
@@ -119,6 +125,7 @@ public class GameManager {
 
     /**
      * Elimina una fruta de la partida por su ID.
+     * Se notifica el nuevo estado a los clientes.
      */
     public Boolean eliminarFruta(Integer partidaId, Integer frutaId) {
         GameState estado = partidas.get(partidaId);
@@ -149,6 +156,7 @@ public class GameManager {
 
     /**
      * Elimina un cocodrilo de la partida por su ID.
+     * Se notifica el nuevo estado a los clientes.
      */
     public Boolean eliminarCocodrilo(Integer partidaId, Integer cocodriloId) {
         GameState estado = partidas.get(partidaId);
@@ -209,12 +217,13 @@ public class GameManager {
     }
 
     /**
-     * Notifica a los observadores (clientes) el cambio de estado.
+     * Serializa el estado a JSON y lo envía a todos los observadores.
      */
     private void notificarCambio(Integer partidaId, GameState estado) {
         GameObservable obs = observables.get(partidaId);
         if (obs != null) {
-            obs.notificarObservadores(estado);
+            String json = gson.toJson(estado);
+            obs.notificarObservadores(json);
         }
     }
 }
