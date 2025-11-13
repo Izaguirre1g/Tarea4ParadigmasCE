@@ -5,41 +5,41 @@ import model.Posicion;
 import utils.TipoCocodrilo;
 
 /**
- * Clase abstracta base para los cocodrilos del juego.
- * ----------------------------------------------
- * Representa la estructura común de cualquier cocodrilo (rojo o azul).
- * Contiene los atributos y métodos base que utilizan las fábricas para
- * configurar las instancias (Abstract Factory Pattern).
+ * Clase abstracta base para cocodrilos.
+ * ----------------------------------------------------
+ * Contiene los atributos comunes y los setters usados por las fábricas.
+ * La lógica de movimiento (mover) se implementará en las subclases
+ * específicas (CocodriloRojo, CocodriloAzul).
  *
- * ✅ Cumple con el requerimiento del proyecto:
- *    - No usa tipos primitivos (int, double, boolean)
- *    - Usa las clases equivalentes (Integer, Double, Boolean)
- *    - Preparada para ser extendida por subclases concretas
+ * ✅ Cumple con:
+ *    - Patrón Abstract Factory
+ *    - Sin tipos primitivos (usa Integer, Double, Boolean)
+ *    - Encapsulamiento total (getters y setters públicos)
  */
 public abstract class Cocodrilo {
 
     /** Identificador único del cocodrilo */
     protected Integer id;
 
-    /** Posición actual del cocodrilo en el tablero */
+    /** Posición actual en el tablero */
     protected Posicion posicion;
 
-    /** Liana donde el cocodrilo se encuentra actualmente */
+    /** Liana en la que el cocodrilo se encuentra */
     protected Liana lianaActual;
 
-    /** Velocidad del cocodrilo en unidades por tick */
+    /** Velocidad de movimiento (unidades por tick) */
     protected Double velocidad;
 
     /** Tipo de cocodrilo (ROJO o AZUL) */
     protected TipoCocodrilo tipo;
 
-    /** Altura actual sobre la base de la liana */
+    /** Altura en la liana (distancia desde la base) */
     protected Integer altura;
 
-    /**
-     * Constructor protegido (opcional): puede usarse en subclases
-     * para inicializar atributos comunes.
-     */
+    // ==============================================================
+    // Constructores
+    // ==============================================================
+
     protected Cocodrilo() {
         this.id = null;
         this.posicion = null;
@@ -49,51 +49,77 @@ public abstract class Cocodrilo {
         this.altura = 0;
     }
 
-    // --- Getters y Setters requeridos por las fábricas ---
+    // ==============================================================
+    // Getters y Setters (para uso de las fábricas y el GameManager)
+    // ==============================================================
 
+    /** Asigna el ID único del cocodrilo */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /** Devuelve el ID del cocodrilo */
+    public Integer getId() {
+        return id;
+    }
+
+    /** Asigna la liana actual del cocodrilo */
     public void setLianaActual(Liana liana) {
         this.lianaActual = liana;
     }
 
+    /** Asigna la altura en la liana */
     public void setAltura(Integer altura) {
         this.altura = altura;
     }
 
+    /** Asigna la velocidad de movimiento */
     public void setVelocidad(Double velocidad) {
         this.velocidad = velocidad;
     }
 
+    /** Asigna el tipo de cocodrilo (ROJO o AZUL) */
     public void setTipo(TipoCocodrilo tipo) {
         this.tipo = tipo;
     }
 
+    /** Devuelve la liana actual */
     public Liana getLianaActual() {
         return lianaActual;
     }
 
+    /** Devuelve la altura actual */
     public Integer getAltura() {
         return altura;
     }
 
+    /** Devuelve la velocidad actual */
     public Double getVelocidad() {
         return velocidad;
     }
 
+    /** Devuelve el tipo de cocodrilo */
     public TipoCocodrilo getTipo() {
         return tipo;
     }
 
+    /** Devuelve la posición actual */
     public Posicion getPosicion() {
         return posicion;
     }
 
+    /** Asigna una nueva posición */
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
 
+    // ==============================================================
+    // Comportamiento abstracto (definido por subclases)
+    // ==============================================================
+
     /**
-     * Método abstracto que define el movimiento del cocodrilo.
-     * Cada subclase (rojo o azul) debe implementar su propia lógica.
+     * Método abstracto que define cómo se mueve el cocodrilo.
+     * Cada tipo de cocodrilo implementa su propio movimiento.
      */
     public abstract void mover();
 }

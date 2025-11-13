@@ -4,11 +4,15 @@ import model.Liana;
 import utils.TipoFruta;
 
 /**
- * Clase abstracta base para las frutas del juego.
- * -------------------------------------------------
- * Representa el comportamiento y atributos comunes de todas las frutas.
- * Las fábricas (FruitFactory) utilizan estos métodos para construir
- * instancias concretas como Banana o Naranja.
+ * Clase abstracta base para frutas.
+ * ----------------------------------------------------
+ * Las fábricas usan estos setters: setLiana, setAlturaEnLiana,
+ * setPuntos, setTipo, setId.
+ *
+ * ✅ Cumple con:
+ *    - Patrón Abstract Factory
+ *    - Sin tipos primitivos (usa Integer, Boolean)
+ *    - Encapsulamiento total con getters y setters
  */
 public abstract class Fruta {
 
@@ -18,73 +22,78 @@ public abstract class Fruta {
     /** Liana donde cuelga la fruta */
     protected Liana liana;
 
-    /** Altura vertical de la fruta en la liana */
+    /** Altura en la liana */
     protected Integer alturaEnLiana;
 
-    /** Puntaje que otorga al ser recolectada */
+    /** Puntos que otorga al ser recolectada */
     protected Integer puntos;
 
-    /** Tipo de fruta (BANANA, NARANJA, etc.) */
+    /** Tipo de fruta (BANANA / NARANJA / etc.) */
     protected TipoFruta tipo;
 
-    /** Estado de recolección: TRUE si ya fue recogida */
+    /** Indica si la fruta ya fue recolectada */
     protected Boolean recolectada = Boolean.FALSE;
 
-    // --- Setters usados por la fábrica (Abstract Factory Pattern) ---
+    // ==============================================================
+    // Getters y Setters (usados por fábricas y GameManager)
+    // ==============================================================
 
-    /**
-     * Asigna la liana a la que pertenece la fruta.
-     * @param l objeto Liana
-     */
+    /** Asigna el ID único de la fruta */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /** Devuelve el ID de la fruta */
+    public Integer getId() {
+        return id;
+    }
+
+    /** Asigna la liana de la fruta */
     public void setLiana(Liana l) {
         this.liana = l;
     }
 
-    /**
-     * Asigna la altura vertical en la liana.
-     * @param a altura representada como Integer
-     */
+    /** Asigna la altura en la liana */
     public void setAlturaEnLiana(Integer a) {
         this.alturaEnLiana = a;
     }
 
-    /**
-     * Define los puntos que otorga la fruta.
-     * @param p puntos en formato Integer
-     */
+    /** Asigna los puntos de la fruta */
     public void setPuntos(Integer p) {
         this.puntos = p;
     }
 
-    /**
-     * Define el tipo de fruta (BANANA/NARANJA).
-     * @param t tipo de fruta
-     */
+    /** Asigna el tipo de fruta */
     public void setTipo(TipoFruta t) {
         this.tipo = t;
     }
 
-    /**
-     * Devuelve los puntos que otorga esta fruta.
-     * @return cantidad de puntos (Integer)
-     */
+    /** Devuelve la cantidad de puntos que otorga */
     public Integer obtenerPuntos() {
         return puntos;
     }
 
-    /**
-     * Cambia el estado de la fruta a "recolectada".
-     */
+    /** Devuelve el tipo de fruta */
+    public TipoFruta getTipo() {
+        return tipo;
+    }
+
+    /** Marca la fruta como recolectada */
     public void marcarComoRecolectada() {
         this.recolectada = Boolean.TRUE;
     }
 
-    /**
-     * Verifica si la fruta ya fue recolectada.
-     * @return TRUE si la fruta ya fue recogida, FALSE si no.
-     */
+    /** Verifica si la fruta ya fue recolectada */
     public Boolean estaRecolectada() {
         return recolectada;
     }
-}
 
+    public Liana getLiana() {
+        return liana;
+    }
+
+    public Integer getAlturaEnLiana() {
+        return alturaEnLiana;
+    }
+
+}
