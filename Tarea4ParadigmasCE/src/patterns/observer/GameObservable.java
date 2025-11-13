@@ -10,10 +10,11 @@ import java.util.List;
  * Contiene una lista de observadores (clientes)
  * y maneja la lógica para notificarles cuando algo cambia
  * (por ejemplo, un nuevo estado del juego o un mensaje del servidor).
+ *
  */
 public class GameObservable implements Observable {
 
-    // Lista de observadores suscritos (clientes activos)
+    /** Lista de observadores suscritos (clientes activos) */
     private final List<Observer> observadores;
 
     /**
@@ -56,10 +57,11 @@ public class GameObservable implements Observable {
 
     /**
      * Devuelve la cantidad actual de observadores conectados.
-     * Este método es opcional, pero útil para depuración.
+     * Usa Integer en lugar de int para cumplir con la restricción.
+     * @return cantidad de observadores conectados
      */
-    public int contarObservadores() {
+    public Integer contarObservadores() {
+        // .size() devuelve int, pero se autoboxea a Integer automáticamente
         return observadores.size();
     }
 }
-

@@ -15,10 +15,17 @@ import java.nio.charset.StandardCharsets;
  */
 public class ClientHandler implements Runnable, Observer {
 
-    private final Socket socket;       // Socket asociado al cliente
-    private final Integer clientId;    // Identificador único del cliente
-    private final GameServer server;   // Referencia al servidor principal
-    private PrintWriter out;           // Flujo de salida hacia el cliente
+    /** Socket asociado al cliente */
+    private final Socket socket;
+
+    /** Identificador único del cliente */
+    private final Integer clientId;
+
+    /** Referencia al servidor principal (Observable) */
+    private final GameServer server;
+
+    /** Flujo de salida hacia el cliente */
+    private PrintWriter out;
 
     /**
      * Constructor del manejador de cliente.
@@ -49,8 +56,8 @@ public class ClientHandler implements Runnable, Observer {
     }
 
     /**
-     * Bucle principal del cliente: recibe mensajes del cliente
-     * y los reenvía al servidor para difusión.
+     * Bucle principal del cliente:
+     * recibe mensajes desde el cliente y los reenvía al servidor.
      */
     @Override
     public void run() {
@@ -58,7 +65,7 @@ public class ClientHandler implements Runnable, Observer {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                 PrintWriter outWriter = new PrintWriter(
-                        new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true)
+                        new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), Boolean.TRUE)
         ) {
             this.out = outWriter;
 
@@ -66,16 +73,28 @@ public class ClientHandler implements Runnable, Observer {
             out.println("Bienvenido Cliente #" + clientId);
 
             String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println("[Cliente #" + clientId + "] " + line);
-                server.notificarObservadores("Cliente #" + clientId + ": " + line);
+            Boolean continuar = Boolean.TRUE;
+
+            // Bucle sin tipos primitivos
+            while (Boolean.TRUE.equals(continuar)) {
+                line = in.readLine();
+
+                if (line == null) {
+                    continuar = Boolean.FALSE;
+                } else {
+                    System.out.println("[Cliente #" + clientId + "] " + line);
+                    server.notificarObservadores("Cliente #" + clientId + ": " + line);
+                }
             }
 
         } catch (IOException e) {
             System.out.println("[Servidor] Cliente #" + clientId + " desconectado.");
         } finally {
             server.eliminarObservador(this);
-            try { socket.close(); } catch (IOException ignored) {}
+            try {
+                socket.close();
+            } catch (IOException ignored) {}
         }
     }
 }
+
