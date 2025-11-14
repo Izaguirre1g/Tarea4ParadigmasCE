@@ -5,6 +5,7 @@ import model.GameState;
 import model.Liana;
 import model.Posicion;
 import patterns.factory.GameObjectFactory;
+import patterns.factory.GameObjectFactoryImpl;
 import patterns.observer.GameObservable;
 import utils.GameStateSerializer;
 import utils.TipoFruta;
@@ -25,7 +26,7 @@ public class GameManager {
 
     private final ScheduledExecutorService executor =
             Executors.newSingleThreadScheduledExecutor();
-    private final GameObjectFactory factory = new GameObjectFactory();
+    private final GameObjectFactory factory = new GameObjectFactoryImpl();
     private final GameObservable observable = new GameObservable();
 
     // Modo de comunicación
@@ -41,7 +42,6 @@ public class GameManager {
         executor.scheduleAtFixedRate(this::tick, 0, TICK_RATE_MS.longValue(), TimeUnit.MILLISECONDS);
     }
 
-    /* --- Inicialización del nivel --- */
     private void initLevel() {
         state.getLianas().clear();
         state.getFrutas().clear();
@@ -53,11 +53,11 @@ public class GameManager {
             state.getLianas().add(new Liana(i, new Posicion(l[0], l[1]), new Posicion(l[2], l[3])));
         }
 
-        // Crear algunos cocodrilos de ejemplo
-        state.getCocodrilos().add(new CocodriloRojo(new Posicion(160.0, 300.0)));
-        state.getCocodrilos().add(new CocodriloAzul(new Posicion(400.0, 200.0)));
+        // Crear algunos cocodrilos de ejemplo usando la factory
+        state.getCocodrilos().add(factory.crearCocodrilo(utils.TipoCocodrilo.ROJO, new Posicion(160.0, 300.0)));
+        state.getCocodrilos().add(factory.crearCocodrilo(utils.TipoCocodrilo.AZUL, new Posicion(400.0, 200.0)));
 
-        // Crear frutas
+        // Crear frutas usando la factory
         state.getFrutas().add(factory.crearFruta(TipoFruta.BANANA, new Posicion(240.0, 250.0)));
         state.getFrutas().add(factory.crearFruta(TipoFruta.CEREZA, new Posicion(640.0, 350.0)));
 
@@ -315,25 +315,20 @@ public class GameManager {
             return Boolean.FALSE;
         }
 
-        Double x = lianaSeleccionada.getPosicionInicio().x;
+        // Calcular posición inicial (centro de la liana)
         Double y = (lianaSeleccionada.getPosicionInicio().y + lianaSeleccionada.getPosicionFin().y) / 2.0;
-        Posicion pos = new Posicion(x, y);
 
-        Cocodrilo nuevo = null;
-        if (tipo == utils.TipoCocodrilo.ROJO) {
-            nuevo = new CocodriloRojo(pos);
-        } else if (tipo == utils.TipoCocodrilo.AZUL) {
-            nuevo = new CocodriloAzul(pos);
-        }
-
-        if (nuevo != null) {
+        try {
+            // Usar la factory para crear el cocodrilo
+            Cocodrilo nuevo = factory.crearCocodriloEnLiana(tipo, lianaSeleccionada, y);
             state.getCocodrilos().add(nuevo);
             System.out.println("[GameManager] Cocodrilo creado → ID: " + nuevo.getId() +
                     ", Tipo: " + tipo + ", Liana: " + lianaId);
             return Boolean.TRUE;
+        } catch (Exception e) {
+            System.out.println("[Error] " + e.getMessage());
+            return Boolean.FALSE;
         }
-
-        return Boolean.FALSE;
     }
 
     /**
@@ -375,24 +370,17 @@ public class GameManager {
             return Boolean.FALSE;
         }
 
-        Double minY = lianaSeleccionada.getPosicionInicio().y;
-        Double maxY = lianaSeleccionada.getPosicionFin().y;
-
-        if (altura < minY || altura > maxY) {
-            System.out.println("[Error] Altura fuera del rango de la liana. Rango: [" + minY + ", " + maxY + "]");
+        try {
+            // Usar la factory para crear la fruta
+            Fruta nueva = factory.crearFrutaEnLiana(tipo, lianaSeleccionada, altura);
+            state.getFrutas().add(nueva);
+            System.out.println("[GameManager] Fruta creada → ID: " + nueva.getId() +
+                    ", Tipo: " + tipo + ", Liana: " + lianaId + ", Altura: " + altura);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            System.out.println("[Error] " + e.getMessage());
             return Boolean.FALSE;
         }
-
-        Double x = lianaSeleccionada.getPosicionInicio().x;
-        Posicion pos = new Posicion(x, altura);
-
-        Fruta nueva = factory.crearFruta(tipo, pos);
-        nueva.setLiana(lianaSeleccionada);
-
-        state.getFrutas().add(nueva);
-        System.out.println("[GameManager] Fruta creada → ID: " + nueva.getId() +
-                ", Tipo: " + tipo + ", Liana: " + lianaId + ", Altura: " + altura);
-        return Boolean.TRUE;
     }
 
     /**
