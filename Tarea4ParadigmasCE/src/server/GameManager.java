@@ -34,7 +34,7 @@ public class GameManager {
         JSON    // Protocolo JSON
     }
 
-    private CommunicationMode mode = CommunicationMode.JSON; // Por defecto usar JSON
+    private CommunicationMode mode = CommunicationMode.TEXT;
 
     public GameManager() {
         initLevel();
