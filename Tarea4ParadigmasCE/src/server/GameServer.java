@@ -17,10 +17,15 @@ public class GameServer {
     public static void main(String[] args) {
         GameManager manager = new GameManager();
 
+        // Lanzar consola administrativa en un hilo separado
+        Thread adminThread = new Thread(new AdminConsole(manager));
+        adminThread.setDaemon(Boolean.FALSE);
+        adminThread.start();
+
         try (ServerSocket serverSocket = new ServerSocket(GameConstants.SERVER_PORT)) {
             System.out.println("Servidor corriendo en puerto " + GameConstants.SERVER_PORT + "...");
 
-            while (true) {
+            while (Boolean.TRUE) {
                 Socket client = serverSocket.accept();
                 System.out.println("Cliente conectado desde: " + client.getInetAddress());
                 ClientHandler handler = new ClientHandler(client, manager);

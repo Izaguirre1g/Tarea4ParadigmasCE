@@ -1,45 +1,61 @@
 package entities;
 
+import model.Liana;
 import model.Posicion;
 import utils.TipoFruta;
 
 public class Fruta {
-    protected TipoFruta tipo;
-    protected Posicion posicion;
-    protected int puntos;
-    protected boolean activa = true;
 
-    public Fruta(TipoFruta tipo, Posicion pos) {
+    // Sistema de IDs únicos
+    private static Integer nextId = 1;
+
+    private Integer id;
+    private TipoFruta tipo;
+    private Posicion posicion;
+    private Liana liana;
+    private Integer puntos;
+    private Boolean activa;
+
+    public Fruta() {
+        this.id = nextId++;
+        this.tipo = null;
+        this.posicion = null;
+        this.liana = null;
+        this.puntos = 0;
+        this.activa = Boolean.TRUE;
+    }
+
+    // Getters y Setters
+    public Integer getId() { return id; }
+
+    public TipoFruta getTipo() { return tipo; }
+    public void setTipo(TipoFruta tipo) {
         this.tipo = tipo;
-        this.posicion = pos;
-        this.puntos = tipo.getPuntos();
+        if (tipo != null) {
+            this.puntos = tipo.getPuntos();
+        }
     }
 
-    public boolean checkCollision(Posicion jugador, int w, int h) {
-        double dx = Math.abs(jugador.x - posicion.x);
-        double dy = Math.abs(jugador.y - posicion.y);
-        return dx < w && dy < h;
-    }
+    public Posicion getPosicion() { return posicion; }
+    public void setPosicion(Posicion posicion) { this.posicion = posicion; }
+
+    public Liana getLiana() { return liana; }
+    public void setLiana(Liana liana) { this.liana = liana; }
+
+    public Integer getPuntos() { return puntos; }
+    public void setPuntos(Integer puntos) { this.puntos = puntos; }
+
+    public Boolean isActiva() { return activa; }
+    public void setActiva(Boolean activa) { this.activa = activa; }
 
     public String toNetworkString() {
-        return String.format("FRUIT id=%d type=%s x=%.0f y=%.0f points=%d active=%d",
-            this.hashCode(),
-            tipo.name(),
-            posicion.x,
-            posicion.y,
-            puntos,
-            activa ? 1 : 0);
+        return String.format("FRUIT %d type=%s x=%.0f y=%.0f points=%d active=%d",
+                id, tipo.getNombre(), posicion.x, posicion.y, puntos, activa ? 1 : 0);
     }
 
-
-    // ✅ Getters y setters
-    public boolean isActiva() { return activa; }
-    public void setActiva(boolean activa) { this.activa = activa; }
-    public int getPuntos() { return puntos; }
-    public TipoFruta getTipo() { return tipo; }
-
-    // 👇 Agrega este método
-    public Posicion getPosicion() {
-        return posicion;
+    @Override
+    public String toString() {
+        return String.format("Fruta{id=%d, tipo=%s, pos=%s, puntos=%d, activa=%b}",
+                id, tipo, posicion, puntos, activa);
     }
 }

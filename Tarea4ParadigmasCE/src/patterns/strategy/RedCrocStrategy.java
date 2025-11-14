@@ -1,24 +1,35 @@
 package patterns.strategy;
 
 import entities.Cocodrilo;
-import utils.GameConstants;
+import model.Posicion;
 
+/**
+ * RedCrocStrategy
+ * -----------------------------------------------------
+ * Estrategia de movimiento para cocodrilos rojos.
+ * Suben y bajan en un rango vertical limitado.
+ */
 public class RedCrocStrategy implements MovementStrategy {
-    private double minY = GameConstants.CROC_MIN_Y;
-    private double maxY = GameConstants.CROC_MAX_Y;
+
+    private static final Double MIN_Y = 150.0;
+    private static final Double MAX_Y = 520.0;
 
     @Override
-    public void move(Cocodrilo c) {
-        // movimiento controlado
-        c.getPosicion().y += c.getVelocidad() * c.getDireccion();
+    public void move(Cocodrilo cocodrilo) {
+        Posicion pos = cocodrilo.getPosicion();
+        Double velocidad = cocodrilo.getVelocidad();
+        Integer direccion = cocodrilo.getDireccion();
 
-        // invertir dirección al llegar a los límites
-        if (c.getPosicion().y >= maxY) {
-            c.getPosicion().y = maxY;
-            c.setDireccion(-1);
-        } else if (c.getPosicion().y <= minY) {
-            c.getPosicion().y = minY;
-            c.setDireccion(1);
+        // Movimiento vertical
+        pos.y += velocidad * direccion;
+
+        // Cambiar dirección en los límites
+        if (pos.y <= MIN_Y) {
+            pos.y = MIN_Y;
+            cocodrilo.setDireccion(1); // cambiar a bajar
+        } else if (pos.y >= MAX_Y) {
+            pos.y = MAX_Y;
+            cocodrilo.setDireccion(-1); // cambiar a subir
         }
     }
 }

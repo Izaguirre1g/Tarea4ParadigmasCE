@@ -5,42 +5,58 @@ import patterns.strategy.MovementStrategy;
 
 public class Cocodrilo {
 
+    // Sistema de IDs únicos
+    private static Integer nextId = 1;
+
+    private Integer id;
     private Posicion posicion;
-    private double velocidad;
-    private int direccion; // 1 = abajo, -1 = arriba
-    private boolean activo = true;
+    private Double velocidad;
+    private Integer direccion;
+    private Boolean activo;
     private MovementStrategy strategy;
 
-    public Cocodrilo(Posicion posicion, double velocidad, MovementStrategy strategy) {
+    public Cocodrilo(Posicion posicion, Double velocidad, MovementStrategy strategy) {
+        this.id = nextId++;
         this.posicion = posicion;
         this.velocidad = velocidad;
         this.strategy = strategy;
-        this.direccion = 1; // por defecto bajando
+        this.direccion = 1;
+        this.activo = Boolean.TRUE;
     }
 
     public void update() {
-        if (strategy != null) strategy.move(this);
+        if (strategy != null && activo) {
+            strategy.move(this);
+        }
     }
 
-    // --- Getters y setters ---
+    // Getters y Setters
+    public Integer getId() { return id; }
+
     public Posicion getPosicion() { return posicion; }
-    public double getVelocidad() { return velocidad; }
+    public void setPosicion(Posicion posicion) { this.posicion = posicion; }
 
-    public void setVelocidad(double velocidad) { this.velocidad = velocidad; }
+    public Double getVelocidad() { return velocidad; }
+    public void setVelocidad(Double velocidad) { this.velocidad = velocidad; }
 
-    public int getDireccion() { return direccion; }
-    public void setDireccion(int direccion) { this.direccion = direccion; }
+    public Integer getDireccion() { return direccion; }
+    public void setDireccion(Integer direccion) { this.direccion = direccion; }
 
-    public boolean isActivo() { return activo; }
-    public void setActivo(boolean activo) { this.activo = activo; }
+    public Boolean isActivo() { return activo; }
+    public void setActivo(Boolean activo) { this.activo = activo; }
 
     public MovementStrategy getStrategy() { return strategy; }
     public void setStrategy(MovementStrategy strategy) { this.strategy = strategy; }
 
-    // --- Serialización para enviar al cliente ---
     public String toNetworkString() {
-        String tipo = this.getClass().getSimpleName().contains("Rojo") ? "RED" : "BLUE";
-        return String.format("CROC id=%d type=%s x=%.0f y=%.0f alive=%d",
-                this.hashCode(), tipo, posicion.x, posicion.y, activo ? 1 : 0);
+        String tipo = (strategy instanceof patterns.strategy.RedCrocStrategy) ? "RED" : "BLUE";
+        return String.format("CROC %d type=%s x=%.0f y=%.0f alive=%d",
+                id, tipo, posicion.x, posicion.y, activo ? 1 : 0);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cocodrilo{id=%d, pos=%s, velocidad=%.1f, activo=%b}",
+                id, posicion, velocidad, activo);
     }
 }

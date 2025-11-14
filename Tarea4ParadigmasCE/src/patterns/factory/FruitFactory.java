@@ -18,7 +18,7 @@ public class FruitFactory {
             case NARANJA:
                 return new Naranja(pos, tipo.getPuntos());
             case CEREZA:
-                return new Fruta(tipo, pos);
+                return new Fruta();
             default:
                 throw new IllegalArgumentException("Tipo de fruta desconocido: " + tipo);
         }

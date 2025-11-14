@@ -6,17 +6,17 @@ public enum TipoFruta {
     CEREZA("Cereza", 50, "cereza.png");
 
     private final String nombre;
-    private final int puntos;
+    private final Integer puntos;
     private final String sprite;
 
-    TipoFruta(String nombre, int puntos, String sprite) {
+    TipoFruta(String nombre, Integer puntos, String sprite) {
         this.nombre = nombre;
         this.puntos = puntos;
         this.sprite = sprite;
     }
 
     public String getNombre() { return nombre; }
-    public int getPuntos() { return puntos; }
+    public Integer getPuntos() { return puntos; }
     public String getSprite() { return sprite; }
 
     @Override
