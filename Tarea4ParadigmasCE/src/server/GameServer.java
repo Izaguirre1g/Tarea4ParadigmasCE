@@ -18,10 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Implementa el patrón Observer, permitiendo notificar
  * a todos los clientes conectados cada vez que se envía un mensaje.
  *
- * ✅ Cumple con el requerimiento del proyecto:
- *    - No se utilizan tipos primitivos (int, boolean, etc.)
- *    - Se emplean clases equivalentes (Integer, Boolean)
- *    - Implementa patrón de diseño OBSERVER
  */
 public class GameServer implements Observable {
 
