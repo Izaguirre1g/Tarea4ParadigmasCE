@@ -5,7 +5,7 @@
 typedef struct {
     SDL_Window*   win;
     SDL_Renderer* ren;
-    SDL_Texture*  spritesheet;  // ← ESTA LÍNEA ES CRÍTICA
+    SDL_Texture*  spritesheet;
 } Gfx;
 
 int  gfx_init(Gfx* g);
