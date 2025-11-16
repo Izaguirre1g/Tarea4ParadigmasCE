@@ -20,6 +20,7 @@ static int gsock = -1;
    Hilo de recepción — recibe datos del servidor y los aplica
    --------------------------------------------------------- */
 static void* recv_thread(void* _) {
+    (void)_;
     char buf[2048];
     int off = 0;
 
@@ -34,20 +35,19 @@ static void* recv_thread(void* _) {
             if (buf[i] == '\n') {
                 buf[i] = 0;
 
-                // --- 🔁 reinicio al detectar nueva actualización ---
-                // El servidor siempre envía primero "PLAYER ..."
+                // Reiniciar contadores al detectar nuevo frame (PLAYER es siempre primero)
                 if (strncmp(buf + start, "PLAYER", 6) == 0 && gstate) {
                     gstate->crocsCount = 0;
                     gstate->fruitsCount = 0;
                 }
 
-                // --- aplicar línea al estado ---
+                // Aplicar línea al estado
                 if (gstate) gs_apply_line(gstate, buf + start);
                 start = i + 1;
             }
         }
 
-        // mover datos no procesados al inicio del buffer
+        // Mover datos no procesados al inicio del buffer
         off = end - start;
         memmove(buf, buf + start, off);
     }
@@ -65,7 +65,10 @@ int net_connect(const char* ip, int port) {
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #endif
     int s = socket(AF_INET, SOCK_STREAM, 0);
-    if (s < 0) { perror("socket"); return -1; }
+    if (s < 0) {
+        perror("socket");
+        return -1;
+    }
 
     struct sockaddr_in a;
     memset(&a, 0, sizeof(a));
@@ -99,7 +102,7 @@ void net_send_line(int sock, const char* line) {
 }
 
 void net_close(int sock) {
-    CLOSESOCK(sock);
+    if (sock >= 0) CLOSESOCK(sock);
 #ifdef _WIN32
     WSACleanup();
 #endif

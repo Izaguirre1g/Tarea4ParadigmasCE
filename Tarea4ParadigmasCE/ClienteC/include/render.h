@@ -1,9 +1,11 @@
 #pragma once
 #include "game_state.h"
+#include <SDL2/SDL.h>
 
 typedef struct {
     SDL_Window*   win;
     SDL_Renderer* ren;
+    SDL_Texture*  spritesheet;  // ← ESTA LÍNEA ES CRÍTICA
 } Gfx;
 
 int  gfx_init(Gfx* g);

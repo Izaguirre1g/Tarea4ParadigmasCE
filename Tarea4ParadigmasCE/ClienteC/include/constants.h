@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL2/SDL.h>
 
 #define WIN_W  960
 #define WIN_H  540

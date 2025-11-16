@@ -1,0 +1,81 @@
+#pragma once
+#include <SDL2/SDL.h>
+
+#define SPRITESHEET_W 313
+#define SPRITESHEET_H 144
+
+#define SPRITE_SMALL_W 16
+#define SPRITE_SMALL_H 16
+
+#define SPRITE_LARGE_W 32
+#define SPRITE_LARGE_H 32
+
+typedef enum {
+    // FILA 1: DK JR
+    SPRITE_DKJR_STAND = 0,
+    SPRITE_DKJR_WALK1,
+    SPRITE_DKJR_WALK2,
+    SPRITE_DKJR_CLIMB1,
+    SPRITE_DKJR_CLIMB2,
+    SPRITE_DKJR_JUMP,
+    SPRITE_DKJR_HANG,
+    SPRITE_DKJR_FALL,
+    
+    // FILA 2: COCODRILOS
+    SPRITE_CROC_RED1,
+    SPRITE_CROC_RED2,
+    SPRITE_CROC_BLUE1,
+    SPRITE_CROC_BLUE2,
+    SPRITE_CROC_PINK1,
+    SPRITE_CROC_PINK2,
+    SPRITE_BIRD1,
+    SPRITE_BIRD2,
+    
+    // FILA 3: FRUTAS
+    SPRITE_BANANA,
+    SPRITE_STRAWBERRY,
+    SPRITE_APPLE,
+    SPRITE_PINEAPPLE,
+    SPRITE_GRAPES,
+    SPRITE_KEY,
+    
+    // FILA 4: DONKEY KONG
+    SPRITE_DK_LEFT,
+    SPRITE_DK_CAGE,
+    SPRITE_DK_RIGHT,
+} SpriteID;
+
+static const SDL_Rect SPRITE_RECTS[] = {
+    // FILA 1: DK JR (y=0)
+    {0,    0,  16, 16},  // SPRITE_DKJR_STAND
+    {39,   0,  16, 16},  // SPRITE_DKJR_WALK1
+    {78,   0,  16, 16},  // SPRITE_DKJR_WALK2
+    {117,  0,  16, 16},  // SPRITE_DKJR_CLIMB1
+    {156,  0,  16, 16},  // SPRITE_DKJR_CLIMB2
+    {195,  0,  16, 16},  // SPRITE_DKJR_JUMP
+    {234,  0,  16, 16},  // SPRITE_DKJR_HANG
+    {273,  0,  16, 16},  // SPRITE_DKJR_FALL
+    
+    // FILA 2: COCODRILOS (y=36)
+    {0,    36,  16, 16},  // SPRITE_CROC_RED1
+    {39,   36,  16, 16},  // SPRITE_CROC_RED2
+    {78,   36,  16, 16},  // SPRITE_CROC_BLUE1
+    {117,  36,  16, 16},  // SPRITE_CROC_BLUE2
+    {156,  36,  16, 16},  // SPRITE_CROC_PINK1
+    {195,  36,  16, 16},  // SPRITE_CROC_PINK2
+    {234,  36,  16, 16},  // SPRITE_BIRD1
+    {273,  36,  16, 16},  // SPRITE_BIRD2
+    
+    // FILA 3: FRUTAS (y=72)
+    {0,    72,  16, 16},  // SPRITE_BANANA
+    {39,   72,  16, 16},  // SPRITE_STRAWBERRY
+    {78,   72,  16, 16},  // SPRITE_APPLE
+    {117,  72,  16, 16},  // SPRITE_PINEAPPLE
+    {156,  72,  16, 16},  // SPRITE_GRAPES
+    {195,  72,  16, 16},  // SPRITE_KEY
+    
+    // FILA 4: DONKEY KONG (y=108, sprites 32x32)
+    {0,    108,  32, 32},  // SPRITE_DK_LEFT
+    {117,  108,  32, 32},  // SPRITE_DK_CAGE
+    {234,  108,  32, 32},  // SPRITE_DK_RIGHT
+};

@@ -1,4 +1,4 @@
-#include <SDL3/SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string.h>
 #include "constants.h"
@@ -6,50 +6,49 @@
 #include "net.h"
 #include "render.h"
 
-int main(void) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("Error iniciando SDL: %s\n", SDL_GetError());
-        return 1;
-    }
+int main(int argc, char* argv[]) {
+    (void)argc;  // Evitar warning de parámetro no usado
+    (void)argv;
 
+    // Inicializar gráficos
     Gfx gfx = {0};
-    gfx.win = SDL_CreateWindow("DonCEy Kong Jr - Cliente", WIN_W, WIN_H, 0);
-    if (!gfx.win) {
-        printf("Error creando ventana: %s\n", SDL_GetError());
-        SDL_Quit();
+    if (gfx_init(&gfx) < 0) {
+        printf("Error iniciando gráficos\n");
         return 1;
     }
 
-    gfx.ren = SDL_CreateRenderer(gfx.win, NULL);
-    if (!gfx.ren) {
-        printf("Error creando renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(gfx.win);
-        SDL_Quit();
-        return 1;
-    }
-
+    // Inicializar estado del juego
     GameState gs = {0};
+    gs.player.x = 200;
+    gs.player.y = 500;
+    gs.player.lives = 3;
+    gs.player.score = 0;
+
+    // Conectar al servidor
     int sock = net_connect(SERVER_IP, SERVER_PORT);
     if (sock < 0) {
         printf("No se pudo conectar al servidor.\n");
-        SDL_DestroyRenderer(gfx.ren);
-        SDL_DestroyWindow(gfx.win);
-        SDL_Quit();
+        gfx_shutdown(&gfx);
         return 1;
     }
 
+    // Iniciar hilo receptor
     net_start_receiver(sock, &gs);
     net_send_line(sock, "JOIN player DKJr");
 
+    // Loop principal
     int running = 1;
     SDL_Event e;
-    Uint64 last = SDL_GetTicks();  // control de FPS
+    Uint32 last = SDL_GetTicks();
 
     while (running) {
+        // Eventos
         while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_EVENT_QUIT) running = 0;
-            else if (e.type == SDL_EVENT_KEY_DOWN) {
-                SDL_Keycode key = e.key.key;
+            if (e.type == SDL_QUIT) {
+                running = 0;
+            }
+            else if (e.type == SDL_KEYDOWN) {
+                SDL_Keycode key = e.key.keysym.sym;
                 if (key == SDLK_ESCAPE) running = 0;
                 else if (key == SDLK_LEFT)  net_send_line(sock, "INPUT 0 LEFT");
                 else if (key == SDLK_RIGHT) net_send_line(sock, "INPUT 0 RIGHT");
@@ -57,24 +56,26 @@ int main(void) {
                 else if (key == SDLK_DOWN)  net_send_line(sock, "INPUT 0 DOWN");
                 else if (key == SDLK_SPACE) net_send_line(sock, "INPUT 0 JUMP");
             }
-            else if (e.type == SDL_EVENT_KEY_UP) {
-                SDL_Keycode key = e.key.key;
+            else if (e.type == SDL_KEYUP) {
+                SDL_Keycode key = e.key.keysym.sym;
                 if (key == SDLK_LEFT || key == SDLK_RIGHT ||
                     key == SDLK_UP || key == SDLK_DOWN)
                     net_send_line(sock, "INPUT 0 STOP");
             }
         }
 
-        // Control de 60 FPS (~16 ms)
-        Uint64 now = SDL_GetTicks();
+        // Renderizado a 60 FPS (~16 ms)
+        Uint32 now = SDL_GetTicks();
         if (now - last >= 16) {
             gfx_draw_env(&gfx, &gs);
             last = now;
         }
+
+        SDL_Delay(1);  // Evitar uso excesivo de CPU
     }
 
-    SDL_DestroyRenderer(gfx.ren);
-    SDL_DestroyWindow(gfx.win);
-    SDL_Quit();
+    // Cleanup
+    net_close(sock);
+    gfx_shutdown(&gfx);
     return 0;
 }

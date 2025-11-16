@@ -52,10 +52,10 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/dkj_client.dir/depend.make
@@ -73,63 +73,63 @@ CMakeFiles/dkj_client.dir/codegen:
 
 CMakeFiles/dkj_client.dir/src/game_state.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/game_state.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
-CMakeFiles/dkj_client.dir/src/game_state.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
+CMakeFiles/dkj_client.dir/src/game_state.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
 CMakeFiles/dkj_client.dir/src/game_state.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/dkj_client.dir/src/game_state.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/game_state.c.obj -MF CMakeFiles\dkj_client.dir\src\game_state.c.obj.d -o CMakeFiles\dkj_client.dir\src\game_state.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/dkj_client.dir/src/game_state.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/game_state.c.obj -MF CMakeFiles\dkj_client.dir\src\game_state.c.obj.d -o CMakeFiles\dkj_client.dir\src\game_state.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
 
 CMakeFiles/dkj_client.dir/src/game_state.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/dkj_client.dir/src/game_state.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\dkj_client.dir\src\game_state.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\dkj_client.dir\src\game_state.c.i
 
 CMakeFiles/dkj_client.dir/src/game_state.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/game_state.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\dkj_client.dir\src\game_state.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\dkj_client.dir\src\game_state.c.s
 
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
-CMakeFiles/dkj_client.dir/src/main.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c
+CMakeFiles/dkj_client.dir/src/main.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dkj_client.dir/src/main.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/main.c.obj -MF CMakeFiles\dkj_client.dir\src\main.c.obj.d -o CMakeFiles\dkj_client.dir\src\main.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dkj_client.dir/src/main.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/main.c.obj -MF CMakeFiles\dkj_client.dir\src\main.c.obj.d -o CMakeFiles\dkj_client.dir\src\main.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c
 
 CMakeFiles/dkj_client.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/dkj_client.dir/src/main.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c > CMakeFiles\dkj_client.dir\src\main.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c > CMakeFiles\dkj_client.dir\src\main.c.i
 
 CMakeFiles/dkj_client.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/main.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c -o CMakeFiles\dkj_client.dir\src\main.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c -o CMakeFiles\dkj_client.dir\src\main.c.s
 
 CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
-CMakeFiles/dkj_client.dir/src/net.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
+CMakeFiles/dkj_client.dir/src/net.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
 CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dkj_client.dir/src/net.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/net.c.obj -MF CMakeFiles\dkj_client.dir\src\net.c.obj.d -o CMakeFiles\dkj_client.dir\src\net.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dkj_client.dir/src/net.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/net.c.obj -MF CMakeFiles\dkj_client.dir\src\net.c.obj.d -o CMakeFiles\dkj_client.dir\src\net.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
 
 CMakeFiles/dkj_client.dir/src/net.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/dkj_client.dir/src/net.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\dkj_client.dir\src\net.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\dkj_client.dir\src\net.c.i
 
 CMakeFiles/dkj_client.dir/src/net.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/net.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\dkj_client.dir\src\net.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\dkj_client.dir\src\net.c.s
 
 CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
-CMakeFiles/dkj_client.dir/src/render.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c
+CMakeFiles/dkj_client.dir/src/render.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c
 CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dkj_client.dir/src/render.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/render.c.obj -MF CMakeFiles\dkj_client.dir\src\render.c.obj.d -o CMakeFiles\dkj_client.dir\src\render.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dkj_client.dir/src/render.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/render.c.obj -MF CMakeFiles\dkj_client.dir\src\render.c.obj.d -o CMakeFiles\dkj_client.dir\src\render.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c
 
 CMakeFiles/dkj_client.dir/src/render.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/dkj_client.dir/src/render.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c > CMakeFiles\dkj_client.dir\src\render.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c > CMakeFiles\dkj_client.dir\src\render.c.i
 
 CMakeFiles/dkj_client.dir/src/render.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/render.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c -o CMakeFiles\dkj_client.dir\src\render.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c -o CMakeFiles\dkj_client.dir\src\render.c.s
 
 # Object files for target dkj_client
 dkj_client_OBJECTS = \
@@ -146,14 +146,17 @@ bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/main.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/net.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/render.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/build.make
-bin/dkj_client.exe: C:/msys64/mingw64/lib/libSDL3.dll.a
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/linkLibs.rsp
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/objects1.rsp
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable bin\dkj_client.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable bin\dkj_client.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\dkj_client.dir\link.txt --verbose=$(VERBOSE)
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copiando SDL3.dll al directorio bin..."
-	C:\msys64\mingw64\bin\cmake.exe -E copy_if_different C:/msys64/mingw64/bin/SDL3.dll C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copiando carpeta assets..."
+	C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copiando SDL2.dll..."
+	C:\msys64\mingw64\bin\cmake.exe -E copy_if_different C:/msys64/mingw64/bin/SDL2.dll C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copiando SDL2_image.dll..."
+	C:\msys64\mingw64\bin\cmake.exe -E copy_if_different C:/msys64/mingw64/bin/SDL2_image.dll C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin
 
 # Rule to build all files generated by this target.
 CMakeFiles/dkj_client.dir/build: bin/dkj_client.exe
@@ -164,6 +167,6 @@ CMakeFiles/dkj_client.dir/clean:
 .PHONY : CMakeFiles/dkj_client.dir/clean
 
 CMakeFiles/dkj_client.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\dkj_client.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\dkj_client.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/dkj_client.dir/depend
 

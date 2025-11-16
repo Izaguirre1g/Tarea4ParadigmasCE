@@ -1,24 +1,7 @@
 #include "game_state.h"
 #include <string.h>
 #include <stdio.h>
-#include <constants.h>
-
-void gs_init(GameState* gs) {
-    // Reiniciar contadores válidos
-    gs->crocsCount = 0;
-    gs->fruitsCount = 0;
-
-    // Reset del jugador
-    gs->player.x = 0;
-    gs->player.y = 0;
-    gs->player.lives = 3;
-    gs->player.score = 0;
-}
-static void parse_kv_int(const char* s, const char* key, int* out) {
-    char fmt[64]; sprintf(fmt, "%[^=]=%%d");
-    char kbuf[64]; int v;
-    if (sscanf(s, fmt, kbuf, &v) == 2 && strcmp(kbuf, key)==0) *out = v;
-}
+#include "constants.h"
 
 void gs_apply_line(GameState* gs, const char* line) {
     if (strncmp(line, "PLAYER", 6) == 0) {
@@ -32,8 +15,7 @@ void gs_apply_line(GameState* gs, const char* line) {
         sscanf(line, "CROC %*s type=%s x=%f y=%f alive=%d",
                type, &gs->crocs[i].x, &gs->crocs[i].y, &gs->crocs[i].alive);
         gs->crocs[i].isRed = (strncmp(type, "RED", 3) == 0);
-}
-
+    }
     else if (strncmp(line, "FRUIT", 5) == 0) {
         if (gs->fruitsCount >= MAX_FRUITS) return;
         int i = gs->fruitsCount++;
