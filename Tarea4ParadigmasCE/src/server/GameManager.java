@@ -96,7 +96,7 @@ public class GameManager {
                 if (state.isOnLiana()) state.setVelocityY(PLAYER_SPEED_Y);
                 break;
             case "JUMP":
-                if (!state.isJumping() && state.isOnLiana()) {
+                if (!state.isOnLiana() && !state.isJumping()) {
                     state.setJumping(Boolean.TRUE);
                     state.setVelocityY(-PLAYER_JUMP_VELOCITY);
                 }
@@ -110,74 +110,153 @@ public class GameManager {
 
     /* --- Actualización del jugador --- */
     private void updatePlayer() {
-        Boolean estabaEnLiana = state.isOnLiana();
 
-        // Aplicar movimiento horizontal
-        state.setPlayerX(state.getPlayerX() + state.getVelocityX());
-        state.setPlayerX(clamp(state.getPlayerX(), MIN_X, MAX_X));
+        boolean estabaEnLiana = state.isOnLiana();
 
-        // Verificar si está en una liana
-        state.setOnLiana(Boolean.FALSE);
+        /* ==========================================
+           Movimiento horizontal
+           ========================================== */
+        double newX = state.getPlayerX() + state.getVelocityX();
+
+        // Suavizado en liana
+        if (state.isOnLiana()) {
+            newX = state.getPlayerX() + (state.getVelocityX() * 0.35);
+        }
+
+        state.setPlayerX(clamp(newX, MIN_X, MAX_X));
+
+        /* ==========================================
+           Detectar si está en una liana
+           ========================================== */
+        state.setOnLiana(false);
+
         for (Liana liana : state.getLianas()) {
-            Double lianaX = liana.getPosicionInicio().x;
-            Double dx = Math.abs(lianaX - (state.getPlayerX() + PLAYER_WIDTH / 2.0));
+            Double lx = liana.getPosicionInicio().x;
+            Double dx = Math.abs(lx - (state.getPlayerX() + PLAYER_WIDTH / 2.0));
 
             if (dx < 15.0 &&
                     state.getPlayerY() + PLAYER_HEIGHT > liana.getPosicionInicio().y &&
                     state.getPlayerY() < liana.getPosicionFin().y) {
-                state.setOnLiana(Boolean.TRUE);
+                state.setOnLiana(true);
                 break;
             }
         }
 
-        // Física vertical
+        /* ==========================================
+           Movimiento vertical
+           ========================================== */
+
+        //En liana → NO salto
         if (state.isOnLiana()) {
-            // En liana: control manual
-            state.setPlayerY(state.getPlayerY() + state.getVelocityY());
-            state.setJumping(Boolean.FALSE);
+            state.setJumping(false);
+            state.setVelocityY(state.getVelocityY() * 0.7); // suaviza
+
+            double newY = state.getPlayerY() + state.getVelocityY();
+            state.setPlayerY(clamp(newY, MIN_Y, MAX_Y));
+            return;
+        }
+
+        // En plataforma
+        if (isOnPlatform()) {
+            state.setVelocityY(0.0);
+            state.setJumping(false);
+            return;
+        }
+
+        // En el aire → gravedad con anti-tunneling
+        double vy = state.getVelocityY() + GRAVITY;
+
+        if (vy > MAX_FALL_SPEED)
+            vy = MAX_FALL_SPEED;
+
+        double nextY = state.getPlayerY() + vy;
+
+        // detectar si nextY cruza una plataforma
+        Double landingY = getPlatformLandingY(state.getPlayerX(), state.getPlayerY(), nextY);
+
+        if (landingY != null) {
+            state.setPlayerY(landingY - PLAYER_HEIGHT);
+            state.setVelocityY(0.0);
+            state.setJumping(false);
         } else {
-            // En el aire: gravedad
-            if (state.isJumping() || !isOnPlatform()) {
-                state.setVelocityY(state.getVelocityY() + GRAVITY);
-                if (state.getVelocityY() > MAX_FALL_SPEED) {
-                    state.setVelocityY(MAX_FALL_SPEED);
-                }
-                state.setPlayerY(state.getPlayerY() + state.getVelocityY());
-            } else {
-                state.setVelocityY(0.0);
-                state.setJumping(Boolean.FALSE);
-            }
+            state.setPlayerY(nextY);
+            state.setVelocityY(vy);
         }
 
-        // Limitar Y
         state.setPlayerY(clamp(state.getPlayerY(), MIN_Y, MAX_Y));
+    }
 
-        // Ajustar velocidad en liana
-        if (state.isOnLiana()) {
-            state.setVelocityX(state.getVelocityX() * 0.5);
+    private Double getPlatformLandingY(double x, double yActual, double yNext) {
+        for (Double[] plat : PLATFORMS) {
+            double px = plat[0];
+            double py = plat[1];
+            double pw = plat[2];
+
+            boolean dentroX =
+                    x + PLAYER_WIDTH > px &&
+                    x < px + pw;
+
+            if (!dentroX) continue;
+
+            boolean caeSobre =
+                    yActual + PLAYER_HEIGHT <= py &&
+                    yNext + PLAYER_HEIGHT >= py;
+
+            if (caeSobre)
+                return py;
         }
-        if (!state.isOnLiana() && estabaEnLiana) {
-            state.setVelocityX(0.0);
-        }
+        return null;
     }
 
     /* --- Verificar si está sobre una plataforma --- */
     private Boolean isOnPlatform() {
+
+        Double nextY = state.getPlayerY() + state.getVelocityY();
+        Double playerBottomNext = nextY + PLAYER_HEIGHT;
+        Double currentBottom = state.getPlayerY() + PLAYER_HEIGHT;
+
+        Double closestPlatformY = null;
+
+        // Buscar plataformas debajo del jugador
         for (Double[] plat : PLATFORMS) {
             Double px = plat[0];
             Double py = plat[1];
             Double pw = plat[2];
-            Double ph = plat[3];
 
-            if (state.getPlayerX() + PLAYER_WIDTH > px &&
-                    state.getPlayerX() < px + pw &&
-                    Math.abs((state.getPlayerY() + PLAYER_HEIGHT) - py) < 5.0) {
-                state.setPlayerY(py - PLAYER_HEIGHT);
-                return Boolean.TRUE;
+            boolean insideX =
+                    (state.getPlayerX() + PLAYER_WIDTH > px) &&
+                    (state.getPlayerX() < px + pw);
+
+            if (!insideX)
+                continue;
+
+            // La plataforma debe estar POR DEBAJO del jugador
+            if (py >= currentBottom) {
+
+                // Guardar la mas cercana
+                if (closestPlatformY == null || py < closestPlatformY) {
+                    closestPlatformY = py;
+                }
             }
         }
-        return Boolean.FALSE;
+
+        // Si no hay plataformas debajo → no colisiona
+        if (closestPlatformY == null)
+            return false;
+
+        // ¿El jugador CRUZA esta plataforma al caer?
+        if (state.getVelocityY() >= 0 &&
+                currentBottom <= closestPlatformY &&
+                playerBottomNext >= closestPlatformY)
+        {
+            // Aterrizar exactamente
+            state.setPlayerY(closestPlatformY - PLAYER_HEIGHT);
+            return true;
+        }
+
+        return false;
     }
+
 
     /* --- Actualizar cocodrilos --- */
     private void updateCrocs() {
@@ -269,7 +348,6 @@ public class GameManager {
 
         for (Fruta f : state.getFrutas())
             if (f.isActiva()) sb.append(f.toNetworkString()).append("\n");
-
         return sb.toString();
     }
 

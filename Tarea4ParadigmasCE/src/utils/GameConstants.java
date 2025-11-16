@@ -28,12 +28,13 @@ public final class GameConstants {
 
     public static final Double PLAYER_SPEED_X = 4.0;   // velocidad lateral
     public static final Double PLAYER_SPEED_Y = 3.0;   // velocidad al subir/bajar liana
-    public static final Double PLAYER_JUMP_VELOCITY = 8.0;
+    public static final Double PLAYER_JUMP_VELOCITY = 5.0;
     public static final Integer PLAYER_START_LIVES = 3;
 
     /* --- Física --- */
-    public static final Double GRAVITY = 0.4;          // fuerza de gravedad por tick
-    public static final Double MAX_FALL_SPEED = 12.0;  // límite de velocidad en caída
+    public static final Double GRAVITY = 0.25;          // fuerza de gravedad por tick
+    public static final Double MAX_FALL_SPEED = 8.0;  // límite de velocidad en caída
+    private static final double LIANA_HORIZONTAL_FACTOR = 0.40;
 
     /* --- Cocodrilos --- */
     public static final Double CROC_SPEED = 1.2;       // velocidad base

@@ -1,7 +1,7 @@
 CMakeFiles/dkj_client.dir/src/net.c.obj: \
- C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c \
- C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
- C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
+ C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c \
+ C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
+ C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
  C:/msys64/mingw64/include/SDL3/SDL.h \
  C:/msys64/mingw64/include/SDL3/SDL_stdinc.h \
  C:/msys64/mingw64/include/SDL3/SDL_platform_defines.h \

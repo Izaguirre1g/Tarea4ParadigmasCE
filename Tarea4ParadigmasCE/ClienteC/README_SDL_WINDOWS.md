@@ -28,6 +28,7 @@ Compilar desde MSYS2 (ejemplo)
 - Compilar intentando usar SDL3:
 ```bash
 cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC"
+rm -rf build
 cmake -B build -G "MinGW Makefiles"
 cmake --build build
 cd build/bin
