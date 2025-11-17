@@ -53,20 +53,22 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
 all: CMakeFiles/dkj_client.dir/all
+all: CMakeFiles/admin_client.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/dkj_client.dir/codegen
+codegen: CMakeFiles/admin_client.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,6 +77,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/dkj_client.dir/clean
+clean: CMakeFiles/admin_client.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -84,14 +87,14 @@ clean: CMakeFiles/dkj_client.dir/clean
 CMakeFiles/dkj_client.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target dkj_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=6,7,8,9,10 "Built target dkj_client"
 .PHONY : CMakeFiles/dkj_client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/dkj_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/dkj_client.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : CMakeFiles/dkj_client.dir/rule
 
 # Convenience name for target.
@@ -101,13 +104,45 @@ dkj_client: CMakeFiles/dkj_client.dir/rule
 # codegen rule for target.
 CMakeFiles/dkj_client.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target dkj_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=6,7,8,9,10 "Finished codegen for target dkj_client"
 .PHONY : CMakeFiles/dkj_client.dir/codegen
 
 # clean rule for target.
 CMakeFiles/dkj_client.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/clean
 .PHONY : CMakeFiles/dkj_client.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/admin_client.dir
+
+# All Build rule for target.
+CMakeFiles/admin_client.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target admin_client"
+.PHONY : CMakeFiles/admin_client.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/admin_client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/admin_client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+.PHONY : CMakeFiles/admin_client.dir/rule
+
+# Convenience name for target.
+admin_client: CMakeFiles/admin_client.dir/rule
+.PHONY : admin_client
+
+# codegen rule for target.
+CMakeFiles/admin_client.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target admin_client"
+.PHONY : CMakeFiles/admin_client.dir/codegen
+
+# clean rule for target.
+CMakeFiles/admin_client.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/clean
+.PHONY : CMakeFiles/admin_client.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

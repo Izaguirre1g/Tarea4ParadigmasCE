@@ -56,10 +56,10 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,12 +128,74 @@ dkj_client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/build
 .PHONY : dkj_client/fast
 
+#=============================================================================
+# Target rules for targets named admin_client
+
+# Build rule for target.
+admin_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 admin_client
+.PHONY : admin_client
+
+# fast build rule for target.
+admin_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/build
+.PHONY : admin_client/fast
+
+src/admin_main.obj: src/admin_main.c.obj
+.PHONY : src/admin_main.obj
+
+# target to build an object file
+src/admin_main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_main.c.obj
+.PHONY : src/admin_main.c.obj
+
+src/admin_main.i: src/admin_main.c.i
+.PHONY : src/admin_main.i
+
+# target to preprocess a source file
+src/admin_main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_main.c.i
+.PHONY : src/admin_main.c.i
+
+src/admin_main.s: src/admin_main.c.s
+.PHONY : src/admin_main.s
+
+# target to generate assembly for a file
+src/admin_main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_main.c.s
+.PHONY : src/admin_main.c.s
+
+src/admin_ui.obj: src/admin_ui.c.obj
+.PHONY : src/admin_ui.obj
+
+# target to build an object file
+src/admin_ui.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_ui.c.obj
+.PHONY : src/admin_ui.c.obj
+
+src/admin_ui.i: src/admin_ui.c.i
+.PHONY : src/admin_ui.i
+
+# target to preprocess a source file
+src/admin_ui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_ui.c.i
+.PHONY : src/admin_ui.c.i
+
+src/admin_ui.s: src/admin_ui.c.s
+.PHONY : src/admin_ui.s
+
+# target to generate assembly for a file
+src/admin_ui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/admin_ui.c.s
+.PHONY : src/admin_ui.c.s
+
 src/game_state.obj: src/game_state.c.obj
 .PHONY : src/game_state.obj
 
 # target to build an object file
 src/game_state.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.obj
 .PHONY : src/game_state.c.obj
 
 src/game_state.i: src/game_state.c.i
@@ -142,6 +204,7 @@ src/game_state.i: src/game_state.c.i
 # target to preprocess a source file
 src/game_state.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.i
 .PHONY : src/game_state.c.i
 
 src/game_state.s: src/game_state.c.s
@@ -150,6 +213,7 @@ src/game_state.s: src/game_state.c.s
 # target to generate assembly for a file
 src/game_state.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.s
 .PHONY : src/game_state.c.s
 
 src/main.obj: src/main.c.obj
@@ -182,6 +246,7 @@ src/net.obj: src/net.c.obj
 # target to build an object file
 src/net.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.obj
 .PHONY : src/net.c.obj
 
 src/net.i: src/net.c.i
@@ -190,6 +255,7 @@ src/net.i: src/net.c.i
 # target to preprocess a source file
 src/net.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.i
 .PHONY : src/net.c.i
 
 src/net.s: src/net.c.s
@@ -198,6 +264,7 @@ src/net.s: src/net.c.s
 # target to generate assembly for a file
 src/net.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.s
 .PHONY : src/net.c.s
 
 src/render.obj: src/render.c.obj
@@ -232,7 +299,14 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... admin_client
 	@echo ... dkj_client
+	@echo ... src/admin_main.obj
+	@echo ... src/admin_main.i
+	@echo ... src/admin_main.s
+	@echo ... src/admin_ui.obj
+	@echo ... src/admin_ui.i
+	@echo ... src/admin_ui.s
 	@echo ... src/game_state.obj
 	@echo ... src/game_state.i
 	@echo ... src/game_state.s

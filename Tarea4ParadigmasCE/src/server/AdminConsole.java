@@ -27,13 +27,13 @@ public class AdminConsole implements Runnable {
     public void run() {
         System.out.println("\n=== CONSOLA ADMINISTRATIVA ===");
         System.out.println("Comandos disponibles:");
-        System.out.println("  crearcroc <tipo> <lianaId>  - Crea cocodrilo (tipo: ROJO/AZUL)");
-        System.out.println("  eliminarcroc <id>           - Elimina cocodrilo por ID");
-        System.out.println("  crearfruta <tipo> <lianaId> <altura> - Crea fruta (tipo: BANANA/NARANJA/CEREZA)");
-        System.out.println("  eliminarfruta <lianaId> <altura>     - Elimina fruta por posición");
-        System.out.println("  listar                      - Lista todas las entidades");
-        System.out.println("  modo <TEXT/JSON>            - Cambia modo de comunicación");
-        System.out.println("  exit                        - Salir");
+        System.out.println("  crearcroc <tipo> <lianaId>");
+        System.out.println("  eliminarcroc <id>");
+        System.out.println("  crearfruta <tipo> <lianaId> <altura>");
+        System.out.println("  eliminarfruta <lianaId> <altura>");
+        System.out.println("  listar");
+        System.out.println("  modo <TEXT/JSON>");
+        System.out.println("  exit");
         System.out.println("==============================\n");
 
         while (running) {
@@ -87,22 +87,20 @@ public class AdminConsole implements Runnable {
         String tipoStr = parts[1].toUpperCase();
         Integer lianaId = Integer.parseInt(parts[2]);
 
-        TipoCocodrilo tipo = null;
-        if (tipoStr.equals("ROJO")) {
-            tipo = TipoCocodrilo.ROJO;
-        } else if (tipoStr.equals("AZUL")) {
-            tipo = TipoCocodrilo.AZUL;
-        } else {
-            System.out.println("Tipo inválido. Use ROJO o AZUL");
-            return;
+        TipoCocodrilo tipo;
+        switch (tipoStr) {
+            case "ROJO": tipo = TipoCocodrilo.ROJO; break;
+            case "AZUL": tipo = TipoCocodrilo.AZUL; break;
+            default:
+                System.out.println("Tipo inválido. Use ROJO o AZUL");
+                return;
         }
 
         Boolean resultado = manager.crearCocodrilo(tipo, lianaId);
-        if (resultado) {
+        if (resultado)
             System.out.println("✅ Cocodrilo creado exitosamente");
-        } else {
+        else
             System.out.println("❌ Error al crear cocodrilo");
-        }
     }
 
     private void handleEliminarCroc(String[] parts) {
@@ -114,11 +112,10 @@ public class AdminConsole implements Runnable {
         Integer id = Integer.parseInt(parts[1]);
         Boolean resultado = manager.eliminarCocodrilo(id);
 
-        if (resultado) {
+        if (resultado)
             System.out.println("✅ Cocodrilo eliminado exitosamente");
-        } else {
+        else
             System.out.println("❌ Error al eliminar cocodrilo");
-        }
     }
 
     private void handleCrearFruta(String[] parts) {
@@ -131,24 +128,21 @@ public class AdminConsole implements Runnable {
         Integer lianaId = Integer.parseInt(parts[2]);
         Double altura = Double.parseDouble(parts[3]);
 
-        TipoFruta tipo = null;
-        if (tipoStr.equals("BANANA")) {
-            tipo = TipoFruta.BANANA;
-        } else if (tipoStr.equals("NARANJA")) {
-            tipo = TipoFruta.NARANJA;
-        } else if (tipoStr.equals("CEREZA")) {
-            tipo = TipoFruta.CEREZA;
-        } else {
-            System.out.println("Tipo inválido. Use BANANA, NARANJA o CEREZA");
-            return;
+        TipoFruta tipo;
+        switch (tipoStr) {
+            case "BANANA": tipo = TipoFruta.BANANA; break;
+            case "NARANJA": tipo = TipoFruta.NARANJA; break;
+            case "CEREZA": tipo = TipoFruta.CEREZA; break;
+            default:
+                System.out.println("Tipo inválido. Use BANANA, NARANJA o CEREZA");
+                return;
         }
 
         Boolean resultado = manager.crearFruta(tipo, lianaId, altura);
-        if (resultado) {
-            System.out.println("✅ Fruta creada exitosamente");
-        } else {
+        if (resultado)
+            System.out.println("✅ Fruta creada");
+        else
             System.out.println("❌ Error al crear fruta");
-        }
     }
 
     private void handleEliminarFruta(String[] parts) {
@@ -162,11 +156,10 @@ public class AdminConsole implements Runnable {
 
         Boolean resultado = manager.eliminarFruta(lianaId, altura);
 
-        if (resultado) {
-            System.out.println("✅ Fruta eliminada exitosamente");
-        } else {
+        if (resultado)
+            System.out.println("✅ Fruta eliminada");
+        else
             System.out.println("❌ Error al eliminar fruta");
-        }
     }
 
     private void handleCambiarModo(String[] parts) {
@@ -176,14 +169,15 @@ public class AdminConsole implements Runnable {
         }
 
         String modoStr = parts[1].toUpperCase();
-        if (modoStr.equals("TEXT")) {
-            manager.setCommunicationMode(GameManager.CommunicationMode.TEXT);
-            System.out.println("✅ Modo cambiado a TEXT");
-        } else if (modoStr.equals("JSON")) {
-            manager.setCommunicationMode(GameManager.CommunicationMode.JSON);
-            System.out.println("✅ Modo cambiado a JSON");
-        } else {
+
+        try {
+            GameManager.CommunicationMode newMode =
+                    GameManager.CommunicationMode.valueOf(modoStr);
+            manager.setCommunicationMode(newMode);
+            System.out.println("Modo cambiado a " + newMode);
+        } catch (Exception e) {
             System.out.println("Modo inválido. Use TEXT o JSON");
         }
     }
 }
+
