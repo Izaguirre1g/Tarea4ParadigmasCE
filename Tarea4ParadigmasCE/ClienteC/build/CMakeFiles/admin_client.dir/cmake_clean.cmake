@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/admin_client.dir/src/admin_ui.c.obj.d"
   "CMakeFiles/admin_client.dir/src/game_state.c.obj"
   "CMakeFiles/admin_client.dir/src/game_state.c.obj.d"
+  "CMakeFiles/admin_client.dir/src/json_parse.c.obj"
+  "CMakeFiles/admin_client.dir/src/json_parse.c.obj.d"
   "CMakeFiles/admin_client.dir/src/net.c.obj"
   "CMakeFiles/admin_client.dir/src/net.c.obj.d"
   "bin/admin_client.exe"

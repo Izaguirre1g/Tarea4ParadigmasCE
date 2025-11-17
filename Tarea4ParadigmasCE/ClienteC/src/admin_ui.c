@@ -1,249 +1,284 @@
+#define SDL_MAIN_HANDLED
 #include "admin_ui.h"
 #include "net.h"
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
-/* ============================================================
-   CONFIGURACIÓN DE UI Y BOTONES
-   ============================================================ */
+/* ======================================================
+                 VARIABLES GLOBALES
+   ====================================================== */
 
-/**
- * Representa un botón clickeable.
- */
+static TTF_Font* ui_font = NULL;
+
 typedef struct {
-    int x, y, w, h;           // posición y tamaño
-    const char* label;        // texto del botón
-    const char* cmd;          // comando a enviar al servidor
-    int dropdown;             // ¿es un botón que abre menú desplegable?
+    int x, y, w, h;
+    const char* label;
+    const char* cmdTemplate;
 } Button;
 
 static Button buttons[32];
-static int btn_count = 0;
+static int btnCount = 0;
 
-/* Dropdown dinámico para eliminar cocodrilos */
-static int croc_ids[64];
-static int croc_count = 0;
-static bool dropdown_open = false;
-static int dropdown_x = 0;
-static int dropdown_y = 0;
+/* Dropdown global */
+static DropDown playerDropDown;
 
+/* ======================================================
+                 FUNCIONES DE TEXTO
+   ====================================================== */
 
-/* ============================================================
-   Crear botón
-   ============================================================ */
-static void add_button(int x, int y, int w, int h,
-                       const char* label, const char* cmd,
-                       int isDropdown)
-{
-    buttons[btn_count++] = (Button){
-        .x=x, .y=y, .w=w, .h=h,
-        .label=label,
-        .cmd=cmd,
-        .dropdown=isDropdown
-    };
-}
-
-/* ============================================================
-   Dibujar texto TTF
-   ============================================================ */
-static void draw_text(SDL_Renderer* ren, TTF_Font* font,
-                      const char* text, int x, int y)
-{
-    SDL_Color textColor = {0, 0, 0, 255};   // NEGRO
-    SDL_Surface* surf = TTF_RenderText_Blended(font, text,textColor);
+void admin_ui_draw_text(SDL_Renderer* ren, const char* txt, int x, int y) {
+    SDL_Color color = {0, 0, 0, 255};
+    SDL_Surface* surf = TTF_RenderText_Blended(ui_font, txt, color);
     SDL_Texture* tex = SDL_CreateTextureFromSurface(ren, surf);
 
-    SDL_Rect dst = {x, y, surf->w, surf->h};
-    SDL_RenderCopy(ren, tex, NULL, &dst);
+    SDL_Rect r = {x, y, surf->w, surf->h};
+    SDL_RenderCopy(ren, tex, NULL, &r);
 
     SDL_FreeSurface(surf);
     SDL_DestroyTexture(tex);
 }
 
-/* ============================================================
-   Dibujar botón
-   ============================================================ */
-static void draw_button(AdminUI* ui, Button* b)
-{
-    SDL_Rect r = {b->x, b->y, b->w, b->h};
+/* ======================================================
+                 BOTONES
+   ====================================================== */
 
-    // Fondo claro
-    SDL_SetRenderDrawColor(ui->ren, 230,230,230,255);
-    SDL_RenderFillRect(ui->ren, &r);
-
-    // Borde
-    SDL_SetRenderDrawColor(ui->ren, 40,40,40,255);
-    SDL_RenderDrawRect(ui->ren, &r);
-
-    // Texto
-    draw_text(ui->ren, ui->font, b->label, b->x + 10, b->y + 10);
+static void addButton(const char* label, const char* templ, int x, int y) {
+    buttons[btnCount++] = (Button){x, y, 160, 35, label, templ};
 }
 
-/* ============================================================
-   Dibujar dropdown (lista de cocodrilos)
-   ============================================================ */
-static void draw_dropdown(AdminUI* ui)
-{
-    if (!dropdown_open) return;
+/* ======================================================
+                 INICIALIZACIÓN
+   ====================================================== */
 
-    int item_h = 32;
+int admin_ui_init(AdminUI* ui) {
 
-    for (int i = 0; i < croc_count; i++)
-    {
-        SDL_Rect r = { dropdown_x, dropdown_y + i*item_h, 180, item_h };
+    ui->win = SDL_CreateWindow("Admin Panel – DKJr",
+                               SDL_WINDOWPOS_CENTERED,
+                               SDL_WINDOWPOS_CENTERED,
+                               420, 600,
+                               SDL_WINDOW_SHOWN);
 
-        SDL_SetRenderDrawColor(ui->ren, 70,70,70,255);
-        SDL_RenderFillRect(ui->ren, &r);
+    if (!ui->win) return -1;
 
-        SDL_SetRenderDrawColor(ui->ren, 20,20,20,255);
-        SDL_RenderDrawRect(ui->ren, &r);
+    ui->ren = SDL_CreateRenderer(ui->win, -1, SDL_RENDERER_ACCELERATED);
+    if (!ui->ren) return -1;
 
-        char txt[32];
-        sprintf(txt, "Croc ID %d", croc_ids[i]);
-        draw_text(ui->ren, ui->font, txt, r.x + 10, r.y + 5);
+    /* Fuente */
+    if (TTF_Init() < 0) {
+        printf("Error TTF_Init: %s\n", TTF_GetError());
+        return -1;
+    }
+
+    ui_font = TTF_OpenFont("assets/arial.ttf", 18);
+    if (!ui_font) {
+        printf("Error cargando fuente TTF\n");
+        return -1;
+    }
+
+    /* Botones */
+    int y = 140;
+    addButton("CROC ROJO" ,  "ADMIN CROC ROJO", 30, y); y += 45;
+    addButton("CROC AZUL" ,  "ADMIN CROC AZUL", 30, y); y += 45;
+
+    y = 260;
+    addButton("BANANA" , "ADMIN FRUTA BANANA", 30, y); y += 45;
+    addButton("NARANJA", "ADMIN FRUTA NARANJA", 30, y); y += 45;
+    addButton("CEREZA" , "ADMIN FRUTA CEREZA",  30, y); y += 45;
+
+    y = 400;
+    addButton("ELIMINAR POR ID" , "ADMIN DEL_ID", 30, y); y += 45;
+
+    y = 460;
+    addButton("LISTAR" , "ADMIN LIST", 30, y);
+
+    /* Dropdown de jugadores */
+    playerDropDown.box = (SDL_Rect){ 220, 80, 170, 30 };
+    playerDropDown.isOpen = 0;
+    playerDropDown.selectedIndex = -1;
+    playerDropDown.count = 0;
+
+    return 0;
+}
+
+/* ======================================================
+                 ACTUALIZAR LISTA DE JUGADORES (JSON)
+   ====================================================== */
+
+void admin_ui_update_players(const char* json) {
+
+    playerDropDown.count = 0;
+
+    const char* p = json;
+
+    while ((p = strstr(p, "\"id\"")) != NULL) {
+        int id;
+        char name[32];
+
+        if (sscanf(p, "\"id\":%d,\"name\":\"%31[^\"]\"", &id, name) == 2) {
+            int i = playerDropDown.count++;
+            playerDropDown.ids[i] = id;
+            strncpy(playerDropDown.names[i], name, 31);
+        }
+        p++;
+    }
+
+    printf("[ADMIN] Lista de jugadores actualizada (%d)\n", playerDropDown.count);
+}
+
+/* ======================================================
+                 RENDER
+   ====================================================== */
+
+static void drawDropdown(SDL_Renderer* ren) {
+
+    SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+    SDL_RenderFillRect(ren, &playerDropDown.box);
+
+    if (playerDropDown.selectedIndex >= 0)
+        admin_ui_draw_text(ren, playerDropDown.names[playerDropDown.selectedIndex],
+                           playerDropDown.box.x + 5, playerDropDown.box.y + 5);
+    else
+        admin_ui_draw_text(ren, "Seleccionar jugador",
+                           playerDropDown.box.x + 5, playerDropDown.box.y + 5);
+
+    if (playerDropDown.isOpen) {
+        for (int i = 0; i < playerDropDown.count; i++) {
+            SDL_Rect opt = { playerDropDown.box.x,
+                             playerDropDown.box.y + 30 * (i+1),
+                             playerDropDown.box.w,
+                             30 };
+
+            SDL_SetRenderDrawColor(ren, 180, 180, 180, 255);
+            SDL_RenderFillRect(ren, &opt);
+
+            admin_ui_draw_text(ren, playerDropDown.names[i], opt.x + 5, opt.y + 5);
+        }
     }
 }
 
-/* ============================================================
-   Render general de UI
-   ============================================================ */
-void admin_ui_render(AdminUI* ui)
-{
-    SDL_SetRenderDrawColor(ui->ren, 20,20,20,255);
+void admin_ui_render(AdminUI* ui) {
+
+    SDL_SetRenderDrawColor(ui->ren, 240, 240, 240, 255);
     SDL_RenderClear(ui->ren);
 
-    for (int i = 0; i < btn_count; i++)
-        draw_button(ui, &buttons[i]);
+    /* Título */
+    admin_ui_draw_text(ui->ren, "ADMINISTRADOR", 130, 20);
+    admin_ui_draw_text(ui->ren, "Jugador objetivo:", 30, 85);
 
-    draw_dropdown(ui);
+    /* Dropdown */
+    drawDropdown(ui->ren);
+
+    /* Botones */
+    for (int i = 0; i < btnCount; i++) {
+        SDL_Rect r = { buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h };
+        SDL_SetRenderDrawColor(ui->ren, 190, 190, 190, 255);
+        SDL_RenderFillRect(ui->ren, &r);
+        SDL_SetRenderDrawColor(ui->ren, 0, 0, 0, 255);
+        SDL_RenderDrawRect(ui->ren, &r);
+
+        admin_ui_draw_text(ui->ren, buttons[i].label,
+                           r.x + 8, r.y + 8);
+    }
 
     SDL_RenderPresent(ui->ren);
 }
 
-/* ============================================================
-   Manejar clics
-   ============================================================ */
-void admin_ui_handle_click(int x, int y, int sock)
-{
-    /* --- Si está abierto el dropdown, detecta selección --- */
-    if (dropdown_open)
+/* ======================================================
+                 MANEJO DE CLICS
+   ====================================================== */
+
+void admin_ui_handle_click(int x, int y, int sock) {
+
+    /* CLICK EN DROPDOWN */
+    if (x >= playerDropDown.box.x && x <= playerDropDown.box.x + playerDropDown.box.w &&
+        y >= playerDropDown.box.y && y <= playerDropDown.box.y + playerDropDown.box.h)
     {
-        int item_h = 32;
-
-        for (int i = 0; i < croc_count; i++)
-        {
-            if (x >= dropdown_x && x <= dropdown_x + 180 &&
-                y >= dropdown_y + i*item_h &&
-                y <= dropdown_y + (i+1)*item_h)
-            {
-                char cmd[64];
-                sprintf(cmd, "ADMIN DEL_ID %d", croc_ids[i]);
-                net_send_line(sock, cmd);
-
-                printf("[ADMIN] Eliminando CROC %d\n", croc_ids[i]);
-            }
-        }
-
-        dropdown_open = false;
+        playerDropDown.isOpen = !playerDropDown.isOpen;
         return;
     }
 
-    /* --- Buscar clic en botones --- */
-    for (int i = 0; i < btn_count; i++)
-    {
+    /* OPCIONES DESPLEGADAS */
+    if (playerDropDown.isOpen) {
+        for (int i = 0; i < playerDropDown.count; i++) {
+
+            SDL_Rect opt = { playerDropDown.box.x,
+                             playerDropDown.box.y + 30 * (i+1),
+                             playerDropDown.box.w,
+                             30 };
+
+            if (x >= opt.x && x <= opt.x + opt.w &&
+                y >= opt.y && y <= opt.y + opt.h)
+            {
+                playerDropDown.selectedIndex = i;
+                playerDropDown.isOpen = 0;
+                printf("[ADMIN] Jugador seleccionado: %s\n", playerDropDown.names[i]);
+                return;
+            }
+        }
+    }
+
+    /* CLIC EN BOTONES */
+    if (playerDropDown.selectedIndex < 0) {
+        printf("[ADMIN] Seleccione un jugador primero.\n");
+        return;
+    }
+
+    int pid = playerDropDown.ids[playerDropDown.selectedIndex];
+
+    for (int i = 0; i < btnCount; i++) {
+
         Button* b = &buttons[i];
 
         if (x >= b->x && x <= b->x + b->w &&
             y >= b->y && y <= b->y + b->h)
         {
-            /* Si es dropdown, abrirlo */
-            if (b->dropdown)
-            {
-                dropdown_open = true;
-                dropdown_x = b->x;
-                dropdown_y = b->y + b->h;
-                return;
-            }
+            char cmd[128];
+            sprintf(cmd, "ADMIN %d %s", pid, b->cmdTemplate);
 
-            /* Enviar comando directo */
-            net_send_line(sock, b->cmd);
-            printf("[ADMIN] Enviado: %s\n", b->cmd);
+            net_send_line(sock, cmd);
+            printf("[ADMIN -> SERVER] %s\n", cmd);
+            return;
         }
     }
 }
 
-/* ============================================================
-   Inicializar UI
-   ============================================================ */
-int admin_ui_init(AdminUI* ui)
-{
-    SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
+/* ======================================================
+                 MAIN LOOP
+   ====================================================== */
 
-    ui->win = SDL_CreateWindow("Panel Administrador – DKJr",
-                               SDL_WINDOWPOS_CENTERED,
-                               SDL_WINDOWPOS_CENTERED,
-                               380, 600,
-                               SDL_WINDOW_SHOWN);
-    ui->ren = SDL_CreateRenderer(ui->win, -1, SDL_RENDERER_ACCELERATED);
+void admin_ui_run() {
 
-    ui->font = TTF_OpenFont("assets/font.ttf", 22);
-    if (!ui->font)
-        printf("Error cargando fuente TTF: %s\n", TTF_GetError());
-
-    int x = 20, y = 40;
-
-    add_button(x, y, 170, 40, "CROC ROJO",   "ADMIN CROC ROJO", 0); y+=50;
-    add_button(x, y, 170, 40, "CROC AZUL",   "ADMIN CROC AZUL", 0); y+=70;
-
-    add_button(x, y, 170, 40, "BANANA",      "ADMIN FRUTA BANANA", 0); y+=50;
-    add_button(x, y, 170, 40, "NARANJA",     "ADMIN FRUTA NARANJA", 0); y+=50;
-    add_button(x, y, 170, 40, "CEREZA",      "ADMIN FRUTA CEREZA", 0); y+=70;
-
-    add_button(x, y, 170, 40, "ELIMINAR CROC", "", 1);  // dropdown
-    y+=50;
-
-    add_button(x, y, 170, 40, "LISTAR",      "ADMIN LIST", 0);
-
-    /* TEMPORAL: llenar lista de IDs para el dropdown */
-    croc_count = 3;
-    croc_ids[0] = 5;
-    croc_ids[1] = 9;
-    croc_ids[2] = 12;
-
-    return 0;
-}
-
-/* ============================================================
-   Loop principal de ejecución
-   ============================================================ */
-void admin_ui_run()
-{
-    AdminUI ui;
-
-    if (admin_ui_init(&ui) < 0)
-    {
-        printf("Error inicializando admin UI.\n");
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL ERROR: %s\n", SDL_GetError());
         return;
     }
 
+    AdminUI ui;
+
+    if (admin_ui_init(&ui) < 0) {
+        printf("No se pudo iniciar UI admin\n");
+        return;
+    }
+
+    /* Conectar a servidor */
     int sock = net_connect("127.0.0.1", 5000);
+
+    /* Pedir lista de jugadores */
+    net_send_line(sock, "ADMIN PLAYERS");
 
     SDL_Event e;
     int running = 1;
 
-    while (running)
-    {
-        while (SDL_PollEvent(&e))
-        {
+    while (running) {
+
+        while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT)
                 running = 0;
 
-            else if (e.type == SDL_MOUSEBUTTONDOWN)
+            if (e.type == SDL_MOUSEBUTTONDOWN)
                 admin_ui_handle_click(e.button.x, e.button.y, sock);
         }
 
@@ -253,9 +288,6 @@ void admin_ui_run()
 
     SDL_DestroyRenderer(ui.ren);
     SDL_DestroyWindow(ui.win);
-    TTF_Quit();
     SDL_Quit();
 }
-
-
 

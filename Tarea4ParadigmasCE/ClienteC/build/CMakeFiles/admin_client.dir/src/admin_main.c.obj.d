@@ -212,4 +212,7 @@ CMakeFiles/admin_client.dir/src/admin_main.c.obj: \
  C:/msys64/mingw64/include/SDL2/SDL_misc.h \
  C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/admin_ui.h \
  C:/msys64/mingw64/include/SDL2/SDL_ttf.h \
- C:/msys64/mingw64/include/SDL2/SDL.h
+ C:/msys64/mingw64/include/SDL2/SDL.h \
+ C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
+ C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
+ C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/constants.h

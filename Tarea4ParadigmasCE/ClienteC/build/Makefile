@@ -216,6 +216,33 @@ src/game_state.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.s
 .PHONY : src/game_state.c.s
 
+src/json_parse.obj: src/json_parse.c.obj
+.PHONY : src/json_parse.obj
+
+# target to build an object file
+src/json_parse.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.obj
+.PHONY : src/json_parse.c.obj
+
+src/json_parse.i: src/json_parse.c.i
+.PHONY : src/json_parse.i
+
+# target to preprocess a source file
+src/json_parse.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.i
+.PHONY : src/json_parse.c.i
+
+src/json_parse.s: src/json_parse.c.s
+.PHONY : src/json_parse.s
+
+# target to generate assembly for a file
+src/json_parse.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.s
+.PHONY : src/json_parse.c.s
+
 src/main.obj: src/main.c.obj
 .PHONY : src/main.obj
 
@@ -310,6 +337,9 @@ help:
 	@echo ... src/game_state.obj
 	@echo ... src/game_state.i
 	@echo ... src/game_state.s
+	@echo ... src/json_parse.obj
+	@echo ... src/json_parse.i
+	@echo ... src/json_parse.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

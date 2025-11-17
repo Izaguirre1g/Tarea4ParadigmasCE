@@ -86,11 +86,26 @@ CMakeFiles/dkj_client.dir/src/game_state.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/game_state.c.s"
 	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\dkj_client.dir\src\game_state.c.s
 
+CMakeFiles/dkj_client.dir/src/json_parse.c.obj: CMakeFiles/dkj_client.dir/flags.make
+CMakeFiles/dkj_client.dir/src/json_parse.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
+CMakeFiles/dkj_client.dir/src/json_parse.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c
+CMakeFiles/dkj_client.dir/src/json_parse.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dkj_client.dir/src/json_parse.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/json_parse.c.obj -MF CMakeFiles\dkj_client.dir\src\json_parse.c.obj.d -o CMakeFiles\dkj_client.dir\src\json_parse.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c
+
+CMakeFiles/dkj_client.dir/src/json_parse.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/dkj_client.dir/src/json_parse.c.i"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c > CMakeFiles\dkj_client.dir\src\json_parse.c.i
+
+CMakeFiles/dkj_client.dir/src/json_parse.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/dkj_client.dir/src/json_parse.c.s"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c -o CMakeFiles\dkj_client.dir\src\json_parse.c.s
+
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
 CMakeFiles/dkj_client.dir/src/main.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c
 CMakeFiles/dkj_client.dir/src/main.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dkj_client.dir/src/main.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dkj_client.dir/src/main.c.obj"
 	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/main.c.obj -MF CMakeFiles\dkj_client.dir\src\main.c.obj.d -o CMakeFiles\dkj_client.dir\src\main.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\main.c
 
 CMakeFiles/dkj_client.dir/src/main.c.i: cmake_force
@@ -105,7 +120,7 @@ CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
 CMakeFiles/dkj_client.dir/src/net.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
 CMakeFiles/dkj_client.dir/src/net.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dkj_client.dir/src/net.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dkj_client.dir/src/net.c.obj"
 	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/net.c.obj -MF CMakeFiles\dkj_client.dir\src\net.c.obj.d -o CMakeFiles\dkj_client.dir\src\net.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
 
 CMakeFiles/dkj_client.dir/src/net.c.i: cmake_force
@@ -120,7 +135,7 @@ CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/flags.make
 CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/includes_C.rsp
 CMakeFiles/dkj_client.dir/src/render.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c
 CMakeFiles/dkj_client.dir/src/render.c.obj: CMakeFiles/dkj_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dkj_client.dir/src/render.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/dkj_client.dir/src/render.c.obj"
 	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dkj_client.dir/src/render.c.obj -MF CMakeFiles\dkj_client.dir\src\render.c.obj.d -o CMakeFiles\dkj_client.dir\src\render.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c
 
 CMakeFiles/dkj_client.dir/src/render.c.i: cmake_force
@@ -134,6 +149,7 @@ CMakeFiles/dkj_client.dir/src/render.c.s: cmake_force
 # Object files for target dkj_client
 dkj_client_OBJECTS = \
 "CMakeFiles/dkj_client.dir/src/game_state.c.obj" \
+"CMakeFiles/dkj_client.dir/src/json_parse.c.obj" \
 "CMakeFiles/dkj_client.dir/src/main.c.obj" \
 "CMakeFiles/dkj_client.dir/src/net.c.obj" \
 "CMakeFiles/dkj_client.dir/src/render.c.obj"
@@ -142,6 +158,7 @@ dkj_client_OBJECTS = \
 dkj_client_EXTERNAL_OBJECTS =
 
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/game_state.c.obj
+bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/json_parse.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/main.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/net.c.obj
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/src/render.c.obj
@@ -149,7 +166,7 @@ bin/dkj_client.exe: CMakeFiles/dkj_client.dir/build.make
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/linkLibs.rsp
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/objects1.rsp
 bin/dkj_client.exe: CMakeFiles/dkj_client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable bin\dkj_client.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bin\dkj_client.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\dkj_client.dir\link.txt --verbose=$(VERBOSE)
 	C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets
 
