@@ -1,18 +1,24 @@
 //
 // Created by Jose on 16/11/2025.
 //
-#define SDL_MAIN_HANDLED   // Importante en Windows antes de SDL
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
-
 #include <stdio.h>
 #include "admin_ui.h"
+#include "net.h"
+#include "constants.h"   // donde tengas SERVER_IP / SERVER_PORT
 
-int main() {
-
+int main(void) {
     printf("Cargando panel de administración...\n");
 
-    admin_ui_run();  // Abre la ventana independiente del admin
+    int sock = net_connect(SERVER_IP, SERVER_PORT);
+    if (sock < 0) {
+        printf("No se pudo conectar al servidor.\n");
+        return 1;
+    }
 
-    printf("Panel admin cerrado.\n");
+    admin_ui_run(sock);
+
+    net_close(sock);
     return 0;
 }

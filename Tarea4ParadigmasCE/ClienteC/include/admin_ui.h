@@ -1,7 +1,3 @@
-//
-// Created by Jose on 16/11/2025.
-//
-
 #ifndef ADMIN_UI_H
 #define ADMIN_UI_H
 
@@ -9,40 +5,26 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-/**
- * Estructura principal que representa la ventana
- * y recursos gráficos del panel de administración.
- */
 typedef struct {
     SDL_Window* win;
     SDL_Renderer* ren;
-    TTF_Font* font;
 } AdminUI;
 
-/**
- * Inicializa la ventana, renderer y fuente TTF.
- */
+/* Dropdown de jugadores */
+typedef struct {
+    SDL_Rect box;
+    int isOpen;
+    int selectedIndex;
+    int count;
+    int ids[32];
+    char names[32][32];
+} DropDown;
+
 int admin_ui_init(AdminUI* ui);
-
-/**
- * Dibuja todos los botones y elementos visuales.
- */
 void admin_ui_render(AdminUI* ui);
-
-/**
- * Maneja clics del mouse sobre botones y dropdowns.
- */
 void admin_ui_handle_click(int x, int y, int sock);
-
-/**
- * Maneja texto ingresado (no usado todavía, pero útil para expandir).
- */
 void admin_ui_handle_text(const char* text);
-
-/**
- * Función principal: crea la ventana SDL,
- * procesa eventos y llama render loops.
- */
 void admin_ui_run();
+void admin_ui_update_players(const char* json);
 
 #endif

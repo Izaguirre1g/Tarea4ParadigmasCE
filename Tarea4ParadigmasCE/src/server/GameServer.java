@@ -10,25 +10,21 @@ import java.net.Socket;
 /**
  * GameServer
  * -----------------------------------------------------
- * Punto de entrada del servidor. Abre el socket y
- * delega la lógica del juego al GameManager.
+ * Ahora solo acepta sockets y crea ClientHandler.
+ * Cada jugador tendrá su propio GameManager a través de PlayerRegistry.
  */
 public class GameServer {
-    public static void main(String[] args) {
-        GameManager manager = new GameManager();
 
-        // Lanzar consola administrativa en un hilo separado
-        Thread adminThread = new Thread(new AdminConsole(manager));
-        adminThread.setDaemon(Boolean.FALSE);
-        adminThread.start();
+    public static void main(String[] args) {
 
         try (ServerSocket serverSocket = new ServerSocket(GameConstants.SERVER_PORT)) {
             System.out.println("Servidor corriendo en puerto " + GameConstants.SERVER_PORT + "...");
 
-            while (Boolean.TRUE) {
+            while (true) {
                 Socket client = serverSocket.accept();
                 System.out.println("Cliente conectado desde: " + client.getInetAddress());
-                ClientHandler handler = new ClientHandler(client, manager);
+
+                ClientHandler handler = new ClientHandler(client);
                 new Thread(handler).start();
             }
 
@@ -38,3 +34,5 @@ public class GameServer {
         }
     }
 }
+
+

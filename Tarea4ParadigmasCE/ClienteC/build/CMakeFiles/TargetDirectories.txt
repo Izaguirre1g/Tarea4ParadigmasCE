@@ -1,4 +1,4 @@
-C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/dkj_client.dir
-C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/admin_client.dir
-C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/edit_cache.dir
-C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/rebuild_cache.dir
+C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/dkj_client.dir
+C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/admin_client.dir
+C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/edit_cache.dir
+C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/CMakeFiles/rebuild_cache.dir

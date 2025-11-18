@@ -13,57 +13,89 @@
   #define CLOSESOCK close
 #endif
 
-static GameState* gstate = NULL;
+/* ============================================================
+   Variables globales usadas por ambos clientes (admin y juego)
+   ============================================================ */
+
+static GameState* gstate = NULL;   // sólo para dkj_client
 static int gsock = -1;
 
-/* ---------------------------------------------------------
-   Hilo de recepción — recibe datos del servidor y los aplica
-   --------------------------------------------------------- */
+// JSON recibido desde ADMIN PLAYERS
+static char g_players_json[2048] = {0};
+
+
+/* ============================================================
+   HILO DE RECEPCIÓN
+   Admin_client:
+       - si recibe JSON → llama admin_ui_update_players()
+   Cliente normal:
+       - procesa líneas del estado del juego
+   ============================================================ */
 static void* recv_thread(void* _) {
     (void)_;
+
     char buf[2048];
-    int off = 0;
 
     for (;;) {
-        int n = recv(gsock, buf + off, (int)sizeof(buf) - 1 - off, 0);
+
+        int n = recv(gsock, buf, sizeof(buf) - 1, 0);
         if (n <= 0) break;
-        int end = off + n;
-        buf[end] = 0;
 
-        int start = 0;
-        for (int i = 0; i < end; i++) {
-            if (buf[i] == '\n') {
-                buf[i] = 0;
+        buf[n] = 0;  // Terminar string recibida
 
-                // Reiniciar contadores al detectar nuevo frame (PLAYER es siempre primero)
-                if (strncmp(buf + start, "PLAYER", 6) == 0 && gstate) {
-                    gstate->crocsCount = 0;
-                    gstate->fruitsCount = 0;
+        /* ===========================================================
+           1) Detectar si es JSON para admin_client
+           =========================================================== */
+#ifdef ADMIN_CLIENT
+        if (buf[0] == '{') {
+
+            strncpy(g_players_json, buf, sizeof(g_players_json) - 1);
+
+            extern void admin_ui_update_players(const char* json);
+            admin_ui_update_players(g_players_json);
+
+            continue;   // NO procesar como estado de juego
+        }
+#endif
+
+        /* ===========================================================
+           2) Cliente JUEGO → procesar frames
+           =========================================================== */
+        if (gstate) {
+            int off = 0;
+            for (int i = 0; i < n; i++) {
+
+                if (buf[i] == '\n') {
+                    buf[i] = 0;
+
+                    // Reiniciar contadores al iniciar frame del jugador
+                    if (strncmp(buf + off, "PLAYER", 6) == 0) {
+                        gstate->crocsCount = 0;
+                        gstate->fruitsCount = 0;
+                    }
+
+                    gs_apply_line(gstate, buf + off);
+                    off = i + 1;
                 }
-
-                // Aplicar línea al estado
-                if (gstate) gs_apply_line(gstate, buf + start);
-                start = i + 1;
             }
         }
-
-        // Mover datos no procesados al inicio del buffer
-        off = end - start;
-        memmove(buf, buf + start, off);
     }
 
     printf("[NET] Conexión cerrada.\n");
     return NULL;
 }
 
-/* ---------------------------------------------------------
-   Conexión y control de socket
-   --------------------------------------------------------- */
+
+/* ============================================================
+   Conectar al servidor
+   ============================================================ */
 int net_connect(const char* ip, int port) {
+
 #ifdef _WIN32
     WSADATA wsa;
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #endif
+
     int s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) {
         perror("socket");
@@ -87,23 +119,44 @@ int net_connect(const char* ip, int port) {
     return s;
 }
 
+
+/* ============================================================
+   Iniciar hilo receptor (solo modo juego usa gstate)
+   ============================================================ */
 void net_start_receiver(int sock, GameState* gs) {
-    gstate = gs;
+    gstate = gs;     // NULL si es admin
     gsock = sock;
+
     pthread_t th;
     pthread_create(&th, NULL, recv_thread, NULL);
     pthread_detach(th);
 }
 
+
+/* ============================================================
+   Enviar línea al servidor
+   ============================================================ */
 void net_send_line(int sock, const char* line) {
     if (!line) return;
     send(sock, line, (int)strlen(line), 0);
     send(sock, "\n", 1, 0);
 }
 
+
+/* ============================================================
+   Cerrar socket
+   ============================================================ */
 void net_close(int sock) {
     if (sock >= 0) CLOSESOCK(sock);
 #ifdef _WIN32
     WSACleanup();
 #endif
+}
+
+
+/* ============================================================
+   Admin client obtiene JSON más reciente
+   ============================================================ */
+const char* net_get_players_json() {
+    return g_players_json;
 }

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/dkj_client.dir/src/game_state.c.obj"
   "CMakeFiles/dkj_client.dir/src/game_state.c.obj.d"
+  "CMakeFiles/dkj_client.dir/src/json_parse.c.obj"
+  "CMakeFiles/dkj_client.dir/src/json_parse.c.obj.d"
   "CMakeFiles/dkj_client.dir/src/main.c.obj"
   "CMakeFiles/dkj_client.dir/src/main.c.obj.d"
   "CMakeFiles/dkj_client.dir/src/net.c.obj"
