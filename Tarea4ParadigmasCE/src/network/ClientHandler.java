@@ -31,6 +31,7 @@ public class ClientHandler implements Observer, Runnable {
 
     private boolean isGameClient = false;   // true si es jugador, false si es admin
     private Integer adminTargetPlayerId = null; // jugador seleccionado en admin
+    private boolean isSpectator = false;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -95,6 +96,17 @@ public class ClientHandler implements Observer, Runnable {
         }
 
         /* ============================
+       2) ADMIN PLAYERS - ACCESO UNIVERSAL
+       Permite que cualquier cliente pida la lista
+        ============================ */
+        if (line.equals("ADMIN PLAYERS")) {
+            String json = PlayerRegistry.getPlayersJson();
+            out.println(json);
+            System.out.println("[SERVER] Enviando lista de jugadores a cliente: " + json);
+            return;
+        }
+
+        /* ============================
            2) Cliente ADMIN
            Cualquier línea que empiece con ADMIN
            (admin_client en C) entra aquí.
@@ -112,9 +124,11 @@ public class ClientHandler implements Observer, Runnable {
             String cmd = p[1].toUpperCase();
 
             // ADMIN PLAYERS  -> devolver JSON de jugadores
+            // TAMBIÉN funciona para espectadores que necesitan ver la lista
             if ("PLAYERS".equals(cmd)) {
                 String json = PlayerRegistry.getPlayersJson();
                 out.println(json);
+                System.out.println("[SERVER] Enviando lista de jugadores: " + json);
                 return;
             }
 
@@ -153,16 +167,72 @@ public class ClientHandler implements Observer, Runnable {
         }
 
         /* ============================
-           3) INPUT del jugador
-           Formato:
-           INPUT 0 LEFT/RIGHT/UP/DOWN/JUMP/STOP
+       4) INPUT del jugador
+       Formato:
+       INPUT 0 LEFT/RIGHT/UP/DOWN/JUMP/STOP
         ============================ */
-        if (line.startsWith("INPUT") && game != null) {
-            String[] parts = line.split("\\s+");
-            if (parts.length >= 3) {
-                String command = parts[2];
-                game.handleInput(command);
+        if (line.startsWith("INPUT")) {
+
+            // Los espectadores NO pueden enviar INPUT
+            if (isSpectator) {
+                out.println("ERR espectadores no pueden controlar el juego");
+                return;
             }
+
+            if (game != null) {
+                String[] parts = line.split("\\s+");
+                if (parts.length >= 3) {
+                    String command = parts[2];
+                    game.handleInput(command);
+                }
+            }
+            return;
+        }
+
+        /* ============================
+       3) Cliente ESPECTADOR (SPECTATE)
+       Formato esperado:
+       SPECTATE <playerId>
+        ============================ */
+        if (line.startsWith("SPECTATE")) {
+
+            isGameClient = false;
+
+            String[] p = line.split("\\s+");
+            if (p.length < 2) {
+                out.println("ERR comando SPECTATE incompleto");
+                return;
+            }
+
+            try {
+                Integer targetPlayerId = Integer.parseInt(p[1]);
+                GameManager targetGame = PlayerRegistry.getGameManager(targetPlayerId);
+
+                if (targetGame == null) {
+                    out.println("ERR jugador no encontrado");
+                    return;
+                }
+
+                // Verificar límite de 2 espectadores
+                int spectatorCount = targetGame.getSpectatorCount();
+                if (spectatorCount >= 2) {
+                    out.println("ERR jugador ya tiene 2 espectadores");
+                    return;
+                }
+
+                this.game = targetGame;
+                targetGame.addObserver(this);
+                this.isGameClient = true;
+                this.isSpectator = true;
+
+                System.out.println("[SERVER] Cliente ESPECTADOR de jugador " + targetPlayerId);
+                out.println("OK observando jugador " + targetPlayerId);
+
+            } catch (NumberFormatException e) {
+                out.println("ERR playerId inválido");
+            }
+
+            return;
         }
     }
 

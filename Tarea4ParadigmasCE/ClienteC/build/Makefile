@@ -141,6 +141,19 @@ admin_client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/build
 .PHONY : admin_client/fast
 
+#=============================================================================
+# Target rules for targets named spectator_client
+
+# Build rule for target.
+spectator_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 spectator_client
+.PHONY : spectator_client
+
+# fast build rule for target.
+spectator_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/build
+.PHONY : spectator_client/fast
+
 src/admin_main.obj: src/admin_main.c.obj
 .PHONY : src/admin_main.obj
 
@@ -196,6 +209,7 @@ src/game_state.obj: src/game_state.c.obj
 src/game_state.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/game_state.c.obj
 .PHONY : src/game_state.c.obj
 
 src/game_state.i: src/game_state.c.i
@@ -205,6 +219,7 @@ src/game_state.i: src/game_state.c.i
 src/game_state.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/game_state.c.i
 .PHONY : src/game_state.c.i
 
 src/game_state.s: src/game_state.c.s
@@ -214,6 +229,7 @@ src/game_state.s: src/game_state.c.s
 src/game_state.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/game_state.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/game_state.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/game_state.c.s
 .PHONY : src/game_state.c.s
 
 src/json_parse.obj: src/json_parse.c.obj
@@ -223,6 +239,7 @@ src/json_parse.obj: src/json_parse.c.obj
 src/json_parse.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/json_parse.c.obj
 .PHONY : src/json_parse.c.obj
 
 src/json_parse.i: src/json_parse.c.i
@@ -232,6 +249,7 @@ src/json_parse.i: src/json_parse.c.i
 src/json_parse.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/json_parse.c.i
 .PHONY : src/json_parse.c.i
 
 src/json_parse.s: src/json_parse.c.s
@@ -241,6 +259,7 @@ src/json_parse.s: src/json_parse.c.s
 src/json_parse.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/json_parse.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/json_parse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/json_parse.c.s
 .PHONY : src/json_parse.c.s
 
 src/main.obj: src/main.c.obj
@@ -274,6 +293,7 @@ src/net.obj: src/net.c.obj
 src/net.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/net.c.obj
 .PHONY : src/net.c.obj
 
 src/net.i: src/net.c.i
@@ -283,6 +303,7 @@ src/net.i: src/net.c.i
 src/net.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/net.c.i
 .PHONY : src/net.c.i
 
 src/net.s: src/net.c.s
@@ -292,6 +313,7 @@ src/net.s: src/net.c.s
 src/net.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/net.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/src/net.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/net.c.s
 .PHONY : src/net.c.s
 
 src/render.obj: src/render.c.obj
@@ -300,6 +322,7 @@ src/render.obj: src/render.c.obj
 # target to build an object file
 src/render.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/render.c.obj
 .PHONY : src/render.c.obj
 
 src/render.i: src/render.c.i
@@ -308,6 +331,7 @@ src/render.i: src/render.c.i
 # target to preprocess a source file
 src/render.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/render.c.i
 .PHONY : src/render.c.i
 
 src/render.s: src/render.c.s
@@ -316,7 +340,56 @@ src/render.s: src/render.c.s
 # target to generate assembly for a file
 src/render.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/src/render.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/render.c.s
 .PHONY : src/render.c.s
+
+src/spectator_main.obj: src/spectator_main.c.obj
+.PHONY : src/spectator_main.obj
+
+# target to build an object file
+src/spectator_main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_main.c.obj
+.PHONY : src/spectator_main.c.obj
+
+src/spectator_main.i: src/spectator_main.c.i
+.PHONY : src/spectator_main.i
+
+# target to preprocess a source file
+src/spectator_main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_main.c.i
+.PHONY : src/spectator_main.c.i
+
+src/spectator_main.s: src/spectator_main.c.s
+.PHONY : src/spectator_main.s
+
+# target to generate assembly for a file
+src/spectator_main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_main.c.s
+.PHONY : src/spectator_main.c.s
+
+src/spectator_ui.obj: src/spectator_ui.c.obj
+.PHONY : src/spectator_ui.obj
+
+# target to build an object file
+src/spectator_ui.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj
+.PHONY : src/spectator_ui.c.obj
+
+src/spectator_ui.i: src/spectator_ui.c.i
+.PHONY : src/spectator_ui.i
+
+# target to preprocess a source file
+src/spectator_ui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_ui.c.i
+.PHONY : src/spectator_ui.c.i
+
+src/spectator_ui.s: src/spectator_ui.c.s
+.PHONY : src/spectator_ui.s
+
+# target to generate assembly for a file
+src/spectator_ui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/src/spectator_ui.c.s
+.PHONY : src/spectator_ui.c.s
 
 # Help Target
 help:
@@ -328,6 +401,7 @@ help:
 	@echo ... rebuild_cache
 	@echo ... admin_client
 	@echo ... dkj_client
+	@echo ... spectator_client
 	@echo ... src/admin_main.obj
 	@echo ... src/admin_main.i
 	@echo ... src/admin_main.s
@@ -349,6 +423,12 @@ help:
 	@echo ... src/render.obj
 	@echo ... src/render.i
 	@echo ... src/render.s
+	@echo ... src/spectator_main.obj
+	@echo ... src/spectator_main.i
+	@echo ... src/spectator_main.s
+	@echo ... src/spectator_ui.obj
+	@echo ... src/spectator_ui.i
+	@echo ... src/spectator_ui.s
 .PHONY : help
 
 

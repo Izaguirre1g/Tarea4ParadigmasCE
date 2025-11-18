@@ -655,5 +655,16 @@ public class GameManager {
         sb.append("]");
         return sb.toString();
     }
+
+    /**
+     * Cuenta cuántos espectadores están observando esta partida.
+     * Un espectador es un Observer que NO es el jugador dueño de la partida.
+     *
+     * @return Número de espectadores (máximo 2 permitido)
+     */
+    public Integer getSpectatorCount() {
+        int totalObservers = observable.getObserverCount();
+        return Math.max(0, totalObservers - 1);
+    }
 }
 

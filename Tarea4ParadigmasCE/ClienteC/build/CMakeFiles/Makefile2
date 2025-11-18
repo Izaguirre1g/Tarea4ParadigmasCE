@@ -64,11 +64,13 @@ CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4Paradi
 # The main recursive "all" target.
 all: CMakeFiles/dkj_client.dir/all
 all: CMakeFiles/admin_client.dir/all
+all: CMakeFiles/spectator_client.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/dkj_client.dir/codegen
 codegen: CMakeFiles/admin_client.dir/codegen
+codegen: CMakeFiles/spectator_client.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -78,6 +80,7 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/dkj_client.dir/clean
 clean: CMakeFiles/admin_client.dir/clean
+clean: CMakeFiles/spectator_client.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -143,6 +146,38 @@ CMakeFiles/admin_client.dir/codegen:
 CMakeFiles/admin_client.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/clean
 .PHONY : CMakeFiles/admin_client.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/spectator_client.dir
+
+# All Build rule for target.
+CMakeFiles/spectator_client.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Built target spectator_client"
+.PHONY : CMakeFiles/spectator_client.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/spectator_client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/spectator_client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+.PHONY : CMakeFiles/spectator_client.dir/rule
+
+# Convenience name for target.
+spectator_client: CMakeFiles/spectator_client.dir/rule
+.PHONY : spectator_client
+
+# codegen rule for target.
+CMakeFiles/spectator_client.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Finished codegen for target spectator_client"
+.PHONY : CMakeFiles/spectator_client.dir/codegen
+
+# clean rule for target.
+CMakeFiles/spectator_client.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/clean
+.PHONY : CMakeFiles/spectator_client.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

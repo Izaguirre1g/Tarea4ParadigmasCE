@@ -34,4 +34,12 @@ public class GameObservable implements Observable {
             obs.actualizar(mensaje);
         }
     }
+
+    /**
+     * Obtiene el número total de observadores.
+     * @return Cantidad de observadores registrados
+     */
+    public int getObserverCount() {
+        return observers.size();
+    }
 }

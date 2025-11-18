@@ -88,3 +88,29 @@ add_custom_command(TARGET dkj_client POST_BUILD
         ${CMAKE_SOURCE_DIR}/assets
         $<TARGET_FILE_DIR:dkj_client>/assets
 )
+
+# ============================================
+# Ejecutable: Cliente Espectador
+# ============================================
+add_executable(spectator_client
+        src/spectator_main.c
+        src/spectator_ui.c
+        src/net.c
+        src/game_state.c
+        src/json_parse.c
+        src/render.c
+)
+
+target_include_directories(spectator_client PRIVATE include)
+target_compile_definitions(spectator_client PRIVATE SPECTATOR_CLIENT)  # ← ESTA LÍNEA ES CLAVE
+target_link_libraries(spectator_client ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+
+if(WIN32)
+    target_link_libraries(spectator_client ws2_32)
+else()
+    target_link_libraries(spectator_client pthread)
+endif()
+
+set_target_properties(spectator_client PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)

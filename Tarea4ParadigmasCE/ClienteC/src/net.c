@@ -17,24 +17,76 @@
    Variables globales usadas por ambos clientes (admin y juego)
    ============================================================ */
 
-static GameState* gstate = NULL;   // sólo para dkj_client
+static GameState* gstate = NULL;   // sólo para dkj_client y spectator
 static int gsock = -1;
 
 // JSON recibido desde ADMIN PLAYERS
 static char g_players_json[2048] = {0};
 
+/* ============================================================
+   FUNCIÓN MEJORADA de tu compañero para procesar frames del juego
+   Maneja correctamente el buffering de datos de red
+   ============================================================ */
+static void process_game_stream(GameState* gs, const char* data, int len) {
+    static char pending[4096];
+    static int pending_len = 0;
+
+    if (!gs || len <= 0) return;
+
+    // Evitar overflow del buffer pendiente
+    if (pending_len + len >= (int)sizeof(pending)) {
+        int drop = pending_len + len - ((int)sizeof(pending) - 1);
+        if (drop > pending_len) drop = pending_len;
+        if (drop > 0) {
+            memmove(pending, pending + drop, pending_len - drop);
+            pending_len -= drop;
+        }
+    }
+
+    // Agregar nuevos datos al buffer
+    memcpy(pending + pending_len, data, len);
+    pending_len += len;
+
+    // Procesar líneas completas
+    int start = 0;
+    for (int i = 0; i < pending_len; ++i) {
+        if (pending[i] == '\n') {
+            pending[i] = '\0';
+            char* line = pending + start;
+
+            // Saltar caracteres de retorno de carro
+            while (*line == '\r') ++line;
+
+            if (*line) {
+                // Reiniciar contadores al inicio de un nuevo frame
+                if (strncmp(line, "PLAYER", 6) == 0) {
+                    gs->crocsCount = 0;
+                    gs->fruitsCount = 0;
+                }
+                gs_apply_line(gs, line);
+            }
+            start = i + 1;
+        }
+    }
+
+    // Mover datos no procesados al inicio del buffer
+    if (start > 0) {
+        memmove(pending, pending + start, pending_len - start);
+        pending_len -= start;
+    }
+}
 
 /* ============================================================
-   HILO DE RECEPCIÓN
-   Admin_client:
-       - si recibe JSON → llama admin_ui_update_players()
-   Cliente normal:
-       - procesa líneas del estado del juego
+   HILO DE RECEPCIÓN - VERSIÓN FUSIONADA
+   Soporta:
+   - Admin_client: Recibe JSON de jugadores
+   - Spectator_client: Recibe JSON de jugadores Y frames del juego
+   - Cliente normal: Recibe frames del juego
    ============================================================ */
 static void* recv_thread(void* _) {
     (void)_;
 
-    char buf[2048];
+    char buf[4096];  // Buffer más grande para manejar JSON
 
     for (;;) {
 
@@ -45,9 +97,10 @@ static void* recv_thread(void* _) {
 
         /* ===========================================================
            1) Detectar si es JSON para admin_client
+           JSON puede empezar con '{' (objeto) o '[' (array)
            =========================================================== */
 #ifdef ADMIN_CLIENT
-        if (buf[0] == '{') {
+        if (buf[0] == '[' || buf[0] == '{') {
 
             strncpy(g_players_json, buf, sizeof(g_players_json) - 1);
 
@@ -59,25 +112,37 @@ static void* recv_thread(void* _) {
 #endif
 
         /* ===========================================================
-           2) Cliente JUEGO → procesar frames
+           2) Detectar si es JSON para spectator_client
+           El espectador TAMBIÉN necesita recibir JSON para la lista
+           =========================================================== */
+#ifdef SPECTATOR_CLIENT
+        if (buf[0] == '[' || buf[0] == '{') {
+
+            printf("[NET] JSON recibido: %s\n", buf);
+
+            strncpy(g_players_json, buf, sizeof(g_players_json) - 1);
+
+            extern void spectator_ui_update_players(const char* json);
+            spectator_ui_update_players(g_players_json);
+
+            continue;   // NO procesar como estado de juego
+        }
+#endif
+
+        /* ===========================================================
+           3) Respuestas tipo OK/ERR del servidor
+           =========================================================== */
+        if (strncmp(buf, "OK", 2) == 0 || strncmp(buf, "ERR", 3) == 0) {
+            printf("[SERVER RESPONDE] %s\n", buf);
+            continue;
+        }
+
+        /* ===========================================================
+           4) Cliente JUEGO/SPECTATOR → procesar frames
+           Usa la función mejorada de tu compañero
            =========================================================== */
         if (gstate) {
-            int off = 0;
-            for (int i = 0; i < n; i++) {
-
-                if (buf[i] == '\n') {
-                    buf[i] = 0;
-
-                    // Reiniciar contadores al iniciar frame del jugador
-                    if (strncmp(buf + off, "PLAYER", 6) == 0) {
-                        gstate->crocsCount = 0;
-                        gstate->fruitsCount = 0;
-                    }
-
-                    gs_apply_line(gstate, buf + off);
-                    off = i + 1;
-                }
-            }
+            process_game_stream(gstate, buf, n);
         }
     }
 
