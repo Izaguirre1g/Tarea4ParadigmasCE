@@ -46,6 +46,13 @@ public final class GameConstants {
     public static final Integer FRUIT_SCORE_NARANJA = 100;
     public static final Integer FRUIT_SCORE_CEREZA  = 50;
 
+    /* --- Jaula de DK (objetivo final) --- */
+    public static final Double CAGE_X = 150.0;        // posición X de la jaula
+    public static final Double CAGE_Y = 80.0;         // posición Y de la jaula
+    public static final Integer CAGE_WIDTH = 60;      // ancho de la jaula
+    public static final Integer CAGE_HEIGHT = 40;     // alto de la jaula
+    public static final Integer WIN_SCORE_BONUS = 1000; // bonus por ganar
+
     /* --- Lianas y plataformas --- */
     // Lianas: cada par {x1, y1, x2, y2}
     public static final Double[][] LIANAS = {

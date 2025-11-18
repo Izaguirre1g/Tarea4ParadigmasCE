@@ -3,6 +3,7 @@
 #include "sprites.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -31,7 +32,6 @@ static void draw_texture(SDL_Renderer* r, SDL_Texture* tex,
 
 // Dibuja una textura alineada por la parte inferior (para el jugador)
 // La posición (x, y) representa donde debe estar la parte inferior del jugador
-// expectedHeight es la altura de la hitbox del jugador (28px según la física)
 static void draw_texture_bottom(SDL_Renderer* r, SDL_Texture* tex,
                                 float x, float y, float scale) {
     if (!tex) return;
@@ -39,13 +39,12 @@ static void draw_texture_bottom(SDL_Renderer* r, SDL_Texture* tex,
     int w, h;
     SDL_QueryTexture(tex, NULL, NULL, &w, &h);
 
-    // Altura esperada del jugador según la física del juego
-    // Ajustado para que el sprite se alinee perfectamente con la plataforma
-    const float expectedHeight = 32.0f;  // 16px sprite * 2.0 scale = 32px
-
+    // La textura se dibuja de modo que su parte inferior
+    // coincida exactamente con la coordenada y del jugador
+    // Simplemente alineamos la base del sprite con la coordenada y
     SDL_Rect dst = {
         (int)(x - (w * scale) / 2),              // Centrado horizontalmente
-        (int)(y - expectedHeight),                // Alineado según hitbox esperada
+        (int)(y - (h * scale)),                  // Parte inferior del sprite en Y
         (int)(w * scale),
         (int)(h * scale)
     };
@@ -112,6 +111,17 @@ int gfx_init(Gfx* g) {
         return -1;
     }
     printf("[OK] SDL_image inicializado (soporte PNG)\n");
+
+    // Inicializar SDL_ttf
+    if (TTF_Init() == -1) {
+        printf("[ERROR] SDL_ttf: %s\n", TTF_GetError());
+        IMG_Quit();
+        SDL_DestroyRenderer(g->ren);
+        SDL_DestroyWindow(g->win);
+        SDL_Quit();
+        return -1;
+    }
+    printf("[OK] SDL_ttf inicializado\n");
 
     // Cargar spritesheet - intentar varios archivos
     const char* sprite_files[] = {
@@ -255,12 +265,85 @@ int gfx_init(Gfx* g) {
         printf("[WARN] ✗ fruit_strawberry.png no encontrado\n");
     }
 
+    // Jaula de Donkey Kong
+    temp = IMG_Load("assets/jail.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jail = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jail) {
+            printf("[OK] ✓ Jaula (jail.png) cargada\n");
+        } else {
+            printf("[ERROR] ✗ Jaula: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_jail = NULL;
+        printf("[WARN] ✗ jail.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Corazón (vidas)
+    temp = IMG_Load("assets/heart.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_heart = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_heart) {
+            printf("[OK] ✓ Corazón (heart.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Corazón: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_heart = NULL;
+        printf("[WARN] ✗ heart.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Scoreholder (fondo de puntuación)
+    temp = IMG_Load("assets/scoreholder.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_scoreholder = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_scoreholder) {
+            printf("[OK] ✓ Scoreholder (scoreholder.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Scoreholder: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_scoreholder = NULL;
+        printf("[WARN] ✗ scoreholder.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Cargar fuente para texto
+    const char* font_files[] = {
+        "assets/arial.ttf",
+        "assets/arialbd.ttf",
+        NULL
+    };
+
+    g->font = NULL;
+    for (int i = 0; font_files[i] != NULL; i++) {
+        g->font = TTF_OpenFont(font_files[i], 24);  // Tamaño 24
+        if (g->font) {
+            printf("[OK] ✓ Fuente cargada: %s\n", font_files[i]);
+            break;
+        }
+    }
+
+    if (!g->font) {
+        printf("[WARN] ✗ No se pudo cargar ninguna fuente TTF\n");
+        printf("[WARN] Los números de puntuación no se mostrarán\n");
+    }
+
     printf("==========================================\n\n");
 
     return 0;
 }
 
 void gfx_shutdown(Gfx* g) {
+    if (g->font) TTF_CloseFont(g->font);
+    if (g->tex_scoreholder) SDL_DestroyTexture(g->tex_scoreholder);
+    if (g->tex_heart) SDL_DestroyTexture(g->tex_heart);
+    if (g->tex_jail) SDL_DestroyTexture(g->tex_jail);
     if (g->tex_fruit_strawberry) SDL_DestroyTexture(g->tex_fruit_strawberry);
     if (g->tex_fruit_orange) SDL_DestroyTexture(g->tex_fruit_orange);
     if (g->tex_fruit_banana) SDL_DestroyTexture(g->tex_fruit_banana);
@@ -270,6 +353,7 @@ void gfx_shutdown(Gfx* g) {
     if (g->spritesheet) SDL_DestroyTexture(g->spritesheet);
     if (g->ren) SDL_DestroyRenderer(g->ren);
     if (g->win) SDL_DestroyWindow(g->win);
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
     printf("[GFX] Sistema gráfico cerrado\n");
@@ -305,6 +389,30 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         SDL_RenderDrawLine(r, x-1, y1, x-1, y2);
         SDL_RenderDrawLine(r, x,   y1, x,   y2);
         SDL_RenderDrawLine(r, x+1, y1, x+1, y2);
+    }
+
+    // Jaula de Donkey Kong (objetivo)
+    if (g->tex_jail) {
+        // Dibujar sprite de la jaula
+        int w, h;
+        SDL_QueryTexture(g->tex_jail, NULL, NULL, &w, &h);
+        SDL_Rect dst = {CAGE_X, CAGE_Y, CAGE_W, CAGE_H};
+        SDL_RenderCopy(r, g->tex_jail, NULL, &dst);
+    } else {
+        // Fallback: dibujar jaula con rectángulos
+        draw_rect(r, CAGE_X, CAGE_Y, CAGE_W, CAGE_H, COLOR_CAGE);
+
+        SDL_SetRenderDrawColor(r, COLOR_CAGE_BARS);
+        for (int i = 0; i < 5; i++) {
+            int barX = CAGE_X + 5 + i * 12;
+            SDL_RenderDrawLine(r, barX, CAGE_Y, barX, CAGE_Y + CAGE_H);
+            SDL_RenderDrawLine(r, barX+1, CAGE_Y, barX+1, CAGE_Y + CAGE_H);
+        }
+
+        SDL_Rect topBar = {CAGE_X, CAGE_Y, CAGE_W, 3};
+        SDL_Rect bottomBar = {CAGE_X, CAGE_Y + CAGE_H - 3, CAGE_W, 3};
+        SDL_RenderFillRect(r, &topBar);
+        SDL_RenderFillRect(r, &bottomBar);
     }
 
     // Frutas
@@ -356,17 +464,67 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
 
     // Jugador (DK Jr)
     if (g->tex_player) {
-        // Usar textura individual PNG del jugador
-        // Agregar pequeño offset hacia abajo (+8px) para compensar desajuste visual
-        // entre la física del servidor y la posición del sprite
-        draw_texture(r, g->tex_player, gs->player.x, gs->player.y + 8, 1.5f);
+        // El servidor envía Y como la parte SUPERIOR del hitbox (altura 28px)
+        // La parte inferior del hitbox está en Y + 28
+        // Usar draw_texture_bottom para alinear el sprite por su base
+        draw_texture_bottom(r, g->tex_player, gs->player.x, gs->player.y + 28, 1.5f);
     } else {
-        // SIN SPRITE (fallback a rectángulo café)
-        draw_rect(r, gs->player.x - 12, gs->player.y - 14, 24, 28, COLOR_PLAYER);
+        // Fallback: rectángulo representando hitbox real (24x28)
+        draw_rect(r, gs->player.x - 12, gs->player.y, 24, 28, COLOR_PLAYER);
+    }
+
+    // HUD Visual en pantalla
+    // Dibujar scoreholder (panel de puntuación)
+    if (g->tex_scoreholder) {
+        SDL_Rect score_dst = {10, 10, 200, 50};  // Esquina superior izquierda
+        SDL_RenderCopy(r, g->tex_scoreholder, NULL, &score_dst);
+
+        // Dibujar puntuación como texto dentro del scoreholder
+        if (g->font) {
+            char score_text[32];
+            snprintf(score_text, sizeof(score_text), "Score: %d", gs->player.score);
+
+            SDL_Color text_color = {255, 255, 255, 255};  // Blanco
+            SDL_Surface* text_surface = TTF_RenderText_Solid(g->font, score_text, text_color);
+
+            if (text_surface) {
+                SDL_Texture* text_texture = SDL_CreateTextureFromSurface(r, text_surface);
+                if (text_texture) {
+                    SDL_Rect text_rect = {45, 20, text_surface->w, text_surface->h};
+                    SDL_RenderCopy(r, text_texture, NULL, &text_rect);
+                    SDL_DestroyTexture(text_texture);
+                }
+                SDL_FreeSurface(text_surface);
+            }
+        }
+    }
+
+    // Dibujar vidas con corazones
+    if (g->tex_heart) {
+        int heart_size = 30;
+        int heart_spacing = 35;
+        int start_x = WIN_W - 120;  // Esquina superior derecha
+        int start_y = 10;
+
+        // Dibujar un corazón por cada vida
+        for (int i = 0; i < gs->player.lives; i++) {
+            SDL_Rect heart_dst = {
+                start_x + (i * heart_spacing),
+                start_y,
+                heart_size,
+                heart_size
+            };
+            SDL_RenderCopy(r, g->tex_heart, NULL, &heart_dst);
+        }
     }
 
     // HUD en consola (Score y vidas)
-    printf("\rScore: %d   Lives: %d   ", gs->player.score, gs->player.lives);
+    if (gs->player.hasWon) {
+        printf("\r🎉 ¡VICTORIA! Score: %d   Lives: %d   *** GANASTE ***   ",
+               gs->player.score, gs->player.lives);
+    } else {
+        printf("\rScore: %d   Lives: %d   ", gs->player.score, gs->player.lives);
+    }
     fflush(stdout);
 
     // Presentar frame

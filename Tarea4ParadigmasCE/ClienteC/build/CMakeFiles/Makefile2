@@ -53,10 +53,10 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -90,14 +90,14 @@ clean: CMakeFiles/spectator_client.dir/clean
 CMakeFiles/dkj_client.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Built target dkj_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Built target dkj_client"
 .PHONY : CMakeFiles/dkj_client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/dkj_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/dkj_client.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : CMakeFiles/dkj_client.dir/rule
 
 # Convenience name for target.
@@ -107,7 +107,7 @@ dkj_client: CMakeFiles/dkj_client.dir/rule
 # codegen rule for target.
 CMakeFiles/dkj_client.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dkj_client.dir\build.make CMakeFiles/dkj_client.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Finished codegen for target dkj_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Finished codegen for target dkj_client"
 .PHONY : CMakeFiles/dkj_client.dir/codegen
 
 # clean rule for target.
@@ -122,14 +122,14 @@ CMakeFiles/dkj_client.dir/clean:
 CMakeFiles/admin_client.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target admin_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target admin_client"
 .PHONY : CMakeFiles/admin_client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/admin_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/admin_client.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : CMakeFiles/admin_client.dir/rule
 
 # Convenience name for target.
@@ -139,7 +139,7 @@ admin_client: CMakeFiles/admin_client.dir/rule
 # codegen rule for target.
 CMakeFiles/admin_client.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\admin_client.dir\build.make CMakeFiles/admin_client.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target admin_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target admin_client"
 .PHONY : CMakeFiles/admin_client.dir/codegen
 
 # clean rule for target.
@@ -154,14 +154,14 @@ CMakeFiles/admin_client.dir/clean:
 CMakeFiles/spectator_client.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Built target spectator_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Built target spectator_client"
 .PHONY : CMakeFiles/spectator_client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/spectator_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/spectator_client.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles 0
 .PHONY : CMakeFiles/spectator_client.dir/rule
 
 # Convenience name for target.
@@ -171,7 +171,7 @@ spectator_client: CMakeFiles/spectator_client.dir/rule
 # codegen rule for target.
 CMakeFiles/spectator_client.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\spectator_client.dir\build.make CMakeFiles/spectator_client.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Finished codegen for target spectator_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=13,14,15,16,17,18,19 "Finished codegen for target spectator_client"
 .PHONY : CMakeFiles/spectator_client.dir/codegen
 
 # clean rule for target.

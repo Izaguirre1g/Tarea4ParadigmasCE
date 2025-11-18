@@ -1,6 +1,7 @@
 #pragma once
 #include "game_state.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 typedef struct {
     SDL_Window*   win;
@@ -14,6 +15,14 @@ typedef struct {
     SDL_Texture*  tex_fruit_banana;
     SDL_Texture*  tex_fruit_orange;
     SDL_Texture*  tex_fruit_strawberry;
+
+    // Texturas para HUD y objetivos
+    SDL_Texture*  tex_jail;          // Jaula de DK
+    SDL_Texture*  tex_heart;         // Corazón para vidas
+    SDL_Texture*  tex_scoreholder;   // Fondo para puntuación
+
+    // Fuente para texto
+    TTF_Font*     font;              // Fuente para números y texto
 } Gfx;
 
 int  gfx_init(Gfx* g);

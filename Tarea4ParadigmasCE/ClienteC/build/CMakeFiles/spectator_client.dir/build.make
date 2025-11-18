@@ -52,10 +52,10 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/spectator_client.dir/depend.make
@@ -73,93 +73,93 @@ CMakeFiles/spectator_client.dir/codegen:
 
 CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c
+CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c
 CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/spectator_client.dir/src/spectator_main.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/spectator_main.c.obj -MF CMakeFiles\spectator_client.dir\src\spectator_main.c.obj.d -o CMakeFiles\spectator_client.dir\src\spectator_main.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/spectator_client.dir/src/spectator_main.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/spectator_main.c.obj -MF CMakeFiles\spectator_client.dir\src\spectator_main.c.obj.d -o CMakeFiles\spectator_client.dir\src\spectator_main.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c
 
 CMakeFiles/spectator_client.dir/src/spectator_main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/spectator_main.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c > CMakeFiles\spectator_client.dir\src\spectator_main.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c > CMakeFiles\spectator_client.dir\src\spectator_main.c.i
 
 CMakeFiles/spectator_client.dir/src/spectator_main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/spectator_main.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c -o CMakeFiles\spectator_client.dir\src\spectator_main.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_main.c -o CMakeFiles\spectator_client.dir\src\spectator_main.c.s
 
 CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c
+CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c
 CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj -MF CMakeFiles\spectator_client.dir\src\spectator_ui.c.obj.d -o CMakeFiles\spectator_client.dir\src\spectator_ui.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj -MF CMakeFiles\spectator_client.dir\src\spectator_ui.c.obj.d -o CMakeFiles\spectator_client.dir\src\spectator_ui.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c
 
 CMakeFiles/spectator_client.dir/src/spectator_ui.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/spectator_ui.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c > CMakeFiles\spectator_client.dir\src\spectator_ui.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c > CMakeFiles\spectator_client.dir\src\spectator_ui.c.i
 
 CMakeFiles/spectator_client.dir/src/spectator_ui.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/spectator_ui.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c -o CMakeFiles\spectator_client.dir\src\spectator_ui.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\spectator_ui.c -o CMakeFiles\spectator_client.dir\src\spectator_ui.c.s
 
 CMakeFiles/spectator_client.dir/src/net.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/net.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/net.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
+CMakeFiles/spectator_client.dir/src/net.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
 CMakeFiles/spectator_client.dir/src/net.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/spectator_client.dir/src/net.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/net.c.obj -MF CMakeFiles\spectator_client.dir\src\net.c.obj.d -o CMakeFiles\spectator_client.dir\src\net.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/spectator_client.dir/src/net.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/net.c.obj -MF CMakeFiles\spectator_client.dir\src\net.c.obj.d -o CMakeFiles\spectator_client.dir\src\net.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
 
 CMakeFiles/spectator_client.dir/src/net.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/net.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\spectator_client.dir\src\net.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\spectator_client.dir\src\net.c.i
 
 CMakeFiles/spectator_client.dir/src/net.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/net.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\spectator_client.dir\src\net.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\spectator_client.dir\src\net.c.s
 
 CMakeFiles/spectator_client.dir/src/game_state.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/game_state.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/game_state.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
+CMakeFiles/spectator_client.dir/src/game_state.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
 CMakeFiles/spectator_client.dir/src/game_state.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/spectator_client.dir/src/game_state.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/game_state.c.obj -MF CMakeFiles\spectator_client.dir\src\game_state.c.obj.d -o CMakeFiles\spectator_client.dir\src\game_state.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/spectator_client.dir/src/game_state.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/game_state.c.obj -MF CMakeFiles\spectator_client.dir\src\game_state.c.obj.d -o CMakeFiles\spectator_client.dir\src\game_state.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
 
 CMakeFiles/spectator_client.dir/src/game_state.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/game_state.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\spectator_client.dir\src\game_state.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\spectator_client.dir\src\game_state.c.i
 
 CMakeFiles/spectator_client.dir/src/game_state.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/game_state.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\spectator_client.dir\src\game_state.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\spectator_client.dir\src\game_state.c.s
 
 CMakeFiles/spectator_client.dir/src/json_parse.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/json_parse.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/json_parse.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c
+CMakeFiles/spectator_client.dir/src/json_parse.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c
 CMakeFiles/spectator_client.dir/src/json_parse.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/spectator_client.dir/src/json_parse.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/json_parse.c.obj -MF CMakeFiles\spectator_client.dir\src\json_parse.c.obj.d -o CMakeFiles\spectator_client.dir\src\json_parse.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/spectator_client.dir/src/json_parse.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/json_parse.c.obj -MF CMakeFiles\spectator_client.dir\src\json_parse.c.obj.d -o CMakeFiles\spectator_client.dir\src\json_parse.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c
 
 CMakeFiles/spectator_client.dir/src/json_parse.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/json_parse.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c > CMakeFiles\spectator_client.dir\src\json_parse.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c > CMakeFiles\spectator_client.dir\src\json_parse.c.i
 
 CMakeFiles/spectator_client.dir/src/json_parse.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/json_parse.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c -o CMakeFiles\spectator_client.dir\src\json_parse.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c -o CMakeFiles\spectator_client.dir\src\json_parse.c.s
 
 CMakeFiles/spectator_client.dir/src/render.c.obj: CMakeFiles/spectator_client.dir/flags.make
 CMakeFiles/spectator_client.dir/src/render.c.obj: CMakeFiles/spectator_client.dir/includes_C.rsp
-CMakeFiles/spectator_client.dir/src/render.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c
+CMakeFiles/spectator_client.dir/src/render.c.obj: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c
 CMakeFiles/spectator_client.dir/src/render.c.obj: CMakeFiles/spectator_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/spectator_client.dir/src/render.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/render.c.obj -MF CMakeFiles\spectator_client.dir\src\render.c.obj.d -o CMakeFiles\spectator_client.dir\src\render.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/spectator_client.dir/src/render.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/spectator_client.dir/src/render.c.obj -MF CMakeFiles\spectator_client.dir\src\render.c.obj.d -o CMakeFiles\spectator_client.dir\src\render.c.obj -c C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c
 
 CMakeFiles/spectator_client.dir/src/render.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/spectator_client.dir/src/render.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c > CMakeFiles\spectator_client.dir\src\render.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c > CMakeFiles\spectator_client.dir\src\render.c.i
 
 CMakeFiles/spectator_client.dir/src/render.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/spectator_client.dir/src/render.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c -o CMakeFiles\spectator_client.dir\src\render.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\render.c -o CMakeFiles\spectator_client.dir\src\render.c.s
 
 # Object files for target spectator_client
 spectator_client_OBJECTS = \
@@ -183,7 +183,7 @@ bin/spectator_client.exe: CMakeFiles/spectator_client.dir/build.make
 bin/spectator_client.exe: CMakeFiles/spectator_client.dir/linkLibs.rsp
 bin/spectator_client.exe: CMakeFiles/spectator_client.dir/objects1.rsp
 bin/spectator_client.exe: CMakeFiles/spectator_client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable bin\spectator_client.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable bin\spectator_client.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\spectator_client.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -195,6 +195,6 @@ CMakeFiles/spectator_client.dir/clean:
 .PHONY : CMakeFiles/spectator_client.dir/clean
 
 CMakeFiles/spectator_client.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\spectator_client.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\spectator_client.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/spectator_client.dir/depend
 

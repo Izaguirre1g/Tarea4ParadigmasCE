@@ -287,6 +287,7 @@ public class GameManager {
     private void checkCollisions() {
         checkFruits();
         checkCrocs();
+        checkCage();  // Verificar si llegó a la jaula
     }
 
     private void checkFruits() {
@@ -320,13 +321,50 @@ public class GameManager {
         }
     }
 
+    private void checkCage() {
+        // Si ya ganó, no verificar de nuevo
+        if (state.hasWon()) return;
+
+        // Verificar si el jugador está dentro del área de la jaula
+        double playerCenterX = state.getPlayerX() + PLAYER_WIDTH / 2.0;
+        double playerCenterY = state.getPlayerY() + PLAYER_HEIGHT / 2.0;
+
+        boolean inCageX = playerCenterX >= CAGE_X &&
+                         playerCenterX <= CAGE_X + CAGE_WIDTH;
+        boolean inCageY = playerCenterY >= CAGE_Y &&
+                         playerCenterY <= CAGE_Y + CAGE_HEIGHT;
+
+        if (inCageX && inCageY) {
+            playerWin();
+        }
+    }
+
+    private void playerWin() {
+        state.setHasWon(true);
+        state.setScore(state.getScore() + WIN_SCORE_BONUS);
+        System.out.println("🎉 ¡VICTORIA! Has rescatado a Donkey Kong!");
+        System.out.println("💰 Bonus: +" + WIN_SCORE_BONUS + " puntos");
+        System.out.println("📊 Puntuación final: " + state.getScore());
+
+        // Reiniciar nivel después de 3 segundos (opcional)
+        // Se puede implementar un delay o dejar que el jugador continúe
+    }
+
     private void playerDeath() {
         state.setLives(state.getLives() - 1);
+        System.out.println("💀 Jugador perdió una vida. Vidas restantes: " + state.getLives());
+
         if (state.getLives() <= 0) {
+            System.out.println("☠️ GAME OVER - Todas las vidas perdidas");
+            System.out.println("📊 Puntuación final: " + state.getScore());
             state.setLives(PLAYER_START_LIVES);
             state.setScore(0);
+            state.setHasWon(false);
             initLevel();
+            System.out.println("🔄 Juego reiniciado");
         }
+
+        // Reiniciar posición del jugador
         state.setPlayerX(PLAYER_START_X);
         state.setPlayerY(PLAYER_START_Y);
         state.setVelocityX(0.0);
@@ -344,9 +382,14 @@ public class GameManager {
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format(
-                    "PLAYER 0 x=%.0f y=%.0f lives=%d score=%d\n",
+                    "PLAYER 0 x=%.0f y=%.0f lives=%d score=%d won=%d\n",
                     state.getPlayerX(), state.getPlayerY(),
-                    state.getLives(), state.getScore()));
+                    state.getLives(), state.getScore(),
+                    state.hasWon() ? 1 : 0));
+
+            // Enviar posición de la jaula (solo una vez es necesario, pero lo enviamos siempre)
+            sb.append(String.format("CAGE x=%.0f y=%.0f w=%d h=%d\n",
+                    CAGE_X, CAGE_Y, CAGE_WIDTH, CAGE_HEIGHT));
 
             for (Cocodrilo c : state.getCocodrilos())
                 sb.append(c.toNetworkString()).append("\n");

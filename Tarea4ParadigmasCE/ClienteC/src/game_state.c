@@ -5,8 +5,15 @@
 
 void gs_apply_line(GameState* gs, const char* line) {
     if (strncmp(line, "PLAYER", 6) == 0) {
-        sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d",
-               &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score);
+        // Intentar leer con won, si no está presente será 0 por defecto
+        int won = 0;
+        int matched = sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d",
+               &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won);
+        gs->player.hasWon = won;
+    }
+    else if (strncmp(line, "CAGE", 4) == 0) {
+        // El servidor envía info de la jaula (ya está en constants.h)
+        // No necesitamos procesarla dinámicamente por ahora
     }
     else if (strncmp(line, "CROC", 4) == 0) {
         if (gs->crocsCount >= 32) return;

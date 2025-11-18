@@ -25,6 +25,14 @@
 #define COLOR_FRUIT_NARANJA 255,140,0,255
 #define COLOR_FRUIT_CEREZA 255,0,100,255
 #define COLOR_HUD        255,255,255,255
+#define COLOR_CAGE       180,140,60,255    // color dorado para la jaula
+#define COLOR_CAGE_BARS  80,60,40,255      // color oscuro para las barras
+
+// --- Jaula de Donkey Kong ---
+#define CAGE_X 150
+#define CAGE_Y 80
+#define CAGE_W 60
+#define CAGE_H 40
 
 #define N_PLAT 5
 static const float PLATFORMS[N_PLAT][4] = {

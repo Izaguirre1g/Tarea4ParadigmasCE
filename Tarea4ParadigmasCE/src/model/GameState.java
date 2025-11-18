@@ -23,6 +23,7 @@ public class GameState {
     private Integer score;
     private Boolean jumping;
     private Boolean onLiana;
+    private Boolean hasWon;  // indica si el jugador ganó el nivel
 
     // Entidades del juego
     private List<Cocodrilo> cocodrilos;
@@ -39,6 +40,7 @@ public class GameState {
         this.score = 0;
         this.jumping = Boolean.FALSE;
         this.onLiana = Boolean.FALSE;
+        this.hasWon = Boolean.FALSE;
         this.cocodrilos = new ArrayList<>();
         this.frutas = new ArrayList<>();
         this.lianas = new ArrayList<>();
@@ -69,6 +71,9 @@ public class GameState {
 
     public Boolean isOnLiana() { return onLiana; }
     public void setOnLiana(Boolean onLiana) { this.onLiana = onLiana; }
+
+    public Boolean hasWon() { return hasWon; }
+    public void setHasWon(Boolean hasWon) { this.hasWon = hasWon; }
 
     // Getters y Setters - Entidades
 
