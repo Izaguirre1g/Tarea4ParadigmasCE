@@ -12,11 +12,13 @@
    ====================================================== */
 
 static TTF_Font* ui_font = NULL;
+static int sock_global = -1;  // Socket global para poder enviar comandos
 
 typedef struct {
     int x, y, w, h;
     const char* label;
     const char* cmdTemplate;
+    int needsPlayer;  // 1 = necesita jugador seleccionado, 0 = no necesita
 } Button;
 
 static Button buttons[32];
@@ -32,7 +34,13 @@ static DropDown playerDropDown;
 void admin_ui_draw_text(SDL_Renderer* ren, const char* txt, int x, int y) {
     SDL_Color color = {0, 0, 0, 255};
     SDL_Surface* surf = TTF_RenderText_Blended(ui_font, txt, color);
+    if (!surf) return;
+
     SDL_Texture* tex = SDL_CreateTextureFromSurface(ren, surf);
+    if (!tex) {
+        SDL_FreeSurface(surf);
+        return;
+    }
 
     SDL_Rect r = {x, y, surf->w, surf->h};
     SDL_RenderCopy(ren, tex, NULL, &r);
@@ -45,8 +53,8 @@ void admin_ui_draw_text(SDL_Renderer* ren, const char* txt, int x, int y) {
                  BOTONES
    ====================================================== */
 
-static void addButton(const char* label, const char* templ, int x, int y) {
-    buttons[btnCount++] = (Button){x, y, 160, 35, label, templ};
+static void addButton(const char* label, const char* templ, int x, int y, int needsPlayer) {
+    buttons[btnCount++] = (Button){x, y, 160, 35, label, templ, needsPlayer};
 }
 
 /* ======================================================
@@ -78,21 +86,18 @@ int admin_ui_init(AdminUI* ui) {
         return -1;
     }
 
-    /* Botones */
-    int y = 140;
-    addButton("CROC ROJO" ,  "ADMIN CROC ROJO", 30, y); y += 45;
-    addButton("CROC AZUL" ,  "ADMIN CROC AZUL", 30, y); y += 45;
+    /* Botones - NOTA: último parámetro indica si necesita jugador seleccionado */
+    int y = 200;
+    addButton("ACTUALIZAR LISTA", "PLAYERS", 30, y, 0);  // ← NO necesita jugador
+    y += 45;
 
-    y = 260;
-    addButton("BANANA" , "ADMIN FRUTA BANANA", 30, y); y += 45;
-    addButton("NARANJA", "ADMIN FRUTA NARANJA", 30, y); y += 45;
-    addButton("CEREZA" , "ADMIN FRUTA CEREZA",  30, y); y += 45;
+    y += 20;  // Espacio extra
+    addButton("CROC ROJO" ,  "CROC ROJO 2 300", 30, y, 1); y += 45;  // 1 = necesita jugador
+    addButton("CROC AZUL" ,  "CROC AZUL 3 250", 30, y, 1); y += 45;
 
-    y = 400;
-    addButton("ELIMINAR POR ID" , "ADMIN DEL_ID", 30, y); y += 45;
-
-    y = 460;
-    addButton("LISTAR" , "ADMIN LIST", 30, y);
+    y += 10;
+    addButton("BANANA" , "FRUTA BANANA 4 200", 30, y, 1); y += 45;
+    addButton("NARANJA", "FRUTA NARANJA 5 150", 30, y, 1); y += 45;
 
     /* Dropdown de jugadores */
     playerDropDown.box = (SDL_Rect){ 220, 80, 170, 30 };
@@ -125,7 +130,7 @@ void admin_ui_update_players(const char* json) {
         p++;
     }
 
-    printf("[ADMIN] Lista de jugadores actualizada (%d)\n", playerDropDown.count);
+    printf("[ADMIN] Lista de jugadores actualizada (%d jugadores)\n", playerDropDown.count);
 }
 
 /* ======================================================
@@ -214,20 +219,21 @@ void admin_ui_handle_click(int x, int y, int sock) {
             {
                 playerDropDown.selectedIndex = i;
                 playerDropDown.isOpen = 0;
-                printf("[ADMIN] Jugador seleccionado: %s\n", playerDropDown.names[i]);
+
+                // SELECCIONAR el jugador en el servidor
+                int pid = playerDropDown.ids[i];
+                char cmd[128];
+                sprintf(cmd, "ADMIN SELECT %d", pid);
+                net_send_line(sock, cmd);
+
+                printf("[ADMIN] Jugador seleccionado: %s (ID: %d)\n",
+                       playerDropDown.names[i], pid);
                 return;
             }
         }
     }
 
     /* CLIC EN BOTONES */
-    if (playerDropDown.selectedIndex < 0) {
-        printf("[ADMIN] Seleccione un jugador primero.\n");
-        return;
-    }
-
-    int pid = playerDropDown.ids[playerDropDown.selectedIndex];
-
     for (int i = 0; i < btnCount; i++) {
 
         Button* b = &buttons[i];
@@ -235,14 +241,63 @@ void admin_ui_handle_click(int x, int y, int sock) {
         if (x >= b->x && x <= b->x + b->w &&
             y >= b->y && y <= b->y + b->h)
         {
-            char cmd[128];
-            sprintf(cmd, "ADMIN %d %s", pid, b->cmdTemplate);
+            // ← CAMBIO CLAVE: Verificar si necesita jugador SOLO para este botón
+            if (b->needsPlayer && playerDropDown.selectedIndex < 0) {
+                printf("[ADMIN] Seleccione un jugador primero.\n");
+                return;
+            }
 
-            net_send_line(sock, cmd);
-            printf("[ADMIN -> SERVER] %s\n", cmd);
+            char cmd[128];
+
+            // Si el botón NO necesita jugador (ej: "ACTUALIZAR LISTA")
+            if (!b->needsPlayer) {
+                sprintf(cmd, "ADMIN %s", b->cmdTemplate);
+                net_send_line(sock, cmd);
+                printf("[ADMIN -> SERVER] %s\n", cmd);
+
+                // Si es PLAYERS, leer la respuesta JSON
+                if (strcmp(b->cmdTemplate, "PLAYERS") == 0) {
+                    // Esperar respuesta del servidor
+                    SDL_Delay(100);  // pequeña pausa para que llegue la respuesta
+                }
+            } else {
+                // Si SÍ necesita jugador, enviar comando completo
+                sprintf(cmd, "ADMIN %s", b->cmdTemplate);
+                net_send_line(sock, cmd);
+                printf("[ADMIN -> SERVER] %s\n", cmd);
+            }
             return;
         }
     }
+}
+
+/* ======================================================
+                 THREAD PARA RECIBIR RESPUESTAS DEL SERVIDOR
+   ====================================================== */
+
+#ifdef _WIN32
+#include <winsock2.h>
+DWORD WINAPI receiver_thread(LPVOID arg) {
+#else
+#include <pthread.h>
+void* receiver_thread(void* arg) {
+#endif
+    int sock = *(int*)arg;
+    char buffer[8192];
+    int n;
+
+    while ((n = recv(sock, buffer, sizeof(buffer) - 1, 0)) > 0) {
+        buffer[n] = '\0';
+
+        // Si es un JSON (empieza con '['), actualizar la lista de jugadores
+        if (buffer[0] == '[') {
+            admin_ui_update_players(buffer);
+        } else {
+            printf("[SERVER RESPONDE] %s\n", buffer);
+        }
+    }
+
+    return 0;
 }
 
 /* ======================================================
@@ -264,10 +319,19 @@ void admin_ui_run() {
     }
 
     /* Conectar a servidor */
-    int sock = net_connect("127.0.0.1", 5000);
+    sock_global = net_connect("127.0.0.1", 5000);
+    if (sock_global < 0) {
+        printf("No se pudo conectar al servidor\n");
+        return;
+    }
 
-    /* Pedir lista de jugadores */
-    net_send_line(sock, "ADMIN PLAYERS");
+    /* Iniciar thread para recibir respuestas */
+#ifdef _WIN32
+    HANDLE thread = CreateThread(NULL, 0, receiver_thread, &sock_global, 0, NULL);
+#else
+    pthread_t thread;
+    pthread_create(&thread, NULL, receiver_thread, &sock_global);
+#endif
 
     SDL_Event e;
     int running = 1;
@@ -279,7 +343,7 @@ void admin_ui_run() {
                 running = 0;
 
             if (e.type == SDL_MOUSEBUTTONDOWN)
-                admin_ui_handle_click(e.button.x, e.button.y, sock);
+                admin_ui_handle_click(e.button.x, e.button.y, sock_global);
         }
 
         admin_ui_render(&ui);
@@ -290,4 +354,3 @@ void admin_ui_run() {
     SDL_DestroyWindow(ui.win);
     SDL_Quit();
 }
-

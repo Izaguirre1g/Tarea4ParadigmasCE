@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c" "CMakeFiles/admin_client.dir/src/admin_main.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/admin_main.c.obj.d"
-  "C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c" "CMakeFiles/admin_client.dir/src/admin_ui.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/admin_ui.c.obj.d"
-  "C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c" "CMakeFiles/admin_client.dir/src/game_state.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/game_state.c.obj.d"
-  "C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c" "CMakeFiles/admin_client.dir/src/json_parse.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/json_parse.c.obj.d"
-  "C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c" "CMakeFiles/admin_client.dir/src/net.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/net.c.obj.d"
+  "C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c" "CMakeFiles/admin_client.dir/src/admin_main.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/admin_main.c.obj.d"
+  "C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c" "CMakeFiles/admin_client.dir/src/admin_ui.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/admin_ui.c.obj.d"
+  "C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c" "CMakeFiles/admin_client.dir/src/game_state.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/game_state.c.obj.d"
+  "C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c" "CMakeFiles/admin_client.dir/src/json_parse.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/json_parse.c.obj.d"
+  "C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c" "CMakeFiles/admin_client.dir/src/net.c.obj" "gcc" "CMakeFiles/admin_client.dir/src/net.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

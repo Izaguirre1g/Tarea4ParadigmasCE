@@ -1,6 +1,6 @@
 CMakeFiles/admin_client.dir/src/json_parse.c.obj: \
- C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c \
- C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/json_parse.h \
+ C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c \
+ C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/json_parse.h \
  C:/msys64/mingw64/include/string.h C:/msys64/mingw64/include/crtdefs.h \
  C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
  C:/msys64/mingw64/include/_mingw_mac.h \

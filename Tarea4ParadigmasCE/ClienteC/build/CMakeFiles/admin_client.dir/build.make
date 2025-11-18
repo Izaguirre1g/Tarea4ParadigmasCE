@@ -52,10 +52,10 @@ RM = C:\msys64\mingw64\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
+CMAKE_SOURCE_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+CMAKE_BINARY_DIR = C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/admin_client.dir/depend.make
@@ -73,78 +73,78 @@ CMakeFiles/admin_client.dir/codegen:
 
 CMakeFiles/admin_client.dir/src/admin_main.c.obj: CMakeFiles/admin_client.dir/flags.make
 CMakeFiles/admin_client.dir/src/admin_main.c.obj: CMakeFiles/admin_client.dir/includes_C.rsp
-CMakeFiles/admin_client.dir/src/admin_main.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c
+CMakeFiles/admin_client.dir/src/admin_main.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c
 CMakeFiles/admin_client.dir/src/admin_main.c.obj: CMakeFiles/admin_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/admin_client.dir/src/admin_main.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/admin_main.c.obj -MF CMakeFiles\admin_client.dir\src\admin_main.c.obj.d -o CMakeFiles\admin_client.dir\src\admin_main.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/admin_client.dir/src/admin_main.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/admin_main.c.obj -MF CMakeFiles\admin_client.dir\src\admin_main.c.obj.d -o CMakeFiles\admin_client.dir\src\admin_main.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c
 
 CMakeFiles/admin_client.dir/src/admin_main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/admin_client.dir/src/admin_main.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c > CMakeFiles\admin_client.dir\src\admin_main.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c > CMakeFiles\admin_client.dir\src\admin_main.c.i
 
 CMakeFiles/admin_client.dir/src/admin_main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/admin_client.dir/src/admin_main.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c -o CMakeFiles\admin_client.dir\src\admin_main.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_main.c -o CMakeFiles\admin_client.dir\src\admin_main.c.s
 
 CMakeFiles/admin_client.dir/src/admin_ui.c.obj: CMakeFiles/admin_client.dir/flags.make
 CMakeFiles/admin_client.dir/src/admin_ui.c.obj: CMakeFiles/admin_client.dir/includes_C.rsp
-CMakeFiles/admin_client.dir/src/admin_ui.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c
+CMakeFiles/admin_client.dir/src/admin_ui.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c
 CMakeFiles/admin_client.dir/src/admin_ui.c.obj: CMakeFiles/admin_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/admin_client.dir/src/admin_ui.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/admin_ui.c.obj -MF CMakeFiles\admin_client.dir\src\admin_ui.c.obj.d -o CMakeFiles\admin_client.dir\src\admin_ui.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/admin_client.dir/src/admin_ui.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/admin_ui.c.obj -MF CMakeFiles\admin_client.dir\src\admin_ui.c.obj.d -o CMakeFiles\admin_client.dir\src\admin_ui.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c
 
 CMakeFiles/admin_client.dir/src/admin_ui.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/admin_client.dir/src/admin_ui.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c > CMakeFiles\admin_client.dir\src\admin_ui.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c > CMakeFiles\admin_client.dir\src\admin_ui.c.i
 
 CMakeFiles/admin_client.dir/src/admin_ui.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/admin_client.dir/src/admin_ui.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c -o CMakeFiles\admin_client.dir\src\admin_ui.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\admin_ui.c -o CMakeFiles\admin_client.dir\src\admin_ui.c.s
 
 CMakeFiles/admin_client.dir/src/net.c.obj: CMakeFiles/admin_client.dir/flags.make
 CMakeFiles/admin_client.dir/src/net.c.obj: CMakeFiles/admin_client.dir/includes_C.rsp
-CMakeFiles/admin_client.dir/src/net.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
+CMakeFiles/admin_client.dir/src/net.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c
 CMakeFiles/admin_client.dir/src/net.c.obj: CMakeFiles/admin_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/admin_client.dir/src/net.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/net.c.obj -MF CMakeFiles\admin_client.dir\src\net.c.obj.d -o CMakeFiles\admin_client.dir\src\net.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/admin_client.dir/src/net.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/net.c.obj -MF CMakeFiles\admin_client.dir\src\net.c.obj.d -o CMakeFiles\admin_client.dir\src\net.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c
 
 CMakeFiles/admin_client.dir/src/net.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/admin_client.dir/src/net.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\admin_client.dir\src\net.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c > CMakeFiles\admin_client.dir\src\net.c.i
 
 CMakeFiles/admin_client.dir/src/net.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/admin_client.dir/src/net.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\admin_client.dir\src\net.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c -o CMakeFiles\admin_client.dir\src\net.c.s
 
 CMakeFiles/admin_client.dir/src/json_parse.c.obj: CMakeFiles/admin_client.dir/flags.make
 CMakeFiles/admin_client.dir/src/json_parse.c.obj: CMakeFiles/admin_client.dir/includes_C.rsp
-CMakeFiles/admin_client.dir/src/json_parse.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c
+CMakeFiles/admin_client.dir/src/json_parse.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c
 CMakeFiles/admin_client.dir/src/json_parse.c.obj: CMakeFiles/admin_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/admin_client.dir/src/json_parse.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/json_parse.c.obj -MF CMakeFiles\admin_client.dir\src\json_parse.c.obj.d -o CMakeFiles\admin_client.dir\src\json_parse.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/admin_client.dir/src/json_parse.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/json_parse.c.obj -MF CMakeFiles\admin_client.dir\src\json_parse.c.obj.d -o CMakeFiles\admin_client.dir\src\json_parse.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c
 
 CMakeFiles/admin_client.dir/src/json_parse.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/admin_client.dir/src/json_parse.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c > CMakeFiles\admin_client.dir\src\json_parse.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c > CMakeFiles\admin_client.dir\src\json_parse.c.i
 
 CMakeFiles/admin_client.dir/src/json_parse.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/admin_client.dir/src/json_parse.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c -o CMakeFiles\admin_client.dir\src\json_parse.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\json_parse.c -o CMakeFiles\admin_client.dir\src\json_parse.c.s
 
 CMakeFiles/admin_client.dir/src/game_state.c.obj: CMakeFiles/admin_client.dir/flags.make
 CMakeFiles/admin_client.dir/src/game_state.c.obj: CMakeFiles/admin_client.dir/includes_C.rsp
-CMakeFiles/admin_client.dir/src/game_state.c.obj: C:/Users/Jose/Desktop/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
+CMakeFiles/admin_client.dir/src/game_state.c.obj: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c
 CMakeFiles/admin_client.dir/src/game_state.c.obj: CMakeFiles/admin_client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/admin_client.dir/src/game_state.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/game_state.c.obj -MF CMakeFiles\admin_client.dir\src\game_state.c.obj.d -o CMakeFiles\admin_client.dir\src\game_state.c.obj -c C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/admin_client.dir/src/game_state.c.obj"
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/admin_client.dir/src/game_state.c.obj -MF CMakeFiles\admin_client.dir\src\game_state.c.obj.d -o CMakeFiles\admin_client.dir\src\game_state.c.obj -c C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c
 
 CMakeFiles/admin_client.dir/src/game_state.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/admin_client.dir/src/game_state.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\admin_client.dir\src\game_state.c.i
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c > CMakeFiles\admin_client.dir\src\game_state.c.i
 
 CMakeFiles/admin_client.dir/src/game_state.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/admin_client.dir/src/game_state.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\admin_client.dir\src\game_state.c.s
+	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\game_state.c -o CMakeFiles\admin_client.dir\src\game_state.c.s
 
 # Object files for target admin_client
 admin_client_OBJECTS = \
@@ -166,7 +166,7 @@ bin/admin_client.exe: CMakeFiles/admin_client.dir/build.make
 bin/admin_client.exe: CMakeFiles/admin_client.dir/linkLibs.rsp
 bin/admin_client.exe: CMakeFiles/admin_client.dir/objects1.rsp
 bin/admin_client.exe: CMakeFiles/admin_client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bin\admin_client.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bin\admin_client.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\admin_client.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -178,6 +178,6 @@ CMakeFiles/admin_client.dir/clean:
 .PHONY : CMakeFiles/admin_client.dir/clean
 
 CMakeFiles/admin_client.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Jose\Desktop\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\admin_client.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build\CMakeFiles\admin_client.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/admin_client.dir/depend
 
