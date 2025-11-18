@@ -12,7 +12,8 @@ void gs_apply_line(GameState* gs, const char* line) {
         if (gs->crocsCount >= 32) return;
         int i = gs->crocsCount++;
         char type[16];
-        sscanf(line, "CROC %*s type=%s x=%f y=%f alive=%d",
+        // Formato del servidor: "CROC 1 type=RED x=160 y=300 alive=1"
+        sscanf(line, "CROC %*d type=%s x=%f y=%f alive=%d",
                type, &gs->crocs[i].x, &gs->crocs[i].y, &gs->crocs[i].alive);
         gs->crocs[i].isRed = (strncmp(type, "RED", 3) == 0);
     }
@@ -20,7 +21,8 @@ void gs_apply_line(GameState* gs, const char* line) {
         if (gs->fruitsCount >= MAX_FRUITS) return;
         int i = gs->fruitsCount++;
         char type[16];
-        sscanf(line, "FRUIT %*s type=%s x=%f y=%f points=%d active=%d",
+        // Formato del servidor: "FRUIT 1 type=BANANA x=240 y=250 points=70 active=1"
+        sscanf(line, "FRUIT %*d type=%s x=%f y=%f points=%d active=%d",
                type, &gs->fruits[i].x, &gs->fruits[i].y, &gs->fruits[i].points, &gs->fruits[i].active);
         strncpy(gs->fruits[i].type, type, sizeof(gs->fruits[i].type)-1);
     }

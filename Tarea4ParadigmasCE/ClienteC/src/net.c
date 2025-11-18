@@ -20,6 +20,47 @@
 static GameState* gstate = NULL;   // sólo para dkj_client
 static int gsock = -1;
 
+static void process_game_stream(GameState* gs, const char* data, int len) {
+    static char pending[4096];
+    static int pending_len = 0;
+
+    if (!gs || len <= 0) return;
+
+    if (pending_len + len >= (int)sizeof(pending)) {
+        int drop = pending_len + len - ((int)sizeof(pending) - 1);
+        if (drop > pending_len) drop = pending_len;
+        if (drop > 0) {
+            memmove(pending, pending + drop, pending_len - drop);
+            pending_len -= drop;
+        }
+    }
+
+    memcpy(pending + pending_len, data, len);
+    pending_len += len;
+
+    int start = 0;
+    for (int i = 0; i < pending_len; ++i) {
+        if (pending[i] == '\n') {
+            pending[i] = '\0';
+            char* line = pending + start;
+            while (*line == '\r') ++line;
+            if (*line) {
+                if (strncmp(line, "PLAYER", 6) == 0) {
+                    gs->crocsCount = 0;
+                    gs->fruitsCount = 0;
+                }
+                gs_apply_line(gs, line);
+            }
+            start = i + 1;
+        }
+    }
+
+    if (start > 0) {
+        memmove(pending, pending + start, pending_len - start);
+        pending_len -= start;
+    }
+}
+
 // JSON recibido desde ADMIN PLAYERS
 static char g_players_json[2048] = {0};
 
@@ -62,22 +103,7 @@ static void* recv_thread(void* _) {
            2) Cliente JUEGO → procesar frames
            =========================================================== */
         if (gstate) {
-            int off = 0;
-            for (int i = 0; i < n; i++) {
-
-                if (buf[i] == '\n') {
-                    buf[i] = 0;
-
-                    // Reiniciar contadores al iniciar frame del jugador
-                    if (strncmp(buf + off, "PLAYER", 6) == 0) {
-                        gstate->crocsCount = 0;
-                        gstate->fruitsCount = 0;
-                    }
-
-                    gs_apply_line(gstate, buf + off);
-                    off = i + 1;
-                }
-            }
+            process_game_stream(gstate, buf, n);
         }
     }
 
