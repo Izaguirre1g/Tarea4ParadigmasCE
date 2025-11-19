@@ -10,6 +10,7 @@ import patterns.factory.GameObjectFactoryImpl;
 import patterns.observer.GameObservable;
 import utils.GameStateSerializer;
 import utils.TipoFruta;
+import utils.TipoCocodrilo;
 
 import java.util.Map;
 import java.util.concurrent.*;
@@ -19,15 +20,8 @@ import static utils.GameConstants.*;
 /**
  * GameManager
  * -----------------------------------------------------
- * Gestiona toda la lógica del juego usando GameState encapsulado
- * (un solo estado global por ahora).
- *
- * Además expone métodos administrativos para:
- *  - crear / eliminar cocodrilos
- *  - crear / eliminar frutas
- *  - listar entidades
- *  - cambiar modo de comunicación (TEXT / JSON)
- *  - registrar jugadores conectados (para la UI admin)
+ * Gestiona toda la lógica del juego usando GameState encapsulado.
+ * Cada jugador tiene su propio GameManager (partida independiente).
  */
 public class GameManager {
 
@@ -45,7 +39,6 @@ public class GameManager {
     private final GameObservable observable = new GameObservable();
 
     // Jugadores conectados (para la lista en el panel admin)
-    // idCliente -> nombre
     private final Map<Integer, String> connectedPlayers = new ConcurrentHashMap<>();
 
     // Modo de comunicación con los clientes
@@ -82,10 +75,10 @@ public class GameManager {
 
         // Cocodrilos iniciales de ejemplo
         state.getCocodrilos().add(
-                factory.crearCocodrilo(utils.TipoCocodrilo.ROJO,
+                factory.crearCocodrilo(TipoCocodrilo.ROJO,
                         new Posicion(160.0, 300.0)));
         state.getCocodrilos().add(
-                factory.crearCocodrilo(utils.TipoCocodrilo.AZUL,
+                factory.crearCocodrilo(TipoCocodrilo.AZUL,
                         new Posicion(400.0, 200.0)));
 
         // Frutas iniciales
@@ -105,6 +98,7 @@ public class GameManager {
         state.setScore(0);
         state.setJumping(false);
         state.setOnLiana(false);
+        state.setHasWon(false);
     }
 
     /* =========================================================
@@ -235,9 +229,7 @@ public class GameManager {
         return null;
     }
 
-    // ¿Está el jugador sobre alguna plataforma?
     private boolean isOnPlatform() {
-
         double nextY = state.getPlayerY() + state.getVelocityY();
         double playerBottomNext = nextY + PLAYER_HEIGHT;
         double currentBottom = state.getPlayerY() + PLAYER_HEIGHT;
@@ -274,6 +266,10 @@ public class GameManager {
         return false;
     }
 
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
     /* =========================================================
        COCODRILOS / COLISIONES
        ========================================================= */
@@ -287,7 +283,7 @@ public class GameManager {
     private void checkCollisions() {
         checkFruits();
         checkCrocs();
-        checkCage();  // Verificar si llegó a la jaula
+        checkCage();
     }
 
     private void checkFruits() {
@@ -322,17 +318,15 @@ public class GameManager {
     }
 
     private void checkCage() {
-        // Si ya ganó, no verificar de nuevo
         if (state.hasWon()) return;
 
-        // Verificar si el jugador está dentro del área de la jaula
         double playerCenterX = state.getPlayerX() + PLAYER_WIDTH / 2.0;
         double playerCenterY = state.getPlayerY() + PLAYER_HEIGHT / 2.0;
 
         boolean inCageX = playerCenterX >= CAGE_X &&
-                         playerCenterX <= CAGE_X + CAGE_WIDTH;
+                playerCenterX <= CAGE_X + CAGE_WIDTH;
         boolean inCageY = playerCenterY >= CAGE_Y &&
-                         playerCenterY <= CAGE_Y + CAGE_HEIGHT;
+                playerCenterY <= CAGE_Y + CAGE_HEIGHT;
 
         if (inCageX && inCageY) {
             playerWin();
@@ -345,9 +339,6 @@ public class GameManager {
         System.out.println("🎉 ¡VICTORIA! Has rescatado a Donkey Kong!");
         System.out.println("💰 Bonus: +" + WIN_SCORE_BONUS + " puntos");
         System.out.println("📊 Puntuación final: " + state.getScore());
-
-        // Reiniciar nivel después de 3 segundos (opcional)
-        // Se puede implementar un delay o dejar que el jugador continúe
     }
 
     private void playerDeath() {
@@ -364,7 +355,6 @@ public class GameManager {
             System.out.println("🔄 Juego reiniciado");
         }
 
-        // Reiniciar posición del jugador
         state.setPlayerX(PLAYER_START_X);
         state.setPlayerY(PLAYER_START_Y);
         state.setVelocityX(0.0);
@@ -387,7 +377,6 @@ public class GameManager {
                     state.getLives(), state.getScore(),
                     state.hasWon() ? 1 : 0));
 
-            // Enviar posición de la jaula (solo una vez es necesario, pero lo enviamos siempre)
             sb.append(String.format("CAGE x=%.0f y=%.0f w=%d h=%d\n",
                     CAGE_X, CAGE_Y, CAGE_WIDTH, CAGE_HEIGHT));
 
@@ -420,258 +409,346 @@ public class GameManager {
     }
 
     /* =========================================================
-       MÉTODOS ADMIN (crear / eliminar entidades)
+       MÉTODOS ADMIN - CREAR/ELIMINAR ENTIDADES
        ========================================================= */
 
-    // Versión sencilla: usa el centro de la liana
-    public Boolean crearCocodrilo(utils.TipoCocodrilo tipo, Integer lianaId) {
-        Liana lianaSeleccionada = null;
-        for (Liana l : state.getLianas()) {
-            if (l.getId().equals(lianaId)) {
-                lianaSeleccionada = l;
-                break;
+    /**
+     * Crea un cocodrilo en una posición específica (comando ADMIN)
+     * @param tipo "ROJO" o "AZUL"
+     * @param lianaNum Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     */
+    public void crearCocodriloAdmin(String tipo, int lianaNum, int altura) {
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+
+        if (lianaNum < 1 || lianaNum > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaNum);
+            return;
+        }
+
+        double x = lianasX[lianaNum - 1];
+        double y = (double) altura;
+
+        Posicion pos = new Posicion(x, y);
+
+        Cocodrilo croc;
+        if ("ROJO".equals(tipo)) {
+            croc = factory.crearCocodrilo(TipoCocodrilo.ROJO, pos);
+        } else if ("AZUL".equals(tipo)) {
+            croc = factory.crearCocodrilo(TipoCocodrilo.AZUL, pos);
+        } else {
+            System.out.println("[GameManager] Error: tipo de cocodrilo inválido " + tipo);
+            return;
+        }
+
+        // Asignar liana si el cocodrilo tiene el método setLiana
+        if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
+            try {
+                croc.setLiana(state.getLianas().get(lianaNum - 1));
+            } catch (Exception e) {
+                // Si el método no existe, simplemente continuar
+                System.out.println("[GameManager] Advertencia: No se pudo asignar liana al cocodrilo");
             }
         }
 
-        if (lianaSeleccionada == null) {
-            System.out.println("[Error] Liana no encontrada con ID: " + lianaId);
+        state.getCocodrilos().add(croc);
+
+        System.out.println("[GameManager] Cocodrilo creado → ID: " + croc.getId() +
+                ", Tipo: " + tipo + ", Liana: " + lianaNum +
+                ", Altura: " + altura);
+    }
+
+    /**
+     * Crea una fruta en una posición específica (comando ADMIN)
+     * @param tipo "BANANA", "NARANJA" o "CEREZA"
+     * @param lianaNum Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     * @param puntos Puntos que otorga (10-100)
+     */
+    public void crearFrutaAdmin(String tipo, int lianaNum, int altura, int puntos) {
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+
+        if (lianaNum < 1 || lianaNum > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaNum);
+            return;
+        }
+
+        double x = lianasX[lianaNum - 1];
+        double y = (double) altura;
+
+        Posicion pos = new Posicion(x, y);
+
+        TipoFruta tipoFruta;
+        switch (tipo) {
+            case "BANANA":
+                tipoFruta = TipoFruta.BANANA;
+                break;
+            case "NARANJA":
+                tipoFruta = TipoFruta.NARANJA;
+                break;
+            case "CEREZA":
+                tipoFruta = TipoFruta.CEREZA;
+                break;
+            default:
+                System.out.println("[GameManager] Error: tipo de fruta inválido " + tipo);
+                return;
+        }
+
+        Fruta fruta = factory.crearFruta(tipoFruta, pos);
+        fruta.setPuntos(puntos);
+
+        // Asignar liana si la fruta tiene el método setLiana
+        if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
+            try {
+                fruta.setLiana(state.getLianas().get(lianaNum - 1));
+            } catch (Exception e) {
+                // Si el método no existe, simplemente continuar
+                System.out.println("[GameManager] Advertencia: No se pudo asignar liana a la fruta");
+            }
+        }
+
+        state.getFrutas().add(fruta);
+
+        System.out.println("[GameManager] Fruta creada → ID: " + fruta.getId() +
+                ", Tipo: " + tipo + ", Liana: " + lianaNum +
+                ", Altura: " + altura + ", Puntos: " + puntos);
+    }
+
+    /**
+     * Elimina una fruta en una posición específica (comando ADMIN)
+     * @param lianaNum Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     * @return true si se eliminó, false si no se encontró
+     */
+    public boolean eliminarFrutaAdmin(int lianaNum, int altura) {
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+
+        if (lianaNum < 1 || lianaNum > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaNum);
             return false;
         }
 
-        double y = (lianaSeleccionada.getPosicionInicio().y +
-                lianaSeleccionada.getPosicionFin().y) / 2.0;
+        double targetX = lianasX[lianaNum - 1];
+        double targetY = (double) altura;
+        double tolerance = 30.0;
 
-        return crearCocodrilo(tipo, lianaId, y);
-    }
+        for (int i = 0; i < state.getFrutas().size(); i++) {
+            Fruta fruta = state.getFrutas().get(i);
+            Posicion pos = fruta.getPosicion();
 
-    // Versión completa: tipo + liana + altura específica (para ADMIN C)
-    public Boolean crearCocodrilo(utils.TipoCocodrilo tipo,
-                                  Integer lianaId,
-                                  Double altura) {
+            if (Math.abs(pos.x - targetX) < tolerance &&
+                    Math.abs(pos.y - targetY) < tolerance) {
 
-        Liana lianaSeleccionada = null;
-        for (Liana l : state.getLianas()) {
-            if (l.getId().equals(lianaId)) {
-                lianaSeleccionada = l;
-                break;
+                Integer frutaId = fruta.getId();
+                state.getFrutas().remove(i);
+
+                System.out.println("[GameManager] Fruta eliminada → ID: " + frutaId +
+                        ", Liana: " + lianaNum + ", Altura: " + altura);
+                return true;
             }
         }
 
-        if (lianaSeleccionada == null) {
-            System.out.println("[Error] Liana no encontrada con ID: " + lianaId);
+        System.out.println("[GameManager] No se encontró fruta en liana " + lianaNum +
+                " altura " + altura);
+        return false;
+    }
+
+    /**
+     * Crea un cocodrilo (versión para AdminConsole con tipos enumerados)
+     * @param tipo Tipo de cocodrilo (TipoCocodrilo.ROJO o TipoCocodrilo.AZUL)
+     * @param lianaId Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     * @return true si se creó exitosamente, false si hubo error
+     */
+    public Boolean crearCocodrilo(TipoCocodrilo tipo, Integer lianaId, Double altura) {
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+
+        // Validar liana
+        if (lianaId < 1 || lianaId > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaId);
+            return false;
+        }
+
+        // Validar altura
+        if (altura < 0 || altura > 540) {
+            System.out.println("[GameManager] Error: altura inválida " + altura);
             return false;
         }
 
         try {
-            Posicion pos = new Posicion(
-                    lianaSeleccionada.getPosicionInicio().x,
-                    altura
-            );
+            double x = lianasX[lianaId - 1];
+            double y = altura;
+            Posicion pos = new Posicion(x, y);
 
-            Cocodrilo nuevo = factory.crearCocodrilo(tipo, pos);
-            state.getCocodrilos().add(nuevo);
+            // Crear cocodrilo usando el factory
+            Cocodrilo croc = factory.crearCocodrilo(tipo, pos);
 
-            System.out.println("[GameManager] Cocodrilo creado → ID: "
-                    + nuevo.getId() + ", Tipo: " + tipo +
-                    ", Liana: " + lianaId + ", Altura: " + altura);
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("[Error] " + e.getMessage());
-            return false;
-        }
-    }
-
-    public Boolean eliminarCocodrilo(Integer cocodriloId) {
-        Cocodrilo crocAEliminar = null;
-        for (Cocodrilo c : state.getCocodrilos()) {
-            if (c.getId().equals(cocodriloId)) {
-                crocAEliminar = c;
-                break;
+            // Asignar liana
+            if (lianaId >= 1 && lianaId <= state.getLianas().size()) {
+                croc.setLiana(state.getLianas().get(lianaId - 1));
             }
-        }
 
-        if (crocAEliminar == null) {
-            System.out.println("[Error] Cocodrilo no encontrado con ID: " + cocodriloId);
-            return false;
-        }
+            state.getCocodrilos().add(croc);
 
-        state.getCocodrilos().remove(crocAEliminar);
-        System.out.println("[GameManager] Cocodrilo eliminado → ID: " + cocodriloId);
-        return true;
-    }
-
-    public Boolean crearFruta(TipoFruta tipo, Integer lianaId, Double altura) {
-        Liana lianaSeleccionada = null;
-        for (Liana l : state.getLianas()) {
-            if (l.getId().equals(lianaId)) {
-                lianaSeleccionada = l;
-                break;
-            }
-        }
-
-        if (lianaSeleccionada == null) {
-            System.out.println("[Error] Liana no encontrada con ID: " + lianaId);
-            return false;
-        }
-
-        try {
-            Fruta nueva = factory.crearFrutaEnLiana(tipo, lianaSeleccionada, altura);
-            state.getFrutas().add(nueva);
-            System.out.println("[GameManager] Fruta creada → ID: " + nueva.getId() +
+            System.out.println("[GameManager] Cocodrilo creado → ID: " + croc.getId() +
                     ", Tipo: " + tipo + ", Liana: " + lianaId +
                     ", Altura: " + altura);
+
             return true;
+
         } catch (Exception e) {
-            System.out.println("[Error] " + e.getMessage());
+            System.out.println("[GameManager] Error al crear cocodrilo: " + e.getMessage());
             return false;
         }
     }
 
+    /**
+     * Elimina un cocodrilo por su ID
+     * @param id ID del cocodrilo a eliminar
+     * @return true si se eliminó, false si no se encontró
+     */
+    public Boolean eliminarCocodrilo(Integer id) {
+        try {
+            for (int i = 0; i < state.getCocodrilos().size(); i++) {
+                Cocodrilo croc = state.getCocodrilos().get(i);
+                if (croc.getId().equals(id)) {
+                    state.getCocodrilos().remove(i);
+                    System.out.println("[GameManager] Cocodrilo eliminado → ID: " + id);
+                    return true;
+                }
+            }
+            System.out.println("[GameManager] Error: Cocodrilo con ID " + id + " no encontrado");
+            return false;
+
+        } catch (Exception e) {
+            System.out.println("[GameManager] Error al eliminar cocodrilo: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Crea una fruta (versión para AdminConsole con tipos enumerados)
+     * @param tipo Tipo de fruta (TipoFruta.BANANA, NARANJA, CEREZA)
+     * @param lianaId Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     * @return true si se creó exitosamente, false si hubo error
+     */
+    public Boolean crearFruta(TipoFruta tipo, Integer lianaId, Double altura) {
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+
+        // Validar liana
+        if (lianaId < 1 || lianaId > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaId);
+            return false;
+        }
+
+        // Validar altura
+        if (altura < 0 || altura > 540) {
+            System.out.println("[GameManager] Error: altura inválida " + altura);
+            return false;
+        }
+
+        try {
+            double x = lianasX[lianaId - 1];
+            double y = altura;
+            Posicion pos = new Posicion(x, y);
+
+            // Crear fruta usando el factory
+            Fruta fruta = factory.crearFruta(tipo, pos);
+
+            // Asignar liana
+            if (lianaId >= 1 && lianaId <= state.getLianas().size()) {
+                fruta.setLiana(state.getLianas().get(lianaId - 1));
+            }
+
+            state.getFrutas().add(fruta);
+
+            System.out.println("[GameManager] Fruta creada → ID: " + fruta.getId() +
+                    ", Tipo: " + tipo + ", Liana: " + lianaId +
+                    ", Altura: " + altura + ", Puntos: " + fruta.getPuntos());
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("[GameManager] Error al crear fruta: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Elimina una fruta por posición (liana + altura)
+     * @param lianaId Número de liana (1-6)
+     * @param altura Altura en píxeles (0-540)
+     * @return true si se eliminó, false si no se encontró
+     */
     public Boolean eliminarFruta(Integer lianaId, Double altura) {
-        Fruta frutaAEliminar = null;
+        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
 
-        for (Fruta f : state.getFrutas()) {
-            if (f.getLiana() != null &&
-                    f.getLiana().getId().equals(lianaId) &&
-                    Math.abs(f.getPosicion().y - altura) < 10.0) {
-                frutaAEliminar = f;
-                break;
-            }
-        }
-
-        if (frutaAEliminar == null) {
-            System.out.println("[Error] Fruta no encontrada en Liana: " +
-                    lianaId + ", Altura: " + altura);
+        // Validar liana
+        if (lianaId < 1 || lianaId > 6) {
+            System.out.println("[GameManager] Error: liana inválida " + lianaId);
             return false;
         }
 
-        state.getFrutas().remove(frutaAEliminar);
-        System.out.println("[GameManager] Fruta eliminada → ID: " + frutaAEliminar.getId());
-        return true;
-    }
+        try {
+            double targetX = lianasX[lianaId - 1];
+            double targetY = altura;
+            double tolerance = 30.0; // Tolerancia de 30 píxeles
 
-    public Boolean eliminarFrutaPorId(Integer frutaId) {
-        Fruta frutaAEliminar = null;
+            for (int i = 0; i < state.getFrutas().size(); i++) {
+                Fruta fruta = state.getFrutas().get(i);
+                Posicion pos = fruta.getPosicion();
 
-        for (Fruta f : state.getFrutas()) {
-            if (f.getId().equals(frutaId)) {
-                frutaAEliminar = f;
-                break;
+                // Verificar si la fruta está cerca de la posición objetivo
+                if (Math.abs(pos.x - targetX) < tolerance &&
+                        Math.abs(pos.y - targetY) < tolerance) {
+
+                    Integer frutaId = fruta.getId();
+                    state.getFrutas().remove(i);
+
+                    System.out.println("[GameManager] Fruta eliminada → ID: " + frutaId +
+                            ", Liana: " + lianaId + ", Altura: " + altura);
+
+                    return true;
+                }
             }
-        }
 
-        if (frutaAEliminar == null) {
-            System.out.println("[Error] Fruta no encontrada con ID: " + frutaId);
+            System.out.println("[GameManager] Error: No se encontró fruta en Liana " +
+                    lianaId + ", Altura " + altura);
+            return false;
+
+        } catch (Exception e) {
+            System.out.println("[GameManager] Error al eliminar fruta: " + e.getMessage());
             return false;
         }
-
-        state.getFrutas().remove(frutaAEliminar);
-        System.out.println("[GameManager] Fruta eliminada → ID: " + frutaId);
-        return true;
     }
+
+    /* =========================================================
+       UTILIDADES
+       ========================================================= */
 
     public void listarEntidades() {
         System.out.println("\n=== ENTIDADES ACTIVAS ===");
-
         System.out.println("-- Cocodrilos (" + state.getCocodrilos().size() + ") --");
         for (Cocodrilo c : state.getCocodrilos()) {
             System.out.println("  " + c);
         }
-
         System.out.println("-- Frutas (" + state.getFrutas().size() + ") --");
         for (Fruta f : state.getFrutas()) {
             if (f.isActiva()) {
                 System.out.println("  " + f);
             }
         }
-
         System.out.println("-- Lianas (" + state.getLianas().size() + ") --");
         for (Liana l : state.getLianas()) {
             System.out.println("  " + l);
         }
-
         System.out.println("=========================\n");
     }
 
     public GameState getState() {
         return state;
     }
-
-    /* =========================================================
-       COMANDOS ADMIN (desde cliente C)
-       ========================================================= */
-
-    public String procesarComandoAdmin(String cmd) {
-        System.out.println("[ADMIN CMD] → " + cmd);
-
-        String[] p = cmd.split("\\s+");
-        if (p.length == 0) return "ERR comando vacío";
-
-        if (!p[0].equalsIgnoreCase("ADMIN"))
-            return "ERR comando desconocido";
-
-        try {
-            // ADMIN CROC ROJO <lianaId> <altura>
-            if (p[1].equalsIgnoreCase("CROC")) {
-                utils.TipoCocodrilo tipo =
-                        p[2].equalsIgnoreCase("ROJO") ? utils.TipoCocodrilo.ROJO :
-                                p[2].equalsIgnoreCase("AZUL") ? utils.TipoCocodrilo.AZUL : null;
-
-                if (tipo == null) return "ERR tipo cocodrilo inválido";
-
-                Integer liana = Integer.parseInt(p[3]);
-                Double altura = Double.parseDouble(p[4]);
-
-                Boolean ok = crearCocodrilo(tipo, liana, altura);
-                return ok ? "OK cocodrilo creado" : "ERR no se pudo crear";
-            }
-
-            // ADMIN FRUTA BANANA <lianaId> <altura>
-            if (p[1].equalsIgnoreCase("FRUTA")) {
-                TipoFruta tipo =
-                        p[2].equalsIgnoreCase("BANANA") ? TipoFruta.BANANA :
-                                p[2].equalsIgnoreCase("NARANJA") ? TipoFruta.NARANJA :
-                                        p[2].equalsIgnoreCase("CEREZA") ? TipoFruta.CEREZA : null;
-
-                if (tipo == null) return "ERR tipo fruta inválida";
-
-                Integer liana = Integer.parseInt(p[3]);
-                Double altura = Double.parseDouble(p[4]);
-
-                Boolean ok = crearFruta(tipo, liana, altura);
-                return ok ? "OK fruta creada" : "ERR no se pudo crear";
-            }
-
-            // ADMIN DEL_ID <id>
-            if (p[1].equalsIgnoreCase("DEL_ID")) {
-                Integer id = Integer.parseInt(p[2]);
-
-                boolean eliminado = eliminarCocodrilo(id);
-                if (!eliminado) eliminado = eliminarFrutaPorId(id);
-
-                return eliminado ? "OK eliminado" : "ERR id no encontrado";
-            }
-
-            // ADMIN LIST
-            if (p[1].equalsIgnoreCase("LIST")) {
-                listarEntidades();
-                return "OK listado en consola";
-            }
-
-            // ADMIN PLAYERS se maneja en ClientHandler llamando a getConnectedPlayersJson()
-
-            return "ERR comando ADMIN desconocido";
-
-        } catch (Exception e) {
-            return "ERR excepción: " + e.getMessage();
-        }
-    }
-
-    /* =========================================================
-       REGISTRO DE JUGADORES (para la UI admin)
-       ========================================================= */
 
     public void registerPlayer(int clientId, String name) {
         connectedPlayers.put(clientId, name);
@@ -681,10 +758,6 @@ public class GameManager {
         connectedPlayers.remove(clientId);
     }
 
-    /**
-     * Devuelve la lista de jugadores conectados en formato JSON muy simple:
-     *   [ {"id":0,"name":"DKJr"}, {"id":1,"name":"Otro"} ]
-     */
     public String getConnectedPlayersJson() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -699,12 +772,6 @@ public class GameManager {
         return sb.toString();
     }
 
-    /**
-     * Cuenta cuántos espectadores están observando esta partida.
-     * Un espectador es un Observer que NO es el jugador dueño de la partida.
-     *
-     * @return Número de espectadores (máximo 2 permitido)
-     */
     public Integer getSpectatorCount() {
         int totalObservers = observable.getObserverCount();
         return Math.max(0, totalObservers - 1);

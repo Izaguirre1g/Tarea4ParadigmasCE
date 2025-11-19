@@ -5,35 +5,36 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
+#include <stdlib.h>
 
 /* ======================================================
                  VARIABLES GLOBALES
    ====================================================== */
 
-static TTF_Font* ui_font = NULL;
-static int sock_global = -1;  // Socket global para poder enviar comandos
+static AdminUIState g_state = {0};
+static int g_sock = -1;
 
-typedef struct {
-    int x, y, w, h;
-    const char* label;
-    const char* cmdTemplate;
-    int needsPlayer;  // 1 = necesita jugador seleccionado, 0 = no necesita
-} Button;
+// Radio buttons para tipo de cocodrilo
+static RadioButton g_crocRadios[2] = {
+    {{0}, "Rojo", 1},   // Seleccionado por defecto
+    {{0}, "Azul", 0}
+};
 
-static Button buttons[32];
-static int btnCount = 0;
-
-/* Dropdown global */
-static DropDown playerDropDown;
+// Radio buttons para tipo de fruta
+static RadioButton g_fruitRadios[3] = {
+    {{0}, "Banana", 1},  // Seleccionado por defecto
+    {{0}, "Naranja", 0},
+    {{0}, "Cereza", 0}
+};
 
 /* ======================================================
-                 FUNCIONES DE TEXTO
+                 FUNCIONES AUXILIARES DE DIBUJO
    ====================================================== */
 
-void admin_ui_draw_text(SDL_Renderer* ren, const char* txt, int x, int y) {
-    SDL_Color color = {0, 0, 0, 255};
-    SDL_Surface* surf = TTF_RenderText_Blended(ui_font, txt, color);
+void draw_text(SDL_Renderer* ren, TTF_Font* font, const char* text, int x, int y, SDL_Color color) {
+    if (!font || !text) return;
+
+    SDL_Surface* surf = TTF_RenderText_Blended(font, text, color);
     if (!surf) return;
 
     SDL_Texture* tex = SDL_CreateTextureFromSurface(ren, surf);
@@ -42,80 +43,235 @@ void admin_ui_draw_text(SDL_Renderer* ren, const char* txt, int x, int y) {
         return;
     }
 
-    SDL_Rect r = {x, y, surf->w, surf->h};
-    SDL_RenderCopy(ren, tex, NULL, &r);
+    SDL_Rect rect = {x, y, surf->w, surf->h};
+    SDL_RenderCopy(ren, tex, NULL, &rect);
 
     SDL_FreeSurface(surf);
     SDL_DestroyTexture(tex);
 }
 
-/* ======================================================
-                 BOTONES
-   ====================================================== */
+void draw_section_title(SDL_Renderer* ren, TTF_Font* font, const char* title, int x, int y) {
+    SDL_Color color = {255, 200, 0, 255};  // Amarillo/naranja
+    draw_text(ren, font, title, x, y, color);
+}
 
-static void addButton(const char* label, const char* templ, int x, int y, int needsPlayer) {
-    buttons[btnCount++] = (Button){x, y, 160, 35, label, templ, needsPlayer};
+void draw_button(SDL_Renderer* ren, TTF_Font* font, const Button* btn) {
+    // Fondo del botón
+    SDL_SetRenderDrawColor(ren, 70, 130, 180, 255);
+    SDL_RenderFillRect(ren, &btn->rect);
+
+    // Borde
+    SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+    SDL_RenderDrawRect(ren, &btn->rect);
+
+    // Texto centrado
+    SDL_Color textColor = {255, 255, 255, 255};
+    draw_text(ren, font, btn->label,
+              btn->rect.x + 10,
+              btn->rect.y + (btn->rect.h - 20) / 2,
+              textColor);
+}
+
+void draw_input_field(SDL_Renderer* ren, TTF_Font* font, const InputField* field) {
+    // Label
+    SDL_Color labelColor = {200, 200, 200, 255};
+    draw_text(ren, font, field->label, field->rect.x, field->rect.y - 20, labelColor);
+
+    // Fondo del input
+    if (field->isActive) {
+        SDL_SetRenderDrawColor(ren, 80, 80, 120, 255);  // Azul oscuro si está activo
+    } else {
+        SDL_SetRenderDrawColor(ren, 50, 50, 50, 255);   // Gris oscuro
+    }
+    SDL_RenderFillRect(ren, &field->rect);
+
+    // Borde
+    if (field->isActive) {
+        SDL_SetRenderDrawColor(ren, 100, 150, 255, 255);  // Azul brillante
+    } else {
+        SDL_SetRenderDrawColor(ren, 150, 150, 150, 255);
+    }
+    SDL_RenderDrawRect(ren, &field->rect);
+
+    // Texto del input
+    if (strlen(field->text) > 0) {
+        SDL_Color textColor = {255, 255, 255, 255};
+        draw_text(ren, font, field->text,
+                  field->rect.x + 5,
+                  field->rect.y + 5,
+                  textColor);
+    }
+
+    // Cursor parpadeante si está activo
+    if (field->isActive) {
+        static int cursorBlink = 0;
+        cursorBlink = (cursorBlink + 1) % 60;
+        if (cursorBlink < 30) {
+            int textWidth = (int)strlen(field->text) * 10;  // Aproximado
+            SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+            SDL_Rect cursor = {field->rect.x + 5 + textWidth, field->rect.y + 5, 2, 20};
+            SDL_RenderFillRect(ren, &cursor);
+        }
+    }
+}
+
+void draw_radio_button(SDL_Renderer* ren, TTF_Font* font, const RadioButton* radio) {
+    // Círculo exterior
+    SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+    SDL_Rect outer = {radio->rect.x, radio->rect.y, 16, 16};
+    SDL_RenderDrawRect(ren, &outer);
+
+    // Círculo interior si está seleccionado
+    if (radio->isSelected) {
+        SDL_SetRenderDrawColor(ren, 100, 200, 100, 255);  // Verde
+        SDL_Rect inner = {radio->rect.x + 4, radio->rect.y + 4, 8, 8};
+        SDL_RenderFillRect(ren, &inner);
+    }
+
+    // Label
+    SDL_Color textColor = {255, 255, 255, 255};
+    draw_text(ren, font, radio->label, radio->rect.x + 25, radio->rect.y, textColor);
 }
 
 /* ======================================================
-                 INICIALIZACIÓN
+                 INICIALIZACIÓN DE UI
    ====================================================== */
 
+void admin_ui_init_state(AdminUIState* state) {
+    // Inicializar dropdown de jugadores
+    state->playerDropdown.box = (SDL_Rect){20, 50, 360, 35};
+    state->playerDropdown.isOpen = 0;
+    state->playerDropdown.selectedIndex = -1;
+    state->playerDropdown.count = 0;
+
+    int yOffset = 120;  // Inicio del contenido
+
+    // ===== SECCIÓN COCODRILOS =====
+    // Radio buttons para tipo
+    state->crocTypeGroup.buttons = g_crocRadios;
+    state->crocTypeGroup.count = 2;
+    state->crocTypeGroup.selectedIndex = 0;
+
+    g_crocRadios[0].rect = (SDL_Rect){20, yOffset + 30, 16, 16};
+    g_crocRadios[1].rect = (SDL_Rect){120, yOffset + 30, 16, 16};
+
+    // Input fields
+    state->crocLiana = (InputField){
+        {20, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+    };
+    state->crocAltura = (InputField){
+        {120, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
+    };
+
+    // Botón crear cocodrilo
+    state->btnCrearCroc = (Button){
+        {20, yOffset + 120, 200, 35}, "CREAR COCODRILO", 1
+    };
+
+    yOffset += 180;
+
+    // ===== SECCIÓN FRUTAS =====
+    // Radio buttons para tipo
+    state->fruitTypeGroup.buttons = g_fruitRadios;
+    state->fruitTypeGroup.count = 3;
+    state->fruitTypeGroup.selectedIndex = 0;
+
+    g_fruitRadios[0].rect = (SDL_Rect){20, yOffset + 30, 16, 16};
+    g_fruitRadios[1].rect = (SDL_Rect){120, yOffset + 30, 16, 16};
+    g_fruitRadios[2].rect = (SDL_Rect){230, yOffset + 30, 16, 16};
+
+    // Input fields
+    state->fruitLiana = (InputField){
+        {20, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+    };
+    state->fruitAltura = (InputField){
+        {120, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
+    };
+    state->fruitPuntos = (InputField){
+        {240, yOffset + 70, 100, 30}, "", 4, 0, "Puntos (10-100):"
+    };
+
+    // Botón crear fruta
+    state->btnCrearFruta = (Button){
+        {20, yOffset + 120, 200, 35}, "CREAR FRUTA", 2
+    };
+
+    yOffset += 180;
+
+    // ===== SECCIÓN ELIMINAR FRUTA =====
+    state->delFruitLiana = (InputField){
+        {20, yOffset + 30, 80, 30}, "", 2, 0, "Liana (1-6):"
+    };
+    state->delFruitAltura = (InputField){
+        {120, yOffset + 30, 100, 30}, "", 4, 0, "Altura (0-540):"
+    };
+
+    // Botón eliminar fruta
+    state->btnEliminarFruta = (Button){
+        {20, yOffset + 80, 200, 35}, "ELIMINAR FRUTA", 3
+    };
+
+    // Botón actualizar lista (arriba)
+    state->btnActualizarLista = (Button){
+        {20, 100, 200, 35}, "ACTUALIZAR LISTA", 4
+    };
+
+    state->activeInput = NULL;
+}
+
 int admin_ui_init(AdminUI* ui) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("Error SDL_Init: %s\n", SDL_GetError());
+        return -1;
+    }
 
-    ui->win = SDL_CreateWindow("Admin Panel – DKJr",
-                               SDL_WINDOWPOS_CENTERED,
-                               SDL_WINDOWPOS_CENTERED,
-                               420, 600,
-                               SDL_WINDOW_SHOWN);
-
-    if (!ui->win) return -1;
-
-    ui->ren = SDL_CreateRenderer(ui->win, -1, SDL_RENDERER_ACCELERATED);
-    if (!ui->ren) return -1;
-
-    /* Fuente */
     if (TTF_Init() < 0) {
         printf("Error TTF_Init: %s\n", TTF_GetError());
         return -1;
     }
 
-    ui_font = TTF_OpenFont("assets/arial.ttf", 18);
-    if (!ui_font) {
-        printf("Error cargando fuente TTF\n");
+    ui->win = SDL_CreateWindow("Admin Panel - DKJr",
+                               SDL_WINDOWPOS_CENTERED,
+                               SDL_WINDOWPOS_CENTERED,
+                               400, 750,  // Más alto para todos los campos
+                               SDL_WINDOW_SHOWN);
+    if (!ui->win) {
+        printf("Error creando ventana: %s\n", SDL_GetError());
         return -1;
     }
 
-    /* Botones - NOTA: último parámetro indica si necesita jugador seleccionado */
-    int y = 200;
-    addButton("ACTUALIZAR LISTA", "PLAYERS", 30, y, 0);  // ← NO necesita jugador
-    y += 45;
+    ui->ren = SDL_CreateRenderer(ui->win, -1, SDL_RENDERER_ACCELERATED);
+    if (!ui->ren) {
+        printf("Error creando renderer: %s\n", SDL_GetError());
+        return -1;
+    }
 
-    y += 20;  // Espacio extra
-    addButton("CROC ROJO" ,  "CROC ROJO 2 300", 30, y, 1); y += 45;  // 1 = necesita jugador
-    addButton("CROC AZUL" ,  "CROC AZUL 3 250", 30, y, 1); y += 45;
+    ui->font = TTF_OpenFont("assets/arial.ttf", 16);
+    if (!ui->font) {
+        printf("Advertencia: No se pudo cargar fuente\n");
+    }
 
-    y += 10;
-    addButton("BANANA" , "FRUTA BANANA 4 200", 30, y, 1); y += 45;
-    addButton("NARANJA", "FRUTA NARANJA 5 150", 30, y, 1); y += 45;
-
-    /* Dropdown de jugadores */
-    playerDropDown.box = (SDL_Rect){ 220, 80, 170, 30 };
-    playerDropDown.isOpen = 0;
-    playerDropDown.selectedIndex = -1;
-    playerDropDown.count = 0;
+    admin_ui_init_state(&g_state);
 
     return 0;
 }
 
+void admin_ui_shutdown(AdminUI* ui) {
+    if (ui->font) TTF_CloseFont(ui->font);
+    if (ui->ren) SDL_DestroyRenderer(ui->ren);
+    if (ui->win) SDL_DestroyWindow(ui->win);
+    TTF_Quit();
+    SDL_Quit();
+}
+
 /* ======================================================
-                 ACTUALIZAR LISTA DE JUGADORES (JSON)
+                 ACTUALIZAR LISTA DE JUGADORES
    ====================================================== */
 
 void admin_ui_update_players(const char* json) {
+    printf("[ADMIN] JSON recibido: %s\n", json);
 
-    playerDropDown.count = 0;
-
+    g_state.playerDropdown.count = 0;
     const char* p = json;
 
     while ((p = strstr(p, "\"id\"")) != NULL) {
@@ -123,234 +279,566 @@ void admin_ui_update_players(const char* json) {
         char name[32];
 
         if (sscanf(p, "\"id\":%d,\"name\":\"%31[^\"]\"", &id, name) == 2) {
-            int i = playerDropDown.count++;
-            playerDropDown.ids[i] = id;
-            strncpy(playerDropDown.names[i], name, 31);
+            int i = g_state.playerDropdown.count++;
+            g_state.playerDropdown.ids[i] = id;
+            strncpy(g_state.playerDropdown.names[i], name, 31);
+            g_state.playerDropdown.names[i][31] = '\0';
+
+            printf("[ADMIN] Jugador encontrado: ID=%d, Name=%s\n", id, name);
         }
         p++;
     }
 
-    printf("[ADMIN] Lista de jugadores actualizada (%d jugadores)\n", playerDropDown.count);
+    printf("[ADMIN] Lista actualizada: %d jugadores\n", g_state.playerDropdown.count);
 }
 
 /* ======================================================
-                 RENDER
+                 RENDERIZADO
    ====================================================== */
 
-static void drawDropdown(SDL_Renderer* ren) {
+static void draw_dropdown(SDL_Renderer* ren, TTF_Font* font) {
+    DropDown* dd = &g_state.playerDropdown;
 
+    // Fondo
+    SDL_SetRenderDrawColor(ren, 60, 60, 60, 255);
+    SDL_RenderFillRect(ren, &dd->box);
     SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
-    SDL_RenderFillRect(ren, &playerDropDown.box);
+    SDL_RenderDrawRect(ren, &dd->box);
 
-    if (playerDropDown.selectedIndex >= 0)
-        admin_ui_draw_text(ren, playerDropDown.names[playerDropDown.selectedIndex],
-                           playerDropDown.box.x + 5, playerDropDown.box.y + 5);
-    else
-        admin_ui_draw_text(ren, "Seleccionar jugador",
-                           playerDropDown.box.x + 5, playerDropDown.box.y + 5);
+    // Texto
+    if (dd->selectedIndex >= 0) {
+        char label[64];
+        snprintf(label, sizeof(label), "Jugador: %s", dd->names[dd->selectedIndex]);
+        SDL_Color color = {255, 255, 255, 255};
+        draw_text(ren, font, label, dd->box.x + 10, dd->box.y + 8, color);
+    } else {
+        SDL_Color color = {150, 150, 150, 255};
+        draw_text(ren, font, "Seleccionar jugador...", dd->box.x + 10, dd->box.y + 8, color);
+    }
 
-    if (playerDropDown.isOpen) {
-        for (int i = 0; i < playerDropDown.count; i++) {
-            SDL_Rect opt = { playerDropDown.box.x,
-                             playerDropDown.box.y + 30 * (i+1),
-                             playerDropDown.box.w,
-                             30 };
+    // Opciones si está abierto
+    if (dd->isOpen) {
+        for (int i = 0; i < dd->count; i++) {
+            SDL_Rect opt = {
+                dd->box.x,
+                dd->box.y + (i + 1) * 35,
+                dd->box.w,
+                35
+            };
 
-            SDL_SetRenderDrawColor(ren, 180, 180, 180, 255);
+            SDL_SetRenderDrawColor(ren, 40, 40, 40, 255);
             SDL_RenderFillRect(ren, &opt);
+            SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+            SDL_RenderDrawRect(ren, &opt);
 
-            admin_ui_draw_text(ren, playerDropDown.names[i], opt.x + 5, opt.y + 5);
+            char label[64];
+            snprintf(label, sizeof(label), "%s (ID: %d)", dd->names[i], dd->ids[i]);
+            SDL_Color color = {255, 255, 255, 255};
+            draw_text(ren, font, label, opt.x + 10, opt.y + 8, color);
         }
     }
 }
 
-void admin_ui_render(AdminUI* ui) {
+void admin_ui_render(AdminUI* ui, AdminUIState* state) {
+    SDL_Renderer* ren = ui->ren;
+    TTF_Font* font = ui->font;
 
-    SDL_SetRenderDrawColor(ui->ren, 240, 240, 240, 255);
-    SDL_RenderClear(ui->ren);
+    // Fondo
+    SDL_SetRenderDrawColor(ren, 30, 30, 30, 255);
+    SDL_RenderClear(ren);
 
-    /* Título */
-    admin_ui_draw_text(ui->ren, "ADMINISTRADOR", 130, 20);
-    admin_ui_draw_text(ui->ren, "Jugador objetivo:", 30, 85);
+    // Título
+    SDL_Color titleColor = {255, 255, 255, 255};
+    draw_text(ren, font, "ADMINISTRADOR - DonCEy Kong Jr", 20, 10, titleColor);
 
-    /* Dropdown */
-    drawDropdown(ui->ren);
+    // Dropdown de jugadores
+    draw_dropdown(ren, font);
 
-    /* Botones */
-    for (int i = 0; i < btnCount; i++) {
-        SDL_Rect r = { buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h };
-        SDL_SetRenderDrawColor(ui->ren, 190, 190, 190, 255);
-        SDL_RenderFillRect(ui->ren, &r);
-        SDL_SetRenderDrawColor(ui->ren, 0, 0, 0, 255);
-        SDL_RenderDrawRect(ui->ren, &r);
+    // Botón actualizar lista
+    draw_button(ren, font, &state->btnActualizarLista);
 
-        admin_ui_draw_text(ui->ren, buttons[i].label,
-                           r.x + 8, r.y + 8);
+    int yOffset = 150;
+
+    // ===== SECCIÓN COCODRILOS =====
+    draw_section_title(ren, font, "CREAR COCODRILO", 20, yOffset);
+
+    // Radio buttons
+    SDL_Color labelColor = {200, 200, 200, 255};
+    draw_text(ren, font, "Tipo:", 20, yOffset + 10, labelColor);
+    for (int i = 0; i < state->crocTypeGroup.count; i++) {
+        draw_radio_button(ren, font, &state->crocTypeGroup.buttons[i]);
     }
 
-    SDL_RenderPresent(ui->ren);
+    // Input fields
+    draw_input_field(ren, font, &state->crocLiana);
+    draw_input_field(ren, font, &state->crocAltura);
+
+    // Botón
+    draw_button(ren, font, &state->btnCrearCroc);
+
+    yOffset += 180;
+
+    // ===== SECCIÓN FRUTAS =====
+    draw_section_title(ren, font, "CREAR FRUTA", 20, yOffset);
+
+    // Radio buttons
+    draw_text(ren, font, "Tipo:", 20, yOffset + 10, labelColor);
+    for (int i = 0; i < state->fruitTypeGroup.count; i++) {
+        draw_radio_button(ren, font, &state->fruitTypeGroup.buttons[i]);
+    }
+
+    // Input fields
+    draw_input_field(ren, font, &state->fruitLiana);
+    draw_input_field(ren, font, &state->fruitAltura);
+    draw_input_field(ren, font, &state->fruitPuntos);
+
+    // Botón
+    draw_button(ren, font, &state->btnCrearFruta);
+
+    yOffset += 180;
+
+    // ===== SECCIÓN ELIMINAR FRUTA =====
+    draw_section_title(ren, font, "ELIMINAR FRUTA", 20, yOffset);
+
+    // Input fields
+    draw_input_field(ren, font, &state->delFruitLiana);
+    draw_input_field(ren, font, &state->delFruitAltura);
+
+    // Botón
+    draw_button(ren, font, &state->btnEliminarFruta);
+
+    SDL_RenderPresent(ren);
 }
 
 /* ======================================================
-                 MANEJO DE CLICS
+                 MANEJO DE EVENTOS - SIGUIENTE PARTE
+   ====================================================== */
+/* ======================================================
+   CONTINUACIÓN DE admin_ui.c - PARTE 2
+   MANEJO DE EVENTOS Y COMANDOS
    ====================================================== */
 
-void admin_ui_handle_click(int x, int y, int sock) {
+/* ======================================================
+                 MANEJO DE CLICKS
+   ====================================================== */
 
-    /* CLICK EN DROPDOWN */
-    if (x >= playerDropDown.box.x && x <= playerDropDown.box.x + playerDropDown.box.w &&
-        y >= playerDropDown.box.y && y <= playerDropDown.box.y + playerDropDown.box.h)
+void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
+
+    // Click en botón ACTUALIZAR LISTA
+    if (x >= state->btnActualizarLista.rect.x &&
+        x <= state->btnActualizarLista.rect.x + state->btnActualizarLista.rect.w &&
+        y >= state->btnActualizarLista.rect.y &&
+        y <= state->btnActualizarLista.rect.y + state->btnActualizarLista.rect.h)
     {
-        playerDropDown.isOpen = !playerDropDown.isOpen;
+        printf("[ADMIN] Actualizando lista de jugadores...\n");
+        net_send_line(sock, "ADMIN PLAYERS");
         return;
     }
 
-    /* OPCIONES DESPLEGADAS */
-    if (playerDropDown.isOpen) {
-        for (int i = 0; i < playerDropDown.count; i++) {
+    // Click en dropdown de jugadores
+    if (x >= state->playerDropdown.box.x &&
+        x <= state->playerDropdown.box.x + state->playerDropdown.box.w &&
+        y >= state->playerDropdown.box.y &&
+        y <= state->playerDropdown.box.y + state->playerDropdown.box.h)
+    {
+        state->playerDropdown.isOpen = !state->playerDropdown.isOpen;
+        return;
+    }
 
-            SDL_Rect opt = { playerDropDown.box.x,
-                             playerDropDown.box.y + 30 * (i+1),
-                             playerDropDown.box.w,
-                             30 };
+    // Click en opciones del dropdown
+    if (state->playerDropdown.isOpen) {
+        for (int i = 0; i < state->playerDropdown.count; i++) {
+            SDL_Rect opt = {
+                state->playerDropdown.box.x,
+                state->playerDropdown.box.y + (i + 1) * 35,
+                state->playerDropdown.box.w,
+                35
+            };
 
             if (x >= opt.x && x <= opt.x + opt.w &&
                 y >= opt.y && y <= opt.y + opt.h)
             {
-                playerDropDown.selectedIndex = i;
-                playerDropDown.isOpen = 0;
+                state->playerDropdown.selectedIndex = i;
+                state->playerDropdown.isOpen = 0;
 
-                // SELECCIONAR el jugador en el servidor
-                int pid = playerDropDown.ids[i];
+                int playerId = state->playerDropdown.ids[i];
+
+                // Enviar comando SELECT al servidor
                 char cmd[128];
-                sprintf(cmd, "ADMIN SELECT %d", pid);
+                snprintf(cmd, sizeof(cmd), "ADMIN SELECT %d", playerId);
                 net_send_line(sock, cmd);
 
                 printf("[ADMIN] Jugador seleccionado: %s (ID: %d)\n",
-                       playerDropDown.names[i], pid);
+                       state->playerDropdown.names[i], playerId);
                 return;
             }
         }
     }
 
-    /* CLIC EN BOTONES */
-    for (int i = 0; i < btnCount; i++) {
-
-        Button* b = &buttons[i];
-
-        if (x >= b->x && x <= b->x + b->w &&
-            y >= b->y && y <= b->y + b->h)
+    // Click en radio buttons de COCODRILO
+    for (int i = 0; i < state->crocTypeGroup.count; i++) {
+        RadioButton* radio = &state->crocTypeGroup.buttons[i];
+        if (x >= radio->rect.x && x <= radio->rect.x + 80 &&
+            y >= radio->rect.y && y <= radio->rect.y + 16)
         {
-            // ← CAMBIO CLAVE: Verificar si necesita jugador SOLO para este botón
-            if (b->needsPlayer && playerDropDown.selectedIndex < 0) {
-                printf("[ADMIN] Seleccione un jugador primero.\n");
-                return;
+            // Deseleccionar todos
+            for (int j = 0; j < state->crocTypeGroup.count; j++) {
+                state->crocTypeGroup.buttons[j].isSelected = 0;
             }
-
-            char cmd[128];
-
-            // Si el botón NO necesita jugador (ej: "ACTUALIZAR LISTA")
-            if (!b->needsPlayer) {
-                sprintf(cmd, "ADMIN %s", b->cmdTemplate);
-                net_send_line(sock, cmd);
-                printf("[ADMIN -> SERVER] %s\n", cmd);
-
-                // Si es PLAYERS, leer la respuesta JSON
-                if (strcmp(b->cmdTemplate, "PLAYERS") == 0) {
-                    // Esperar respuesta del servidor
-                    SDL_Delay(100);  // pequeña pausa para que llegue la respuesta
-                }
-            } else {
-                // Si SÍ necesita jugador, enviar comando completo
-                sprintf(cmd, "ADMIN %s", b->cmdTemplate);
-                net_send_line(sock, cmd);
-                printf("[ADMIN -> SERVER] %s\n", cmd);
-            }
+            // Seleccionar este
+            radio->isSelected = 1;
+            state->crocTypeGroup.selectedIndex = i;
             return;
         }
     }
-}
 
-/* ======================================================
-                 THREAD PARA RECIBIR RESPUESTAS DEL SERVIDOR
-   ====================================================== */
-
-#ifdef _WIN32
-#include <winsock2.h>
-DWORD WINAPI receiver_thread(LPVOID arg) {
-#else
-#include <pthread.h>
-void* receiver_thread(void* arg) {
-#endif
-    int sock = *(int*)arg;
-    char buffer[8192];
-    int n;
-
-    while ((n = recv(sock, buffer, sizeof(buffer) - 1, 0)) > 0) {
-        buffer[n] = '\0';
-
-        // Si es un JSON (empieza con '['), actualizar la lista de jugadores
-        if (buffer[0] == '[') {
-            admin_ui_update_players(buffer);
-        } else {
-            printf("[SERVER RESPONDE] %s\n", buffer);
+    // Click en radio buttons de FRUTA
+    for (int i = 0; i < state->fruitTypeGroup.count; i++) {
+        RadioButton* radio = &state->fruitTypeGroup.buttons[i];
+        if (x >= radio->rect.x && x <= radio->rect.x + 100 &&
+            y >= radio->rect.y && y <= radio->rect.y + 16)
+        {
+            // Deseleccionar todos
+            for (int j = 0; j < state->fruitTypeGroup.count; j++) {
+                state->fruitTypeGroup.buttons[j].isSelected = 0;
+            }
+            // Seleccionar este
+            radio->isSelected = 1;
+            state->fruitTypeGroup.selectedIndex = i;
+            return;
         }
     }
 
-    return 0;
+    // Click en input fields - COCODRILOS
+    if (x >= state->crocLiana.rect.x && x <= state->crocLiana.rect.x + state->crocLiana.rect.w &&
+        y >= state->crocLiana.rect.y && y <= state->crocLiana.rect.y + state->crocLiana.rect.h)
+    {
+        // Desactivar todos los demás
+        state->crocLiana.isActive = 1;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->crocLiana;
+        return;
+    }
+
+    if (x >= state->crocAltura.rect.x && x <= state->crocAltura.rect.x + state->crocAltura.rect.w &&
+        y >= state->crocAltura.rect.y && y <= state->crocAltura.rect.y + state->crocAltura.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 1;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->crocAltura;
+        return;
+    }
+
+    // Click en input fields - FRUTAS
+    if (x >= state->fruitLiana.rect.x && x <= state->fruitLiana.rect.x + state->fruitLiana.rect.w &&
+        y >= state->fruitLiana.rect.y && y <= state->fruitLiana.rect.y + state->fruitLiana.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 1;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->fruitLiana;
+        return;
+    }
+
+    if (x >= state->fruitAltura.rect.x && x <= state->fruitAltura.rect.x + state->fruitAltura.rect.w &&
+        y >= state->fruitAltura.rect.y && y <= state->fruitAltura.rect.y + state->fruitAltura.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 1;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->fruitAltura;
+        return;
+    }
+
+    if (x >= state->fruitPuntos.rect.x && x <= state->fruitPuntos.rect.x + state->fruitPuntos.rect.w &&
+        y >= state->fruitPuntos.rect.y && y <= state->fruitPuntos.rect.y + state->fruitPuntos.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 1;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->fruitPuntos;
+        return;
+    }
+
+    // Click en input fields - ELIMINAR FRUTA
+    if (x >= state->delFruitLiana.rect.x && x <= state->delFruitLiana.rect.x + state->delFruitLiana.rect.w &&
+        y >= state->delFruitLiana.rect.y && y <= state->delFruitLiana.rect.y + state->delFruitLiana.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 1;
+        state->delFruitAltura.isActive = 0;
+        state->activeInput = &state->delFruitLiana;
+        return;
+    }
+
+    if (x >= state->delFruitAltura.rect.x && x <= state->delFruitAltura.rect.x + state->delFruitAltura.rect.w &&
+        y >= state->delFruitAltura.rect.y && y <= state->delFruitAltura.rect.y + state->delFruitAltura.rect.h)
+    {
+        state->crocLiana.isActive = 0;
+        state->crocAltura.isActive = 0;
+        state->fruitLiana.isActive = 0;
+        state->fruitAltura.isActive = 0;
+        state->fruitPuntos.isActive = 0;
+        state->delFruitLiana.isActive = 0;
+        state->delFruitAltura.isActive = 1;
+        state->activeInput = &state->delFruitAltura;
+        return;
+    }
+
+    // Click en botón CREAR COCODRILO
+    if (x >= state->btnCrearCroc.rect.x &&
+        x <= state->btnCrearCroc.rect.x + state->btnCrearCroc.rect.w &&
+        y >= state->btnCrearCroc.rect.y &&
+        y <= state->btnCrearCroc.rect.y + state->btnCrearCroc.rect.h)
+    {
+        // Validar jugador seleccionado
+        if (state->playerDropdown.selectedIndex < 0) {
+            printf("[ADMIN] Error: Debe seleccionar un jugador primero\n");
+            return;
+        }
+
+        // Validar campos
+        if (strlen(state->crocLiana.text) == 0 || strlen(state->crocAltura.text) == 0) {
+            printf("[ADMIN] Error: Complete todos los campos\n");
+            return;
+        }
+
+        int liana = atoi(state->crocLiana.text);
+        int altura = atoi(state->crocAltura.text);
+
+        if (liana < 1 || liana > 6) {
+            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+            return;
+        }
+
+        if (altura < 0 || altura > 540) {
+            printf("[ADMIN] Error: Altura debe estar entre 0-540\n");
+            return;
+        }
+
+        // Determinar tipo
+        const char* tipo = state->crocTypeGroup.buttons[state->crocTypeGroup.selectedIndex].label;
+
+        // Enviar comando
+        char cmd[256];
+        snprintf(cmd, sizeof(cmd), "ADMIN CROC %s %d %d", tipo, liana, altura);
+        net_send_line(sock, cmd);
+
+        printf("[ADMIN] Comando enviado: %s\n", cmd);
+
+        // Limpiar campos
+        state->crocLiana.text[0] = '\0';
+        state->crocAltura.text[0] = '\0';
+
+        return;
+    }
+
+    // Click en botón CREAR FRUTA
+    if (x >= state->btnCrearFruta.rect.x &&
+        x <= state->btnCrearFruta.rect.x + state->btnCrearFruta.rect.w &&
+        y >= state->btnCrearFruta.rect.y &&
+        y <= state->btnCrearFruta.rect.y + state->btnCrearFruta.rect.h)
+    {
+        // Validar jugador seleccionado
+        if (state->playerDropdown.selectedIndex < 0) {
+            printf("[ADMIN] Error: Debe seleccionar un jugador primero\n");
+            return;
+        }
+
+        // Validar campos
+        if (strlen(state->fruitLiana.text) == 0 ||
+            strlen(state->fruitAltura.text) == 0 ||
+            strlen(state->fruitPuntos.text) == 0) {
+            printf("[ADMIN] Error: Complete todos los campos\n");
+            return;
+        }
+
+        int liana = atoi(state->fruitLiana.text);
+        int altura = atoi(state->fruitAltura.text);
+        int puntos = atoi(state->fruitPuntos.text);
+
+        if (liana < 1 || liana > 6) {
+            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+            return;
+        }
+
+        if (altura < 0 || altura > 540) {
+            printf("[ADMIN] Error: Altura debe estar entre 0-540\n");
+            return;
+        }
+
+        if (puntos < 10 || puntos > 100) {
+            printf("[ADMIN] Error: Puntos deben estar entre 10-100\n");
+            return;
+        }
+
+        // Determinar tipo
+        const char* tipo = state->fruitTypeGroup.buttons[state->fruitTypeGroup.selectedIndex].label;
+
+        // Convertir tipo a mayúsculas
+        char tipoUpper[32];
+        snprintf(tipoUpper, sizeof(tipoUpper), "%s", tipo);
+        for (int i = 0; tipoUpper[i]; i++) {
+            if (tipoUpper[i] >= 'a' && tipoUpper[i] <= 'z') {
+                tipoUpper[i] = tipoUpper[i] - 32;
+            }
+        }
+
+        // Enviar comando
+        char cmd[256];
+        snprintf(cmd, sizeof(cmd), "ADMIN FRUIT %s %d %d %d", tipoUpper, liana, altura, puntos);
+        net_send_line(sock, cmd);
+
+        printf("[ADMIN] Comando enviado: %s\n", cmd);
+
+        // Limpiar campos
+        state->fruitLiana.text[0] = '\0';
+        state->fruitAltura.text[0] = '\0';
+        state->fruitPuntos.text[0] = '\0';
+
+        return;
+    }
+
+    // Click en botón ELIMINAR FRUTA
+    if (x >= state->btnEliminarFruta.rect.x &&
+        x <= state->btnEliminarFruta.rect.x + state->btnEliminarFruta.rect.w &&
+        y >= state->btnEliminarFruta.rect.y &&
+        y <= state->btnEliminarFruta.rect.y + state->btnEliminarFruta.rect.h)
+    {
+        // Validar jugador seleccionado
+        if (state->playerDropdown.selectedIndex < 0) {
+            printf("[ADMIN] Error: Debe seleccionar un jugador primero\n");
+            return;
+        }
+
+        // Validar campos
+        if (strlen(state->delFruitLiana.text) == 0 || strlen(state->delFruitAltura.text) == 0) {
+            printf("[ADMIN] Error: Complete todos los campos\n");
+            return;
+        }
+
+        int liana = atoi(state->delFruitLiana.text);
+        int altura = atoi(state->delFruitAltura.text);
+
+        if (liana < 1 || liana > 6) {
+            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+            return;
+        }
+
+        if (altura < 0 || altura > 540) {
+            printf("[ADMIN] Error: Altura debe estar entre 0-540\n");
+            return;
+        }
+
+        // Enviar comando
+        char cmd[256];
+        snprintf(cmd, sizeof(cmd), "ADMIN DELFRUIT %d %d", liana, altura);
+        net_send_line(sock, cmd);
+
+        printf("[ADMIN] Comando enviado: %s\n", cmd);
+
+        // Limpiar campos
+        state->delFruitLiana.text[0] = '\0';
+        state->delFruitAltura.text[0] = '\0';
+
+        return;
+    }
 }
 
 /* ======================================================
-                 MAIN LOOP
+                 MANEJO DE TECLADO
    ====================================================== */
 
-void admin_ui_run() {
+void admin_ui_handle_keypress(AdminUIState* state, SDL_Event* e) {
+    if (!state->activeInput) return;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL ERROR: %s\n", SDL_GetError());
-        return;
+    if (e->type == SDL_KEYDOWN) {
+        if (e->key.keysym.sym == SDLK_BACKSPACE) {
+            int len = strlen(state->activeInput->text);
+            if (len > 0) {
+                state->activeInput->text[len - 1] = '\0';
+            }
+        }
+        else if (e->key.keysym.sym == SDLK_RETURN || e->key.keysym.sym == SDLK_ESCAPE) {
+            // Desactivar input actual
+            state->activeInput->isActive = 0;
+            state->activeInput = NULL;
+        }
     }
+    else if (e->type == SDL_TEXTINPUT) {
+        int len = strlen(state->activeInput->text);
+        if (len < state->activeInput->maxLen) {
+            // Solo permitir números
+            if (e->text.text[0] >= '0' && e->text.text[0] <= '9') {
+                strncat(state->activeInput->text, e->text.text, 1);
+            }
+        }
+    }
+}
 
+/* ======================================================
+                 LOOP PRINCIPAL
+   ====================================================== */
+
+void admin_ui_run(int sock) {
     AdminUI ui;
-
     if (admin_ui_init(&ui) < 0) {
-        printf("No se pudo iniciar UI admin\n");
         return;
     }
 
-    /* Conectar a servidor */
-    sock_global = net_connect("127.0.0.1", 5000);
-    if (sock_global < 0) {
-        printf("No se pudo conectar al servidor\n");
-        return;
-    }
+    g_sock = sock;
 
-    /* Iniciar thread para recibir respuestas */
-#ifdef _WIN32
-    HANDLE thread = CreateThread(NULL, 0, receiver_thread, &sock_global, 0, NULL);
-#else
-    pthread_t thread;
-    pthread_create(&thread, NULL, receiver_thread, &sock_global);
-#endif
+    // Iniciar hilo receptor
+    net_start_receiver(sock, NULL);  // NULL porque no es cliente de juego
+
+    // Pedir lista inicial
+    net_send_line(sock, "ADMIN PLAYERS");
 
     SDL_Event e;
     int running = 1;
 
     while (running) {
-
         while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT)
+            if (e.type == SDL_QUIT) {
                 running = 0;
-
-            if (e.type == SDL_MOUSEBUTTONDOWN)
-                admin_ui_handle_click(e.button.x, e.button.y, sock_global);
+            }
+            else if (e.type == SDL_MOUSEBUTTONDOWN) {
+                admin_ui_handle_click(&g_state, e.button.x, e.button.y, sock);
+            }
+            else if (e.type == SDL_KEYDOWN || e.type == SDL_TEXTINPUT) {
+                admin_ui_handle_keypress(&g_state, &e);
+            }
         }
 
-        admin_ui_render(&ui);
-        SDL_Delay(16);
+        admin_ui_render(&ui, &g_state);
+        SDL_Delay(16);  // ~60 FPS
     }
 
-    SDL_DestroyRenderer(ui.ren);
-    SDL_DestroyWindow(ui.win);
-    SDL_Quit();
+    admin_ui_shutdown(&ui);
 }

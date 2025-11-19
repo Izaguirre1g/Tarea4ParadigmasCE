@@ -171,9 +171,9 @@ public class AdminConsole implements Runnable {
         Boolean resultado = manager.eliminarFruta(lianaId, altura);
 
         if (resultado)
-            System.out.println("✅ Fruta eliminada");
+            System.out.println("Fruta eliminada");
         else
-            System.out.println("❌ Error al eliminar fruta");
+            System.out.println("Error al eliminar fruta");
     }
 
     /**

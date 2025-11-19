@@ -1,5 +1,6 @@
 package entities;
 
+import model.Liana;
 import model.Posicion;
 import patterns.strategy.MovementStrategy;
 
@@ -14,6 +15,7 @@ public class Cocodrilo {
     private Integer direccion;
     private Boolean activo;
     private MovementStrategy strategy;
+    private Liana liana;
 
     public Cocodrilo(Posicion posicion, Double velocidad, MovementStrategy strategy) {
         this.id = nextId++;
@@ -22,6 +24,7 @@ public class Cocodrilo {
         this.strategy = strategy;
         this.direccion = 1;
         this.activo = Boolean.TRUE;
+        this.liana = null;
     }
 
     public void update() {
@@ -47,6 +50,9 @@ public class Cocodrilo {
 
     public MovementStrategy getStrategy() { return strategy; }
     public void setStrategy(MovementStrategy strategy) { this.strategy = strategy; }
+
+    public Liana getLiana() { return liana; }
+    public void setLiana(Liana liana) { this.liana = liana; }
 
     public String toNetworkString() {
         String tipo = (strategy instanceof patterns.strategy.RedCrocStrategy) ? "RED" : "BLUE";

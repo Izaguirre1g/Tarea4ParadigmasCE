@@ -112,8 +112,7 @@ public class ClientHandler implements Observer, Runnable {
            (admin_client en C) entra aquí.
         ============================ */
         if (line.startsWith("ADMIN")) {
-
-            isGameClient = false;   // este socket no recibe frames de juego
+            isGameClient = false;
 
             String[] p = line.split("\\s+");
             if (p.length < 2) {
@@ -123,8 +122,9 @@ public class ClientHandler implements Observer, Runnable {
 
             String cmd = p[1].toUpperCase();
 
-            // ADMIN PLAYERS  -> devolver JSON de jugadores
-            // TAMBIÉN funciona para espectadores que necesitan ver la lista
+            // ========================================
+            // COMANDO: ADMIN PLAYERS
+            // ========================================
             if ("PLAYERS".equals(cmd)) {
                 String json = PlayerRegistry.getPlayersJson();
                 out.println(json);
@@ -132,7 +132,9 @@ public class ClientHandler implements Observer, Runnable {
                 return;
             }
 
-            // ADMIN SELECT <playerId> -> seleccionar partida objetivo
+            // ========================================
+            // COMANDO: ADMIN SELECT <playerId>
+            // ========================================
             if ("SELECT".equals(cmd)) {
                 if (p.length < 3) {
                     out.println("ERR falta id jugador");
@@ -141,14 +143,16 @@ public class ClientHandler implements Observer, Runnable {
                 try {
                     adminTargetPlayerId = Integer.parseInt(p[2]);
                     out.println("OK admin seleccionado jugador " + adminTargetPlayerId);
+                    System.out.println("[SERVER] Admin seleccionó jugador ID: " + adminTargetPlayerId);
                 } catch (NumberFormatException e) {
                     out.println("ERR id inválido");
                 }
                 return;
             }
 
-            // Cualquier otro comando ADMIN se aplica a la partida
-            // del jugador seleccionado (adminTargetPlayerId)
+            // ========================================
+            // Para los siguientes comandos, necesitamos un jugador seleccionado
+            // ========================================
             if (adminTargetPlayerId == null) {
                 out.println("ERR no hay jugador seleccionado (use ADMIN SELECT <id>)");
                 return;
@@ -160,9 +164,138 @@ public class ClientHandler implements Observer, Runnable {
                 return;
             }
 
-            // Reenviamos la línea completa al GameManager de esa partida
-            String res = targetGame.procesarComandoAdmin(line);
-            out.println(res);
+            // ========================================
+            // COMANDO: ADMIN CROC <TIPO> <LIANA> <ALTURA>
+            // ========================================
+            if ("CROC".equals(cmd)) {
+                if (p.length < 5) {
+                    out.println("ERR formato: ADMIN CROC <TIPO> <LIANA> <ALTURA>");
+                    return;
+                }
+
+                try {
+                    String tipo = p[2].toUpperCase();     // ROJO o AZUL
+                    int liana = Integer.parseInt(p[3]);   // 1-6
+                    int altura = Integer.parseInt(p[4]);  // 0-540
+
+                    // Validar parámetros
+                    if (liana < 1 || liana > 6) {
+                        out.println("ERR liana debe estar entre 1-6");
+                        return;
+                    }
+
+                    if (altura < 0 || altura > 540) {
+                        out.println("ERR altura debe estar entre 0-540");
+                        return;
+                    }
+
+                    if (!tipo.equals("ROJO") && !tipo.equals("AZUL")) {
+                        out.println("ERR tipo debe ser ROJO o AZUL");
+                        return;
+                    }
+
+                    // Crear cocodrilo en la posición especificada
+                    targetGame.crearCocodriloAdmin(tipo, liana, altura);
+                    out.println("OK cocodrilo " + tipo + " creado en liana " + liana + " altura " + altura);
+                    System.out.println("[ADMIN CMD] → ADMIN CROC " + tipo + " " + liana + " " + altura);
+
+                } catch (NumberFormatException e) {
+                    out.println("ERR parámetros numéricos inválidos");
+                }
+                return;
+            }
+
+            // ========================================
+            // COMANDO: ADMIN FRUIT <TIPO> <LIANA> <ALTURA> <PUNTOS>
+            // ========================================
+            if ("FRUIT".equals(cmd)) {
+                if (p.length < 6) {
+                    out.println("ERR formato: ADMIN FRUIT <TIPO> <LIANA> <ALTURA> <PUNTOS>");
+                    return;
+                }
+
+                try {
+                    String tipo = p[2].toUpperCase();     // BANANA, NARANJA, CEREZA
+                    int liana = Integer.parseInt(p[3]);   // 1-6
+                    int altura = Integer.parseInt(p[4]);  // 0-540
+                    int puntos = Integer.parseInt(p[5]);  // 10-100
+
+                    // Validar parámetros
+                    if (liana < 1 || liana > 6) {
+                        out.println("ERR liana debe estar entre 1-6");
+                        return;
+                    }
+
+                    if (altura < 0 || altura > 540) {
+                        out.println("ERR altura debe estar entre 0-540");
+                        return;
+                    }
+
+                    if (puntos < 10 || puntos > 100) {
+                        out.println("ERR puntos deben estar entre 10-100");
+                        return;
+                    }
+
+                    if (!tipo.equals("BANANA") && !tipo.equals("NARANJA") && !tipo.equals("CEREZA")) {
+                        out.println("ERR tipo debe ser BANANA, NARANJA o CEREZA");
+                        return;
+                    }
+
+                    // Crear fruta
+                    targetGame.crearFrutaAdmin(tipo, liana, altura, puntos);
+                    out.println("OK fruta " + tipo + " creada en liana " + liana +
+                            " altura " + altura + " con " + puntos + " puntos");
+                    System.out.println("[ADMIN CMD] → ADMIN FRUIT " + tipo + " " + liana +
+                            " " + altura + " " + puntos);
+
+                } catch (NumberFormatException e) {
+                    out.println("ERR parámetros numéricos inválidos");
+                }
+                return;
+            }
+
+            // ========================================
+            // COMANDO: ADMIN DELFRUIT <LIANA> <ALTURA>
+            // ========================================
+            if ("DELFRUIT".equals(cmd)) {
+                if (p.length < 4) {
+                    out.println("ERR formato: ADMIN DELFRUIT <LIANA> <ALTURA>");
+                    return;
+                }
+
+                try {
+                    int liana = Integer.parseInt(p[2]);   // 1-6
+                    int altura = Integer.parseInt(p[3]);  // 0-540
+
+                    // Validar parámetros
+                    if (liana < 1 || liana > 6) {
+                        out.println("ERR liana debe estar entre 1-6");
+                        return;
+                    }
+
+                    if (altura < 0 || altura > 540) {
+                        out.println("ERR altura debe estar entre 0-540");
+                        return;
+                    }
+
+                    // Eliminar fruta
+                    boolean eliminada = targetGame.eliminarFrutaAdmin(liana, altura);
+
+                    if (eliminada) {
+                        out.println("OK fruta eliminada en liana " + liana + " altura " + altura);
+                        System.out.println("[ADMIN CMD] → ADMIN DELFRUIT " + liana + " " + altura);
+                    } else {
+                        out.println("ERR no se encontró fruta en esa posición");
+                    }
+
+                } catch (NumberFormatException e) {
+                    out.println("ERR parámetros numéricos inválidos");
+                }
+                return;
+            }
+
+            // Si llegamos aquí, comando desconocido
+            out.println("ERR comando ADMIN desconocido: " + cmd);
             return;
         }
 
