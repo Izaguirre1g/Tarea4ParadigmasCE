@@ -96,34 +96,27 @@ static void* recv_thread(void* _) {
         buf[n] = 0;  // Terminar string recibida
 
         /* ===========================================================
-           1) Detectar si es JSON para admin_client
+           Detectar si es JSON para admin_client o spectator_client
            JSON puede empezar con '{' (objeto) o '[' (array)
+
+           NOTA: En el cliente unificado, ambas macros están definidas,
+           por lo que debemos llamar a AMBAS funciones
            =========================================================== */
-#ifdef ADMIN_CLIENT
+#if defined(ADMIN_CLIENT) || defined(SPECTATOR_CLIENT)
         if (buf[0] == '[' || buf[0] == '{') {
 
             strncpy(g_players_json, buf, sizeof(g_players_json) - 1);
 
+            // Llamar a ambas funciones si están disponibles
+            #ifdef ADMIN_CLIENT
             extern void admin_ui_update_players(const char* json);
             admin_ui_update_players(g_players_json);
+            #endif
 
-            continue;   // NO procesar como estado de juego
-        }
-#endif
-
-        /* ===========================================================
-           2) Detectar si es JSON para spectator_client
-           El espectador TAMBIÉN necesita recibir JSON para la lista
-           =========================================================== */
-#ifdef SPECTATOR_CLIENT
-        if (buf[0] == '[' || buf[0] == '{') {
-
-            printf("[NET] JSON recibido: %s\n", buf);
-
-            strncpy(g_players_json, buf, sizeof(g_players_json) - 1);
-
+            #ifdef SPECTATOR_CLIENT
             extern void spectator_ui_update_players(const char* json);
             spectator_ui_update_players(g_players_json);
+            #endif
 
             continue;   // NO procesar como estado de juego
         }

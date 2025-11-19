@@ -138,86 +138,93 @@ void draw_radio_button(SDL_Renderer* ren, TTF_Font* font, const RadioButton* rad
    ====================================================== */
 
 void admin_ui_init_state(AdminUIState* state) {
-    // Inicializar dropdown de jugadores
-    state->playerDropdown.box = (SDL_Rect){20, 50, 360, 35};
+    // Inicializar dropdown de jugadores (centrado arriba)
+    state->playerDropdown.box = (SDL_Rect){20, 50, 450, 35};
     state->playerDropdown.isOpen = 0;
     state->playerDropdown.selectedIndex = -1;
     state->playerDropdown.count = 0;
 
-    int yOffset = 120;  // Inicio del contenido
+    // Botón actualizar lista (al lado del dropdown)
+    state->btnActualizarLista = (Button){
+        {490, 50, 200, 35}, "ACTUALIZAR LISTA", 4
+    };
 
-    // ===== SECCIÓN COCODRILOS =====
-    // Radio buttons para tipo
+    // COLUMNA IZQUIERDA - X base = 20
+    int leftX = 20;
+    int yOffset = 110;  // Inicio del contenido
+
+    // ===== SECCIÓN COCODRILOS (Columna Izquierda) =====
     state->crocTypeGroup.buttons = g_crocRadios;
     state->crocTypeGroup.count = 2;
     state->crocTypeGroup.selectedIndex = 0;
 
-    g_crocRadios[0].rect = (SDL_Rect){20, yOffset + 30, 16, 16};
-    g_crocRadios[1].rect = (SDL_Rect){120, yOffset + 30, 16, 16};
+    // Radio buttons
+    g_crocRadios[0].rect = (SDL_Rect){leftX + 50, yOffset + 30, 16, 16};
+    g_crocRadios[1].rect = (SDL_Rect){leftX + 130, yOffset + 30, 16, 16};
 
     // Input fields
     state->crocLiana = (InputField){
-        {20, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
     };
     state->crocAltura = (InputField){
-        {120, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
+        {leftX + 100, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
     };
 
     // Botón crear cocodrilo
     state->btnCrearCroc = (Button){
-        {20, yOffset + 120, 200, 35}, "CREAR COCODRILO", 1
+        {leftX, yOffset + 115, 200, 35}, "CREAR COCODRILO", 1
     };
 
-    yOffset += 180;
+    // ===== SECCIÓN FRUTAS (Columna Izquierda, debajo de cocodrilos) =====
+    yOffset += 180;  // Espacio entre secciones en la misma columna
 
-    // ===== SECCIÓN FRUTAS =====
-    // Radio buttons para tipo
     state->fruitTypeGroup.buttons = g_fruitRadios;
     state->fruitTypeGroup.count = 3;
     state->fruitTypeGroup.selectedIndex = 0;
 
-    g_fruitRadios[0].rect = (SDL_Rect){20, yOffset + 30, 16, 16};
-    g_fruitRadios[1].rect = (SDL_Rect){120, yOffset + 30, 16, 16};
-    g_fruitRadios[2].rect = (SDL_Rect){230, yOffset + 30, 16, 16};
+    // Radio buttons
+    g_fruitRadios[0].rect = (SDL_Rect){leftX + 50, yOffset + 30, 16, 16};
+    g_fruitRadios[1].rect = (SDL_Rect){leftX + 130, yOffset + 30, 16, 16};
+    g_fruitRadios[2].rect = (SDL_Rect){leftX + 210, yOffset + 30, 16, 16};
 
-    // Input fields
+    // Input fields (primera fila)
     state->fruitLiana = (InputField){
-        {20, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
     };
     state->fruitAltura = (InputField){
-        {120, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
+        {leftX + 100, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
     };
+
+    // Input fields (segunda fila para puntos)
     state->fruitPuntos = (InputField){
-        {240, yOffset + 70, 100, 30}, "", 4, 0, "Puntos (10-100):"
+        {leftX, yOffset + 115, 120, 30}, "", 4, 0, "Puntos (10-100):"
     };
 
     // Botón crear fruta
     state->btnCrearFruta = (Button){
-        {20, yOffset + 120, 200, 35}, "CREAR FRUTA", 2
+        {leftX, yOffset + 160, 200, 35}, "CREAR FRUTA", 2
     };
 
-    yOffset += 180;
+    // COLUMNA DERECHA - X base = 380
+    int rightX = 380;
+    yOffset = 110;  // Reset para la columna derecha
 
-    // ===== SECCIÓN ELIMINAR FRUTA =====
+    // ===== SECCIÓN ELIMINAR FRUTA (Columna Derecha) =====
     state->delFruitLiana = (InputField){
-        {20, yOffset + 30, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {rightX, yOffset + 40, 80, 30}, "", 2, 0, "Liana (1-6):"
     };
     state->delFruitAltura = (InputField){
-        {120, yOffset + 30, 100, 30}, "", 4, 0, "Altura (0-540):"
+        {rightX + 100, yOffset + 40, 100, 30}, "", 4, 0, "Altura (0-540):"
     };
 
     // Botón eliminar fruta
     state->btnEliminarFruta = (Button){
-        {20, yOffset + 80, 200, 35}, "ELIMINAR FRUTA", 3
-    };
-
-    // Botón actualizar lista (arriba)
-    state->btnActualizarLista = (Button){
-        {20, 100, 200, 35}, "ACTUALIZAR LISTA", 4
+        {rightX, yOffset + 85, 200, 35}, "ELIMINAR FRUTA", 3
     };
 
     state->activeInput = NULL;
 }
+
 
 int admin_ui_init(AdminUI* ui) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -233,7 +240,7 @@ int admin_ui_init(AdminUI* ui) {
     ui->win = SDL_CreateWindow("Admin Panel - DKJr",
                                SDL_WINDOWPOS_CENTERED,
                                SDL_WINDOWPOS_CENTERED,
-                               400, 750,  // Más alto para todos los campos
+                               720, 500,  // Formato horizontal: 720x500
                                SDL_WINDOW_SHOWN);
     if (!ui->win) {
         printf("Error creando ventana: %s\n", SDL_GetError());
@@ -347,24 +354,34 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
     SDL_SetRenderDrawColor(ren, 30, 30, 30, 255);
     SDL_RenderClear(ren);
 
-    // Título
+    // Título principal
     SDL_Color titleColor = {255, 255, 255, 255};
     draw_text(ren, font, "ADMINISTRADOR - DonCEy Kong Jr", 20, 10, titleColor);
 
     // Dropdown de jugadores
     draw_dropdown(ren, font);
 
-    // Botón actualizar lista
+    // Botón actualizar lista (al lado del dropdown)
     draw_button(ren, font, &state->btnActualizarLista);
 
-    int yOffset = 150;
+    // Línea divisoria horizontal
+    SDL_SetRenderDrawColor(ren, 80, 80, 80, 255);
+    SDL_RenderDrawLine(ren, 0, 100, 720, 100);
 
-    // ===== SECCIÓN COCODRILOS =====
-    draw_section_title(ren, font, "CREAR COCODRILO", 20, yOffset);
+    // Línea divisoria vertical entre columnas
+    SDL_RenderDrawLine(ren, 360, 100, 360, 500);
 
-    // Radio buttons
     SDL_Color labelColor = {200, 200, 200, 255};
-    draw_text(ren, font, "Tipo:", 20, yOffset + 10, labelColor);
+
+    // ===== COLUMNA IZQUIERDA =====
+    int leftX = 20;
+    int yOffset = 110;
+
+    // SECCIÓN COCODRILOS
+    draw_section_title(ren, font, "CREAR COCODRILO", leftX, yOffset);
+
+    // Radio buttons con label "Tipo:"
+    draw_text(ren, font, "Tipo:", leftX, yOffset + 30, labelColor);
     for (int i = 0; i < state->crocTypeGroup.count; i++) {
         draw_radio_button(ren, font, &state->crocTypeGroup.buttons[i]);
     }
@@ -378,11 +395,11 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
 
     yOffset += 180;
 
-    // ===== SECCIÓN FRUTAS =====
-    draw_section_title(ren, font, "CREAR FRUTA", 20, yOffset);
+    // SECCIÓN FRUTAS
+    draw_section_title(ren, font, "CREAR FRUTA", leftX, yOffset);
 
-    // Radio buttons
-    draw_text(ren, font, "Tipo:", 20, yOffset + 10, labelColor);
+    // Radio buttons con label "Tipo:"
+    draw_text(ren, font, "Tipo:", leftX, yOffset + 30, labelColor);
     for (int i = 0; i < state->fruitTypeGroup.count; i++) {
         draw_radio_button(ren, font, &state->fruitTypeGroup.buttons[i]);
     }
@@ -395,10 +412,12 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
     // Botón
     draw_button(ren, font, &state->btnCrearFruta);
 
-    yOffset += 180;
+    // ===== COLUMNA DERECHA =====
+    int rightX = 380;
+    yOffset = 110;
 
-    // ===== SECCIÓN ELIMINAR FRUTA =====
-    draw_section_title(ren, font, "ELIMINAR FRUTA", 20, yOffset);
+    // SECCIÓN ELIMINAR FRUTA
+    draw_section_title(ren, font, "ELIMINAR FRUTA", rightX, yOffset);
 
     // Input fields
     draw_input_field(ren, font, &state->delFruitLiana);

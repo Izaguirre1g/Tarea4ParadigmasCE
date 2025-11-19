@@ -9,10 +9,7 @@
 #include "game_state.h"
 #include "render.h"
 
-int main(int argc, char* argv[]) {
-    (void)argc;
-    (void)argv;
-
+void spectator_ui_main(void) {
     printf("===========================================\n");
     printf("  DONKEY KONG JR - CLIENTE ESPECTADOR\n");
     printf("===========================================\n");
@@ -20,13 +17,13 @@ int main(int argc, char* argv[]) {
     // Inicializar SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Error SDL_Init: %s\n", SDL_GetError());
-        return 1;
+        return;
     }
 
     if (TTF_Init() < 0) {
         printf("Error TTF_Init: %s\n", TTF_GetError());
         SDL_Quit();
-        return 1;
+        return;
     }
 
     // Crear interfaz del espectador
@@ -35,7 +32,7 @@ int main(int argc, char* argv[]) {
         printf("Error inicializando interfaz espectador\n");
         TTF_Quit();
         SDL_Quit();
-        return 1;
+        return;
     }
 
     // Estado del juego (lo que se observa)
@@ -53,7 +50,7 @@ int main(int argc, char* argv[]) {
         spectator_ui_shutdown(&ui);
         TTF_Quit();
         SDL_Quit();
-        return 1;
+        return;
     }
 
     printf("[SPECTATOR] Conectado al servidor\n");
@@ -119,5 +116,4 @@ int main(int argc, char* argv[]) {
     SDL_Quit();
 
     printf("[SPECTATOR] Desconectado\n");
-    return 0;
 }

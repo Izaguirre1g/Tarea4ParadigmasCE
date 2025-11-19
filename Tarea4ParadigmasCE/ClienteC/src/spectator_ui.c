@@ -89,8 +89,8 @@ int spectator_ui_init(SpectatorUI* ui) {
         // No es fatal, continuamos
     }
 
-    // Inicializar dropdown
-    playerDropDown.box = (SDL_Rect){ WIN_W / 2 - 100, WIN_H + 30, 200, 35 };
+    // Inicializar dropdown (a la derecha para evitar superposición)
+    playerDropDown.box = (SDL_Rect){ WIN_W / 2 + 120, WIN_H + 30, 250, 35 };
     playerDropDown.isOpen = 0;
     playerDropDown.selectedIndex = -1;
     playerDropDown.count = 0;
@@ -152,11 +152,12 @@ void spectator_ui_update_players(const char* json) {
 
 static void drawDropdown(SDL_Renderer* ren) {
 
-    // Fondo del dropdown
-    SDL_SetRenderDrawColor(ren, 60, 60, 60, 255);
+    // Fondo del dropdown principal (más brillante para mayor visibilidad)
+    SDL_SetRenderDrawColor(ren, 80, 80, 90, 255);
     SDL_RenderFillRect(ren, &playerDropDown.box);
 
-    SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+    // Borde más grueso y visible
+    SDL_SetRenderDrawColor(ren, 255, 255, 255, 255); // Blanco
     SDL_RenderDrawRect(ren, &playerDropDown.box);
 
     // Texto del dropdown
@@ -164,15 +165,36 @@ static void drawDropdown(SDL_Renderer* ren) {
         char label[64];
         snprintf(label, sizeof(label), "Observando: %s",
                  playerDropDown.names[playerDropDown.selectedIndex]);
-        spectator_draw_text(ren, ui_font, label,
-                           playerDropDown.box.x + 10, playerDropDown.box.y + 8);
+        if (ui_font) {
+            spectator_draw_text(ren, ui_font, label,
+                               playerDropDown.box.x + 10, playerDropDown.box.y + 8);
+        }
     } else {
-        spectator_draw_text(ren, ui_font, "Seleccionar jugador...",
-                           playerDropDown.box.x + 10, playerDropDown.box.y + 8);
+        if (ui_font) {
+            // Mostrar mensaje diferente si no hay jugadores
+            if (playerDropDown.count == 0) {
+                spectator_draw_text(ren, ui_font, "Actualiza primero la lista <-",
+                                   playerDropDown.box.x + 10, playerDropDown.box.y + 8);
+            } else {
+                spectator_draw_text(ren, ui_font, "Seleccionar jugador...",
+                                   playerDropDown.box.x + 10, playerDropDown.box.y + 8);
+            }
+        }
+    }
+
+    // Indicador visual de si hay jugadores
+    if (playerDropDown.count > 0 && ui_font) {
+        char countLabel[32];
+        snprintf(countLabel, sizeof(countLabel), "(%d)", playerDropDown.count);
+        spectator_draw_text(ren, ui_font, countLabel,
+                           playerDropDown.box.x + playerDropDown.box.w - 40,
+                           playerDropDown.box.y + 8);
     }
 
     // Si está abierto, mostrar opciones
     if (playerDropDown.isOpen) {
+        printf("[DEBUG] Dibujando dropdown abierto con %d jugadores\n", playerDropDown.count);
+
         for (int i = 0; i < playerDropDown.count; i++) {
             SDL_Rect opt = {
                 playerDropDown.box.x,
@@ -181,16 +203,27 @@ static void drawDropdown(SDL_Renderer* ren) {
                 35
             };
 
-            SDL_SetRenderDrawColor(ren, 40, 40, 40, 255);
+            // Fondo de la opción (más claro que el fondo del dropdown principal)
+            SDL_SetRenderDrawColor(ren, 100, 100, 110, 255);
             SDL_RenderFillRect(ren, &opt);
-            SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+
+            // Borde blanco visible
+            SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
             SDL_RenderDrawRect(ren, &opt);
 
+            // Texto de la opción
             char label[64];
             snprintf(label, sizeof(label), "%s (ID: %d)",
                      playerDropDown.names[i], playerDropDown.ids[i]);
-            spectator_draw_text(ren, ui_font, label, opt.x + 10, opt.y + 8);
+
+            if (ui_font) {
+                spectator_draw_text(ren, ui_font, label, opt.x + 10, opt.y + 8);
+            }
+
+            printf("[DEBUG] Opción %d: %s en Y=%d\n", i, label, opt.y);
         }
+    } else {
+        printf("[DEBUG] Dropdown cerrado (count=%d)\n", playerDropDown.count);
     }
 }
 
@@ -252,13 +285,13 @@ void spectator_ui_render(SpectatorUI* ui, const GameState* gs) {
         spectator_draw_text(ui->ren, ui_font, "MODO ESPECTADOR", 20, WIN_H + 10);
     }
 
-    // Dropdown de jugadores
-    drawDropdown(ui->ren);
-
-    // Botón de actualizar
-    btnRefresh.rect.x = WIN_W / 2 - 100;
+    // Botón de actualizar (a la IZQUIERDA)
+    btnRefresh.rect.x = WIN_W / 2 - 350;
     btnRefresh.rect.y = WIN_H + 75;
     drawButton(ui->ren, &btnRefresh);
+
+    // Dropdown de jugadores (a la DERECHA - completamente separado)
+    drawDropdown(ui->ren);
 
     SDL_RenderPresent(ui->ren);
 }
@@ -268,6 +301,12 @@ void spectator_ui_render(SpectatorUI* ui, const GameState* gs) {
    ====================================================== */
 
 void spectator_ui_handle_click(SpectatorUI* ui, int x, int y, int sock) {
+
+    printf("[DEBUG] Click en X=%d, Y=%d\n", x, y);
+    printf("[DEBUG] Botón rect: X=%d, Y=%d, W=%d, H=%d\n",
+           btnRefresh.rect.x, btnRefresh.rect.y, btnRefresh.rect.w, btnRefresh.rect.h);
+    printf("[DEBUG] Dropdown rect: X=%d, Y=%d, W=%d, H=%d\n",
+           playerDropDown.box.x, playerDropDown.box.y, playerDropDown.box.w, playerDropDown.box.h);
 
     // Click en el botón ACTUALIZAR LISTA
     if (x >= btnRefresh.rect.x && x <= btnRefresh.rect.x + btnRefresh.rect.w &&
@@ -282,13 +321,25 @@ void spectator_ui_handle_click(SpectatorUI* ui, int x, int y, int sock) {
     if (x >= playerDropDown.box.x && x <= playerDropDown.box.x + playerDropDown.box.w &&
         y >= playerDropDown.box.y && y <= playerDropDown.box.y + playerDropDown.box.h)
     {
+        if (playerDropDown.count == 0) {
+            printf("[SPECTATOR] ⚠️  No hay jugadores disponibles!\n");
+            printf("[SPECTATOR] 👆 Haz click en 'ACTUALIZAR LISTA' primero (botón izquierdo)\n");
+            printf("[SPECTATOR] 📍 Botón está en X=%d-%d, Y=%d-%d\n",
+                   btnRefresh.rect.x, btnRefresh.rect.x + btnRefresh.rect.w,
+                   btnRefresh.rect.y, btnRefresh.rect.y + btnRefresh.rect.h);
+            return;
+        }
+
         playerDropDown.isOpen = !playerDropDown.isOpen;
-        printf("[SPECTATOR] Dropdown %s\n", playerDropDown.isOpen ? "abierto" : "cerrado");
+        printf("[SPECTATOR] Dropdown %s (count=%d)\n",
+               playerDropDown.isOpen ? "abierto" : "cerrado",
+               playerDropDown.count);
         return;
     }
 
     // Click en una opción del dropdown
     if (playerDropDown.isOpen) {
+        printf("[DEBUG] Buscando click en opciones del dropdown...\n");
         for (int i = 0; i < playerDropDown.count; i++) {
             SDL_Rect opt = {
                 playerDropDown.box.x,
@@ -296,6 +347,9 @@ void spectator_ui_handle_click(SpectatorUI* ui, int x, int y, int sock) {
                 playerDropDown.box.w,
                 35
             };
+
+            printf("[DEBUG] Opción %d: X=%d-%d, Y=%d-%d\n",
+                   i, opt.x, opt.x + opt.w, opt.y, opt.y + opt.h);
 
             if (x >= opt.x && x <= opt.x + opt.w &&
                 y >= opt.y && y <= opt.y + opt.h)
@@ -318,5 +372,6 @@ void spectator_ui_handle_click(SpectatorUI* ui, int x, int y, int sock) {
                 return;
             }
         }
+        printf("[DEBUG] Click no coincidió con ninguna opción\n");
     }
 }

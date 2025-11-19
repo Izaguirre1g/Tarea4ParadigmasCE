@@ -6,10 +6,7 @@
 #include "net.h"
 #include "render.h"
 
-int main(int argc, char* argv[]) {
-    (void)argc;
-    (void)argv;
-
+int main_player(void) {
     // =============================
     //  Inicializar gráficos (SDL2)
     // =============================

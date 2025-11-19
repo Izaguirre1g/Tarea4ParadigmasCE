@@ -25,19 +25,19 @@ pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-SDL3
 ```
 
 Compilar desde MSYS2 (ejemplo)
-- Compilar intentando usar SDL3:
+
+Para compilar y abrir el cliente unificado(primera vez después de hacer cambios)
 ```bash
 cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC"
-rm -rf build
-cmake -B build -G "MinGW Makefiles"
-cmake --build build
-cd build/bin
-./dkj_client.exe
-Si se desea ejecutar el admin colocar:
-cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC"
-rm -rf build
-cmake -B build -G "MinGW Makefiles"
-cmake --build build
-cd build/bin
-./admin_client.exe
+rm -rf build && mkdir build
+cd build
+cmake ..
+cmake --build . --target dkj_unified
+cd bin
+./dkj_unified.exe
+```
+Para solo abrir el cliente unificado(para abrir muchos clientes)
+```bash
+cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin"
+./dkj_unified.exe
 ```
