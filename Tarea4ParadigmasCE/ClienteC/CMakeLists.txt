@@ -60,6 +60,8 @@ target_include_directories(admin_client PRIVATE
         ${SDL2_TTF_INCLUDE_DIRS}
 )
 
+target_compile_definitions(admin_client PRIVATE ADMIN_CLIENT)  # ← DEFINICIÓN NECESARIA
+
 target_link_libraries(admin_client PRIVATE
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}

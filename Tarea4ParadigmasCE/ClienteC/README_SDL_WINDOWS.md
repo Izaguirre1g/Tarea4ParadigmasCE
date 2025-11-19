@@ -34,5 +34,10 @@ cmake --build build
 cd build/bin
 ./dkj_client.exe
 Si se desea ejecutar el admin colocar:
+cd "C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC"
+rm -rf build
+cmake -B build -G "MinGW Makefiles"
+cmake --build build
+cd build/bin
 ./admin_client.exe
 ```

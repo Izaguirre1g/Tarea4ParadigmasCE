@@ -1,4 +1,4 @@
-CMakeFiles/dkj_client.dir/src/net.c.obj: \
+CMakeFiles/admin_client.dir/src/net.c.obj: \
  C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\src\net.c \
  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/net.h \
  C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include/game_state.h \
