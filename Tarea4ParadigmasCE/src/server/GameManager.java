@@ -2,6 +2,7 @@ package server;
 
 import entities.Cocodrilo;
 import entities.Fruta;
+import entities.Mario;
 import model.GameState;
 import model.Liana;
 import model.Posicion;
@@ -82,6 +83,11 @@ public class GameManager {
                             new Posicion(l[2], l[3])));
         }
 
+        // CREAR MARIO
+        Double marioSpeed = 1.5;  // Velocidad base
+        state.setMario(new Mario(marioSpeed));
+        System.out.println("[GameManager] Mario creado con velocidad: " + marioSpeed);
+
         // Cocodrilos iniciales de ejemplo
         state.getCocodrilos().add(
                 factory.crearCocodrilo(TipoCocodrilo.ROJO,
@@ -118,6 +124,7 @@ public class GameManager {
 
     private void tick() {
         updatePlayer();
+        updateMario();
         updateCrocs();
         updateInvincibility();  //Actualizar invencibilidad
         checkCollisions();
@@ -234,6 +241,15 @@ public class GameManager {
         }
 
         state.setPlayerY(clamp(state.getPlayerY(), MIN_Y, MAX_Y));
+    }
+
+    /**
+     * Actualiza la posición de Mario (patrullaje en plataforma superior)
+     */
+    private void updateMario() {
+        if (state.getMario() != null) {
+            state.getMario().update();
+        }
     }
 
     /**
@@ -363,6 +379,7 @@ public class GameManager {
     private void checkCollisions() {
         checkFruits();
         checkCrocs();
+        checkMario();
         checkCage();
     }
 
@@ -415,6 +432,32 @@ public class GameManager {
 
         if (inCageX && inCageY) {
             playerWin();
+        }
+    }
+
+    /**
+     * Verifica si el jugador colisiona con Mario
+     */
+    private void checkMario() {
+        // Si es invencible, no verificar
+        if (isInvincible) {
+            return;
+        }
+
+        Mario mario = state.getMario();
+        if (mario == null) {
+            return;
+        }
+
+        // Verificar colisión
+        if (mario.colisionaConJugador(
+                state.getPlayerX(),
+                state.getPlayerY(),
+                PLAYER_WIDTH.doubleValue(),
+                PLAYER_HEIGHT.doubleValue())) {
+
+            System.out.println("¡Mario te atrapó!");
+            playerDeath();
         }
     }
 
@@ -482,6 +525,14 @@ public class GameManager {
         for (Cocodrilo croc : state.getCocodrilos()) {
             Double velocidadActual = croc.getVelocidad();
             croc.setVelocidad(velocidadActual * speedMultiplier);
+        }
+
+        // APLICAR MULTIPLICADOR A MARIO
+        if (state.getMario() != null) {
+            Double velocidadMario = state.getMario().getVelocidad();
+            state.getMario().setVelocidad(velocidadMario * speedMultiplier);
+            System.out.println("[GameManager] Mario velocidad: " +
+                    (velocidadMario * speedMultiplier));
         }
 
         System.out.println("Nivel reiniciado con velocidad x" +
@@ -566,6 +617,11 @@ public class GameManager {
 
             sb.append(String.format("CAGE x=%.0f y=%.0f w=%d h=%d\n",
                     CAGE_X, CAGE_Y, CAGE_WIDTH, CAGE_HEIGHT));
+
+            // ENVIAR POSICIÓN DE MARIO
+            if (state.getMario() != null) {
+                sb.append(state.getMario().toNetworkString()).append("\n");
+            }
 
             for (Cocodrilo c : state.getCocodrilos())
                 sb.append(c.toNetworkString()).append("\n");

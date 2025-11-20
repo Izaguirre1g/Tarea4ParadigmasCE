@@ -332,19 +332,44 @@ int gfx_init(Gfx* g) {
     }
 
     // Mario (el villano)
-    temp = IMG_Load("assets/mario.png");
+    temp = IMG_Load("assets/Mario1.png");
     if (temp) {
         SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
-        g->tex_mario = SDL_CreateTextureFromSurface(g->ren, temp);
+        g->tex_mario_1 = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
-        if (g->tex_mario) {
-            printf("[OK] ✓ Mario (mario.png) cargado\n");
-        } else {
-            printf("[ERROR] ✗ Mario: Falló crear textura: %s\n", SDL_GetError());
+        if (g->tex_mario_1) {
+            printf("[OK] ✓ Mario sprite 1 cargado\n");
         }
-    } else {
-        g->tex_mario = NULL;
-        printf("[WARN] ✗ mario.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    temp = IMG_Load("assets/Mario2.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_mario_2 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_mario_2) {
+            printf("[OK] ✓ Mario sprite 2 cargado\n");
+        }
+    }
+
+    temp = IMG_Load("assets/Mario3.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_mario_3 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_mario_3) {
+            printf("[OK] ✓ Mario sprite 3 cargado\n");
+        }
+    }
+
+    temp = IMG_Load("assets/Mario4.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_mario_4 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_mario_4) {
+            printf("[OK] ✓ Mario sprite 4 cargado\n");
+        }
     }
 
     // Textura de Liana
@@ -460,10 +485,11 @@ void gfx_shutdown(Gfx* g) {
     if (g->win) SDL_DestroyWindow(g->win);
     if (g->tex_platform) SDL_DestroyTexture(g->tex_platform);
     if (g->tex_liana) SDL_DestroyTexture(g->tex_liana);
-    if (g->tex_mario) SDL_DestroyTexture(g->tex_mario);
+    if (g->tex_mario_1) SDL_DestroyTexture(g->tex_mario_1);
+    if (g->tex_mario_2) SDL_DestroyTexture(g->tex_mario_2);
+    if (g->tex_mario_3) SDL_DestroyTexture(g->tex_mario_3);
+    if (g->tex_mario_4) SDL_DestroyTexture(g->tex_mario_4);
     if (g->tex_donkey_kong) SDL_DestroyTexture(g->tex_donkey_kong);
-    if (g->tex_water) SDL_DestroyTexture(g->tex_water);
-    if (g->tex_background) SDL_DestroyTexture(g->tex_background);
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -648,15 +674,37 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         SDL_RenderCopy(r, g->tex_donkey_kong, NULL, &dk_dst);
     }
 
-    // Mario
-    if (g->tex_mario) {
+    // Mario (móvil con animación)
+    if (g->tex_mario_1) {
+        static int mario_frame = 0;
+        mario_frame++;
+
+        // Cambiar sprite cada 15 frames
+        int sprite_index = (mario_frame / 15) % 4;
+
+        // Seleccionar sprite actual
+        SDL_Texture* current_mario = NULL;
+        switch (sprite_index) {
+            case 0: current_mario = g->tex_mario_1; break;
+            case 1: current_mario = g->tex_mario_2; break;
+            case 2: current_mario = g->tex_mario_3; break;
+            case 3: current_mario = g->tex_mario_4; break;
+        }
+
         int mario_size = 40;
+
+        // Usar posición del servidor
         SDL_Rect mario_dst = {
-            CAGE_X + CAGE_W + 15,
-            CAGE_Y - 5,
+            (int)gs->mario.x,
+            (int)gs->mario.y - 5,  // Ajuste visual
             mario_size, mario_size
         };
-        SDL_RenderCopy(r, g->tex_mario, NULL, &mario_dst);
+
+        // Voltear sprite según dirección
+        SDL_RendererFlip flip = (gs->mario.direction == 'L') ?
+                                SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
+        SDL_RenderCopyEx(r, current_mario, NULL, &mario_dst, 0, NULL, flip);
     }
 
     // Frutas

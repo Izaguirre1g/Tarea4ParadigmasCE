@@ -22,9 +22,15 @@ typedef struct {
 } Fruit;
 
 typedef struct {
+    float x, y;
+    char direction;  // 'R' = derecha, 'L' = izquierda
+} Mario;
+
+typedef struct {
     Player player;
     Croc crocs[32];
     Fruit fruits[32];
+    Mario mario;     //Posición de Mario
     int crocsCount;
     int fruitsCount;
 } GameState;

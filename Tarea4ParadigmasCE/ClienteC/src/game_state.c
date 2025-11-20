@@ -27,6 +27,13 @@ void gs_apply_line(GameState* gs, const char* line) {
         // El servidor envía info de la jaula (ya está en constants.h)
         // No necesitamos procesarla dinámicamente por ahora
     }
+    else if (strncmp(line, "MARIO", 5) == 0) {
+        // Formato: "MARIO 0 x=140 y=130 dir=R"
+        char dir[4];
+        sscanf(line, "MARIO %*d x=%f y=%f dir=%s",
+               &gs->mario.x, &gs->mario.y, dir);
+        gs->mario.direction = dir[0];  // 'R' o 'L'
+    }
     else if (strncmp(line, "CROC", 4) == 0) {
         if (gs->crocsCount >= 32) return;
         int i = gs->crocsCount++;

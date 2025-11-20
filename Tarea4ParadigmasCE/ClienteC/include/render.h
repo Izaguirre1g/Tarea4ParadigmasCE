@@ -23,7 +23,13 @@ typedef struct {
 
     // Texturas (elementos del nivel)
     SDL_Texture*  tex_donkey_kong;   // Donkey Kong
-    SDL_Texture*  tex_mario;         // Mario
+
+    // Mario - 4 sprites para animación
+    SDL_Texture*  tex_mario_1;
+    SDL_Texture*  tex_mario_2;
+    SDL_Texture*  tex_mario_3;
+    SDL_Texture*  tex_mario_4;
+
     SDL_Texture*  tex_liana;         // Textura de liana
     SDL_Texture*  tex_platform;      // Textura de plataforma
 

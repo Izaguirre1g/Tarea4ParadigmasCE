@@ -3,6 +3,7 @@ package model;
 
 import entities.Cocodrilo;
 import entities.Fruta;
+import entities.Mario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class GameState {
     private List<Cocodrilo> cocodrilos;
     private List<Fruta> frutas;
     private List<Liana> lianas;
+    private Mario mario;
 
     // Constructor
     public GameState() {
@@ -78,6 +80,12 @@ public class GameState {
     public Boolean hasWon() { return hasWon; }
     public void setHasWon(Boolean hasWon) { this.hasWon = hasWon; }
 
+    public Mario getMario() {return mario;}
+
+    public void setMario(Mario mario) {
+        this.mario = mario;
+    }
+
     public Boolean getJustGainedLife() {
         return justGainedLife;
     }
@@ -96,6 +104,7 @@ public class GameState {
 
     public List<Liana> getLianas() { return lianas; }
     public void setLianas(List<Liana> lianas) { this.lianas = lianas; }
+
 
     @Override
     public String toString() {
