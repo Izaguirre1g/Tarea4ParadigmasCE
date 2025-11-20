@@ -381,6 +381,43 @@ int gfx_init(Gfx* g) {
 
     printf("*** SPRITES CARGADOS ***\n");
 
+    printf("\n>>> Cargando texturas decorativas (background, agua)...\n");
+
+    // Background (fondo del juego)
+    temp = IMG_Load("assets/background.png");
+    if (temp) {
+        // NO usar color key en el background (queremos todo el fondo)
+        g->tex_background = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_background) {
+            printf("[OK] ✓ Background (background.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Background: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_background = NULL;
+        printf("[WARN] ✗ background.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Water (agua/decoración base)
+    // Nota: El archivo se llama "Water.png" con mayúscula
+    temp = IMG_Load("assets/Water.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_water = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_water) {
+            printf("[OK] ✓ Water (Water.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Water: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_water = NULL;
+        printf("[WARN] ✗ Water.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    printf("*** Decoraciones cargadas ***\n");
+
     // Cargar fuente para texto
     const char* font_files[] = {
         "assets/arial.ttf",
@@ -425,6 +462,8 @@ void gfx_shutdown(Gfx* g) {
     if (g->tex_liana) SDL_DestroyTexture(g->tex_liana);
     if (g->tex_mario) SDL_DestroyTexture(g->tex_mario);
     if (g->tex_donkey_kong) SDL_DestroyTexture(g->tex_donkey_kong);
+    if (g->tex_water) SDL_DestroyTexture(g->tex_water);
+    if (g->tex_background) SDL_DestroyTexture(g->tex_background);
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -436,37 +475,46 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
     static int anim_frame = 0;
     anim_frame++;
 
-    // Fondo negro
-    SDL_SetRenderDrawColor(r, COLOR_BG);
+    // FONDO NEGRO
+    SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
     SDL_RenderClear(r);
 
-    // PLATAFORMAS CON TEXTURA
+    // SOPORTES PARA LAS 4 ISLITAS (ajustar índices)
+    SDL_SetRenderDrawColor(r, 180, 100, 40, 255);
+    int islita_positions[4] = {535, 635, 735, 835};
+
+    for (int i = 0; i < 4; i++) {
+        int x = islita_positions[i];
+        int top_y = 482;
+        int bottom_y = 540;
+
+        for (int offset = -4; offset <= 4; offset += 2) {
+            SDL_RenderDrawLine(r, x + offset, top_y, x + offset, bottom_y);
+        }
+    }
+
+    // PLATAFORMAS DEL NIVEL (índices 0-4, ahora son 5)
     if (g->tex_platform) {
-        // Usar textura de plataforma
-        for (int i = 0; i < N_PLAT; ++i) {
+        int tex_w, tex_h;
+        SDL_QueryTexture(g->tex_platform, NULL, NULL, &tex_w, &tex_h);
+
+        for (int i = 0; i < 5; ++i) {
             int plat_x = (int)PLATFORMS[i][0];
             int plat_y = (int)PLATFORMS[i][1];
             int plat_w = (int)PLATFORMS[i][2];
             int plat_h = (int)PLATFORMS[i][3];
 
-            // Repetir la textura horizontalmente para cubrir toda la plataforma
-            int tex_w, tex_h;
-            SDL_QueryTexture(g->tex_platform, NULL, NULL, &tex_w, &tex_h);
-
-            // Dibujar la textura repetida
             for (int x = plat_x; x < plat_x + plat_w; x += tex_w) {
                 int remaining_w = (plat_x + plat_w) - x;
                 int draw_w = (remaining_w < tex_w) ? remaining_w : tex_w;
-
                 SDL_Rect src = {0, 0, draw_w, tex_h};
                 SDL_Rect dst = {x, plat_y, draw_w, plat_h};
                 SDL_RenderCopy(r, g->tex_platform, &src, &dst);
             }
         }
     } else {
-        // Fallback: Plataformas azules
         SDL_SetRenderDrawColor(r, COLOR_PLATFORM);
-        for (int i = 0; i < N_PLAT; ++i) {
+        for (int i = 0; i < 5; ++i) {
             SDL_Rect rect = {
                 (int)PLATFORMS[i][0],
                 (int)PLATFORMS[i][1],
@@ -477,9 +525,72 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    //LIANAS CON TEXTURA
+    // PLATAFORMAS BASE IZQUIERDA (índices 5-7)
+    if (g->tex_platform) {
+        int tex_w, tex_h;
+        SDL_QueryTexture(g->tex_platform, NULL, NULL, &tex_w, &tex_h);
+
+        for (int i = 5; i < 8; ++i) {
+            int plat_x = (int)PLATFORMS[i][0];
+            int plat_y = (int)PLATFORMS[i][1];
+            int plat_w = (int)PLATFORMS[i][2];
+            int plat_h = (int)PLATFORMS[i][3];
+
+            for (int x = plat_x; x < plat_x + plat_w; x += tex_w) {
+                int remaining_w = (plat_x + plat_w) - x;
+                int draw_w = (remaining_w < tex_w) ? remaining_w : tex_w;
+                SDL_Rect src = {0, 0, draw_w, tex_h};
+                SDL_Rect dst = {x, plat_y, draw_w, plat_h};
+                SDL_RenderCopy(r, g->tex_platform, &src, &dst);
+            }
+        }
+    } else {
+        SDL_SetRenderDrawColor(r, COLOR_PLATFORM);
+        for (int i = 5; i < 8; ++i) {
+            SDL_Rect rect = {
+                (int)PLATFORMS[i][0],
+                (int)PLATFORMS[i][1],
+                (int)PLATFORMS[i][2],
+                (int)PLATFORMS[i][3]
+            };
+            SDL_RenderFillRect(r, &rect);
+        }
+    }
+
+    // ISLITAS BASE DERECHA (índices 8-11)
+    if (g->tex_platform) {
+        int tex_w, tex_h;
+        SDL_QueryTexture(g->tex_platform, NULL, NULL, &tex_w, &tex_h);
+
+        for (int i = 8; i < 12; ++i) {
+            int plat_x = (int)PLATFORMS[i][0];
+            int plat_y = (int)PLATFORMS[i][1];
+            int plat_w = (int)PLATFORMS[i][2];
+            int plat_h = (int)PLATFORMS[i][3];
+
+            for (int x = plat_x; x < plat_x + plat_w; x += tex_w) {
+                int remaining_w = (plat_x + plat_w) - x;
+                int draw_w = (remaining_w < tex_w) ? remaining_w : tex_w;
+                SDL_Rect src = {0, 0, draw_w, tex_h};
+                SDL_Rect dst = {x, plat_y, draw_w, plat_h};
+                SDL_RenderCopy(r, g->tex_platform, &src, &dst);
+            }
+        }
+    } else {
+        SDL_SetRenderDrawColor(r, COLOR_PLATFORM);
+        for (int i = 8; i < 12; ++i) {
+            SDL_Rect rect = {
+                (int)PLATFORMS[i][0],
+                (int)PLATFORMS[i][1],
+                (int)PLATFORMS[i][2],
+                (int)PLATFORMS[i][3]
+            };
+            SDL_RenderFillRect(r, &rect);
+        }
+    }
+
+    // Lianas
     if (g->tex_liana) {
-        // Usar textura de liana
         int tex_w, tex_h;
         SDL_QueryTexture(g->tex_liana, NULL, NULL, &tex_w, &tex_h);
 
@@ -487,20 +598,16 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
             int liana_x = (int)LIANAS[i][0];
             int liana_y1 = (int)LIANAS[i][1];
             int liana_y2 = (int)LIANAS[i][3];
-            int liana_height = liana_y2 - liana_y1;
 
-            // Repetir la textura verticalmente para cubrir toda la liana
             for (int y = liana_y1; y < liana_y2; y += tex_h) {
                 int remaining_h = liana_y2 - y;
                 int draw_h = (remaining_h < tex_h) ? remaining_h : tex_h;
-
                 SDL_Rect src = {0, 0, tex_w, draw_h};
                 SDL_Rect dst = {liana_x - tex_w/2, y, tex_w, draw_h};
                 SDL_RenderCopy(r, g->tex_liana, &src, &dst);
             }
         }
     } else {
-        // Fallback: Lianas verdes
         SDL_SetRenderDrawColor(r, COLOR_LIANA);
         for (int i = 0; i < N_LIANA; ++i) {
             int x = (int)LIANAS[i][0];
@@ -512,59 +619,42 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // JAULA CON DONKEY KONG Y MARIO
-    // Dibujar jaula
+    // Jaula
     if (g->tex_jail) {
-        int w, h;
-        SDL_QueryTexture(g->tex_jail, NULL, NULL, &w, &h);
         SDL_Rect dst = {CAGE_X, CAGE_Y, CAGE_W, CAGE_H};
         SDL_RenderCopy(r, g->tex_jail, NULL, &dst);
     } else {
-        // Fallback: dibujar jaula con rectángulos
         draw_rect(r, CAGE_X, CAGE_Y, CAGE_W, CAGE_H, COLOR_CAGE);
-
         SDL_SetRenderDrawColor(r, COLOR_CAGE_BARS);
         for (int i = 0; i < 5; i++) {
             int barX = CAGE_X + 5 + i * 12;
             SDL_RenderDrawLine(r, barX, CAGE_Y, barX, CAGE_Y + CAGE_H);
             SDL_RenderDrawLine(r, barX+1, CAGE_Y, barX+1, CAGE_Y + CAGE_H);
         }
-
         SDL_Rect topBar = {CAGE_X, CAGE_Y, CAGE_W, 3};
         SDL_Rect bottomBar = {CAGE_X, CAGE_Y + CAGE_H - 3, CAGE_W, 3};
         SDL_RenderFillRect(r, &topBar);
         SDL_RenderFillRect(r, &bottomBar);
     }
 
-    // DONKEY KONG DENTRO DE LA JAULA
+    // Donkey Kong
     if (g->tex_donkey_kong) {
-        int dk_w, dk_h;
-        SDL_QueryTexture(g->tex_donkey_kong, NULL, NULL, &dk_w, &dk_h);
-
-        // Posicionar DK centrado dentro de la jaula
-        // La jaula está en (CAGE_X, CAGE_Y) con tamaño (CAGE_W, CAGE_H)
-        int dk_size = 35;  // Tamaño del sprite de DK
+        int dk_size = 35;
         SDL_Rect dk_dst = {
-            CAGE_X + (CAGE_W - dk_size) / 2,  // Centrar horizontalmente
-            CAGE_Y + (CAGE_H - dk_size) / 2,  // Centrar verticalmente
-            dk_size,
-            dk_size
+            CAGE_X + (CAGE_W - dk_size) / 2,
+            CAGE_Y + (CAGE_H - dk_size) / 2,
+            dk_size, dk_size
         };
         SDL_RenderCopy(r, g->tex_donkey_kong, NULL, &dk_dst);
     }
 
-    //MARIO (EL VILLANO)
+    // Mario
     if (g->tex_mario) {
-        int mario_w, mario_h;
-        SDL_QueryTexture(g->tex_mario, NULL, NULL, &mario_w, &mario_h);
-
-        // Posicionar Mario a la derecha de la jaula
-        int mario_size = 40;  // Tamaño del sprite de Mario
+        int mario_size = 40;
         SDL_Rect mario_dst = {
-            CAGE_X + CAGE_W + 15,  // A la derecha de la jaula
-            CAGE_Y - 5,             // Ligeramente arriba
-            mario_size,
-            mario_size
+            CAGE_X + CAGE_W + 15,
+            CAGE_Y - 5,
+            mario_size, mario_size
         };
         SDL_RenderCopy(r, g->tex_mario, NULL, &mario_dst);
     }
@@ -574,21 +664,12 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         Fruit f = gs->fruits[i];
         if (!f.active) continue;
 
-        // Usar texturas individuales PNG
         if ((strstr(f.type, "Banana") || strstr(f.type, "BANANA")) && g->tex_fruit_banana) {
             draw_texture(r, g->tex_fruit_banana, f.x, f.y, 1.2f);
         } else if ((strstr(f.type, "Naranja") || strstr(f.type, "NARANJA")) && g->tex_fruit_orange) {
             draw_texture(r, g->tex_fruit_orange, f.x, f.y, 1.2f);
         } else if ((strstr(f.type, "Cereza") || strstr(f.type, "CEREZA")) && g->tex_fruit_strawberry) {
             draw_texture(r, g->tex_fruit_strawberry, f.x, f.y, 1.2f);
-        } else {
-            // Fallback a rectángulos de colores
-            if (strstr(f.type, "Banana") || strstr(f.type, "BANANA"))
-                draw_rect(r, f.x - 8, f.y - 8, 16, 16, COLOR_FRUIT_BANANA);
-            else if (strstr(f.type, "Naranja") || strstr(f.type, "NARANJA"))
-                draw_rect(r, f.x - 8, f.y - 8, 16, 16, COLOR_FRUIT_NARANJA);
-            else
-                draw_rect(r, f.x - 8, f.y - 8, 16, 16, COLOR_FRUIT_CEREZA);
         }
     }
 
@@ -619,57 +700,82 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         draw_rect(r, gs->player.x - 12, gs->player.y, 24, 28, COLOR_PLAYER);
     }
 
-    // HUD Visual
-    if (g->tex_scoreholder) {
-        SDL_Rect score_dst = {10, 10, 200, 50};
-        SDL_RenderCopy(r, g->tex_scoreholder, NULL, &score_dst);
+    // HUD
+    SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(r, 0, 0, 0, 200);
+    SDL_Rect hud_bg = {0, 0, WIN_W, 50};
+    SDL_RenderFillRect(r, &hud_bg);
+    SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_NONE);
 
-        if (g->font) {
-            char score_text[32];
-            snprintf(score_text, sizeof(score_text), "Score: %d", gs->player.score);
+    if (g->font) {
+        SDL_Color white = {255, 255, 255, 255};
+        SDL_Color yellow = {255, 255, 0, 255};
 
-            SDL_Color text_color = {255, 255, 255, 255};
-            SDL_Surface* text_surface = TTF_RenderText_Solid(g->font, score_text, text_color);
+        SDL_Surface* text_1up = TTF_RenderText_Solid(g->font, "1UP", yellow);
+        if (text_1up) {
+            SDL_Texture* tex_1up = SDL_CreateTextureFromSurface(r, text_1up);
+            SDL_Rect rect_1up = {20, 8, text_1up->w, text_1up->h};
+            SDL_RenderCopy(r, tex_1up, NULL, &rect_1up);
+            SDL_DestroyTexture(tex_1up);
+            SDL_FreeSurface(text_1up);
+        }
 
-            if (text_surface) {
-                SDL_Texture* text_texture = SDL_CreateTextureFromSurface(r, text_surface);
-                if (text_texture) {
-                    SDL_Rect text_rect = {45, 20, text_surface->w, text_surface->h};
-                    SDL_RenderCopy(r, text_texture, NULL, &text_rect);
-                    SDL_DestroyTexture(text_texture);
-                }
-                SDL_FreeSurface(text_surface);
-            }
+        char score_text[32];
+        snprintf(score_text, sizeof(score_text), "%06d", gs->player.score);
+        SDL_Surface* text_score = TTF_RenderText_Solid(g->font, score_text, white);
+        if (text_score) {
+            SDL_Texture* tex_score = SDL_CreateTextureFromSurface(r, text_score);
+            SDL_Rect rect_score = {20, 28, text_score->w, text_score->h};
+            SDL_RenderCopy(r, tex_score, NULL, &rect_score);
+            SDL_DestroyTexture(tex_score);
+            SDL_FreeSurface(text_score);
+        }
+
+        SDL_Surface* text_high = TTF_RenderText_Solid(g->font, "HIGH SCORE", yellow);
+        if (text_high) {
+            SDL_Texture* tex_high = SDL_CreateTextureFromSurface(r, text_high);
+            SDL_Rect rect_high = {WIN_W/2 - text_high->w/2, 8, text_high->w, text_high->h};
+            SDL_RenderCopy(r, tex_high, NULL, &rect_high);
+            SDL_DestroyTexture(tex_high);
+            SDL_FreeSurface(text_high);
+        }
+
+        char high_text[32];
+        snprintf(high_text, sizeof(high_text), "%06d", gs->player.score);
+        SDL_Surface* text_highnum = TTF_RenderText_Solid(g->font, high_text, white);
+        if (text_highnum) {
+            SDL_Texture* tex_highnum = SDL_CreateTextureFromSurface(r, text_highnum);
+            SDL_Rect rect_highnum = {WIN_W/2 - text_highnum->w/2, 28, text_highnum->w, text_highnum->h};
+            SDL_RenderCopy(r, tex_highnum, NULL, &rect_highnum);
+            SDL_DestroyTexture(tex_highnum);
+            SDL_FreeSurface(text_highnum);
         }
     }
 
-    // Vidas con corazones
+    // Vidas
     if (g->tex_heart) {
-        int heart_size = 30;
-        int heart_spacing = 35;
-        int start_x = WIN_W - 120;
-        int start_y = 10;
+        int heart_size = 25;
+        int heart_spacing = 30;
+        int start_x = WIN_W - 110;
+        int start_y = 12;
 
-        for (int i = 0; i < gs->player.lives; i++) {
+        for (int i = 0; i < gs->player.lives && i < 3; i++) {
             SDL_Rect heart_dst = {
                 start_x + (i * heart_spacing),
                 start_y,
-                heart_size,
-                heart_size
+                heart_size, heart_size
             };
             SDL_RenderCopy(r, g->tex_heart, NULL, &heart_dst);
         }
     }
 
-    // HUD en consola
     if (gs->player.hasWon) {
-        printf("\r🎉 ¡VICTORIA! Score: %d   Lives: %d   *** GANASTE ***   ",
+        printf("¡VICTORIA! Score: %d   Lives: %d   *** GANASTE ***   ",
                gs->player.score, gs->player.lives);
     } else {
         printf("\rScore: %d   Lives: %d   ", gs->player.score, gs->player.lives);
     }
     fflush(stdout);
 
-    // Presentar frame
     SDL_RenderPresent(r);
 }

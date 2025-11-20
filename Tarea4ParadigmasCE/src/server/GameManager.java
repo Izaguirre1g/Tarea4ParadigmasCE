@@ -41,6 +41,9 @@ public class GameManager {
     // Jugadores conectados (para la lista en el panel admin)
     private final Map<Integer, String> connectedPlayers = new ConcurrentHashMap<>();
 
+    private Integer currentLevel = 1;           // Nivel actual (incrementa al ganar)
+    private Double speedMultiplier = 1.0;       // Multiplicador de velocidad de cocodrilos
+
     // Modo de comunicación con los clientes
     public enum CommunicationMode {
         TEXT,   // Protocolo de texto actual
@@ -170,6 +173,13 @@ public class GameManager {
             }
         }
 
+        // Si el jugador cayó fuera de la pantalla (abajo)
+        if (state.getPlayerY() > MAX_Y + 50) {  // 50 píxeles de margen
+            System.out.println("¡Caíste al abismo!");
+            playerDeath();
+            return;  // salir para no seguir procesando
+        }
+
         // --- Movimiento vertical ---
         if (state.isOnLiana()) {
             // En liana → sin salto
@@ -296,7 +306,7 @@ public class GameManager {
             if (dx < PLAYER_WIDTH && dy < PLAYER_HEIGHT) {
                 f.setActiva(false);
                 state.setScore(state.getScore() + f.getPuntos());
-                System.out.println("🍒 Fruta " + f.getTipo().getNombre()
+                System.out.println("Fruta " + f.getTipo().getNombre()
                         + " recogida! +" + f.getPuntos() + " pts");
             }
         }
@@ -310,7 +320,7 @@ public class GameManager {
             double dy = Math.abs(c.getPosicion().y - state.getPlayerY());
 
             if (dx < PLAYER_WIDTH && dy < PLAYER_HEIGHT) {
-                System.out.println("🐊 ¡Cocodrilo te atrapó!");
+                System.out.println("¡Cocodrilo te atrapó!");
                 playerDeath();
                 return;
             }
@@ -335,31 +345,98 @@ public class GameManager {
 
     private void playerWin() {
         state.setHasWon(true);
+
+        // Agregar puntos de victoria
         state.setScore(state.getScore() + WIN_SCORE_BONUS);
-        System.out.println("🎉 ¡VICTORIA! Has rescatado a Donkey Kong!");
-        System.out.println("💰 Bonus: +" + WIN_SCORE_BONUS + " puntos");
-        System.out.println("📊 Puntuación final: " + state.getScore());
+
+        //OTORGAR VIDA EXTRA
+        state.setLives(state.getLives() + 1);
+
+        System.out.println("¡VICTORIA! Has rescatado a Donkey Kong!");
+        System.out.println("Bonus: +" + WIN_SCORE_BONUS + " puntos");
+        System.out.println("Vida extra otorgada! Vidas: " + state.getLives());
+        System.out.println("Puntuación: " + state.getScore());
+
+        //INCREMENTAR NIVEL Y VELOCIDAD
+        currentLevel++;
+        speedMultiplier += 0.15;  // Incrementar 15% cada nivel
+
+        System.out.println("¡Nivel " + currentLevel + "! Velocidad de enemigos: x" +
+                String.format("%.2f", speedMultiplier));
+
+        // Esperar un momento antes de reiniciar (2 segundos)
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        //REINICIAR NIVEL
+        System.out.println("Reiniciando nivel...");
+        restartLevel();
+    }
+
+    /**
+     * Reinicia el nivel manteniendo puntuación, vidas y nivel actual
+     * Los cocodrilos se mueven más rápido cada vez
+     */
+    private void restartLevel() {
+        // Guardar valores importantes
+        Integer savedLives = state.getLives();
+        Integer savedScore = state.getScore();
+
+        // Reiniciar el nivel (limpia entidades y recrear)
+        initLevel();
+
+        // Restaurar valores guardados
+        state.setLives(savedLives);
+        state.setScore(savedScore);
+        state.setHasWon(false);
+
+        // APLICAR MULTIPLICADOR DE VELOCIDAD A COCODRILOS
+        for (Cocodrilo croc : state.getCocodrilos()) {
+            Double velocidadActual = croc.getVelocidad();
+            croc.setVelocidad(velocidadActual * speedMultiplier);
+        }
+
+        System.out.println("Nivel reiniciado con velocidad x" +
+                String.format("%.2f", speedMultiplier));
+        System.out.println("Vidas: " + savedLives + " | Puntos: " + savedScore);
     }
 
     private void playerDeath() {
         state.setLives(state.getLives() - 1);
-        System.out.println("💀 Jugador perdió una vida. Vidas restantes: " + state.getLives());
+        System.out.println("Jugador perdió una vida. Vidas restantes: " + state.getLives());
 
         if (state.getLives() <= 0) {
-            System.out.println("☠️ GAME OVER - Todas las vidas perdidas");
-            System.out.println("📊 Puntuación final: " + state.getScore());
+            // GAME OVER COMPLETO
+            System.out.println(" ╔════════════════════════════╗");
+            System.out.println(" ║       GAME OVER            ║");
+            System.out.println(" ╚════════════════════════════╝");
+            System.out.println("Puntuación final: " + state.getScore());
+            System.out.println("Nivel alcanzado: " + currentLevel);
+
+            // REINICIAR TODO (vidas, score, nivel, velocidad)
             state.setLives(PLAYER_START_LIVES);
             state.setScore(0);
             state.setHasWon(false);
+            currentLevel = 1;
+            speedMultiplier = 1.0;
+
             initLevel();
-            System.out.println("🔄 Juego reiniciado");
+
+            System.out.println("Juego reiniciado desde el nivel 1");
+            return;
         }
 
+        //SOLO REPOSICIONAR AL JUGADOR (mantener todo lo demás)
         state.setPlayerX(PLAYER_START_X);
         state.setPlayerY(PLAYER_START_Y);
         state.setVelocityX(0.0);
         state.setVelocityY(0.0);
         state.setJumping(false);
+
+        System.out.println("Jugador reposicionado en el inicio");
     }
 
     /* =========================================================

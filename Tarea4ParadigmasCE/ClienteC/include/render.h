@@ -21,11 +21,15 @@ typedef struct {
     SDL_Texture*  tex_heart;         // Corazón para vidas
     SDL_Texture*  tex_scoreholder;   // Fondo para puntuación
 
-
-    SDL_Texture*  tex_donkey_kong;   // Donkey Kong (dentro de la jaula)
-    SDL_Texture*  tex_mario;         // Mario (el villano)
+    // Texturas (elementos del nivel)
+    SDL_Texture*  tex_donkey_kong;   // Donkey Kong
+    SDL_Texture*  tex_mario;         // Mario
     SDL_Texture*  tex_liana;         // Textura de liana
     SDL_Texture*  tex_platform;      // Textura de plataforma
+
+    //Texturas para decoración visual
+    SDL_Texture*  tex_background;    // Fondo del juego
+    SDL_Texture*  tex_water;         // Agua/decoración base
 
     // Fuente para texto
     TTF_Font*     font;              // Fuente para números y texto

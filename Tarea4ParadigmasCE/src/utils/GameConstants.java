@@ -1,19 +1,17 @@
 package utils;
 
 /**
- * GameConstants
+ * GameConstants - 9 LIANAS ESTILO ARCADE
  * -----------------------------------------------------
- * Contiene todas las constantes globales del juego.
- * Sirve para ajustar velocidades, físicas, dimensiones
- * y tiempos de actualización sin modificar la lógica.
+ * Layout completo con todas las lianas y plataformas
  */
 public final class GameConstants {
 
-    private GameConstants() {} // Evita instanciar la clase
+    private GameConstants() {}
 
     /* --- Configuración general --- */
-    public static final Integer TICK_RATE_MS = 16;     // ~60 FPS (1000/60 ≈ 16)
-    public static final Integer SERVER_PORT  = 5000;   // Puerto del servidor
+    public static final Integer TICK_RATE_MS = 16;
+    public static final Integer SERVER_PORT  = 5000;
     public static final String SERVER_IP = "127.0.0.1";
 
     /* --- Ventana / Escenario --- */
@@ -21,59 +19,131 @@ public final class GameConstants {
     public static final Integer WIN_HEIGHT = 540;
 
     /* --- Jugador --- */
-    public static final Double PLAYER_START_X = 200.0;
-    public static final Double PLAYER_START_Y = 500.0;
+    public static final Double PLAYER_START_X = 150.0;
+    public static final Double PLAYER_START_Y = 490.0;
     public static final Integer PLAYER_WIDTH  = 24;
     public static final Integer PLAYER_HEIGHT = 28;
 
-    public static final Double PLAYER_SPEED_X = 4.0;   // velocidad lateral
-    public static final Double PLAYER_SPEED_Y = 3.0;   // velocidad al subir/bajar liana
+    public static final Double PLAYER_SPEED_X = 4.0;
+    public static final Double PLAYER_SPEED_Y = 3.0;
     public static final Double PLAYER_JUMP_VELOCITY = 5.0;
     public static final Integer PLAYER_START_LIVES = 3;
 
     /* --- Física --- */
-    public static final Double GRAVITY = 0.25;          // fuerza de gravedad por tick
-    public static final Double MAX_FALL_SPEED = 8.0;  // límite de velocidad en caída
-    private static final double LIANA_HORIZONTAL_FACTOR = 0.40;
+    public static final Double GRAVITY = 0.25;
+    public static final Double MAX_FALL_SPEED = 8.0;
 
     /* --- Cocodrilos --- */
-    public static final Double CROC_SPEED = 1.2;       // velocidad base
-    public static final Double CROC_MIN_Y = 150.0;     // límite superior de movimiento
-    public static final Double CROC_MAX_Y = 520.0;     // límite inferior de movimiento
+    public static final Double CROC_SPEED = 1.2;
+    public static final Double CROC_MIN_Y = 150.0;
+    public static final Double CROC_MAX_Y = 500.0;
 
     /* --- Frutas --- */
     public static final Integer FRUIT_SCORE_BANANA  = 70;
     public static final Integer FRUIT_SCORE_NARANJA = 100;
     public static final Integer FRUIT_SCORE_CEREZA  = 50;
 
-    /* --- Jaula de DK (objetivo final) --- */
-    public static final Double CAGE_X = 150.0;        // posición X de la jaula
-    public static final Double CAGE_Y = 80.0;         // posición Y de la jaula
-    public static final Integer CAGE_WIDTH = 60;      // ancho de la jaula
-    public static final Integer CAGE_HEIGHT = 40;     // alto de la jaula
-    public static final Integer WIN_SCORE_BONUS = 1000; // bonus por ganar
+    /* --- Jaula de DK --- */
+    public static final Double CAGE_X = 140.0;
+    public static final Double CAGE_Y = 75.0;
+    public static final Integer CAGE_WIDTH = 70;
+    public static final Integer CAGE_HEIGHT = 45;
+    public static final Integer WIN_SCORE_BONUS = 1000;
 
     /* --- Lianas y plataformas --- */
-    // Lianas: cada par {x1, y1, x2, y2}
+
+    //LIANAS - 9 en total
+    // ════════════════════════════════════════════════════════════════
+    // Formato: {X_inicio, Y_inicio, X_fin, Y_fin}
+    // ════════════════════════════════════════════════════════════════
     public static final Double[][] LIANAS = {
-            {160.0, 120.0, 160.0, 525.0},
-            {240.0, 120.0, 240.0, 525.0},
-            {400.0, 220.0, 400.0, 525.0},
-            {480.0, 220.0, 480.0, 525.0},
-            {640.0, 120.0, 640.0, 525.0},
-            {720.0, 120.0, 720.0, 525.0}
+            // ────────────────────────────────────────────────────────
+            // LADO IZQUIERDO (2 lianas)
+            // ────────────────────────────────────────────────────────
+
+            // LIANA 1: Desde plataforma superior (Y=130) hasta abajo
+            // X=150 (cerca del borde izquierdo)
+            {20.0, 130.0, 150.0, 515.0},
+
+            // LIANA 2: Desde primera plataforma escalonada (Y=280) hasta abajo
+            // X=250 (sobre la plataforma escalonada)
+            {100.0, 130.0, 150.0, 490.0},
+
+            // ────────────────────────────────────────────────────────
+            // CENTRO (3 lianas)
+            // ────────────────────────────────────────────────────────
+
+            // LIANA 3: Desde plataforma superior (Y=130) hasta abajo
+            // X=370 (cerca del borde derecho de plataforma superior izq)
+            {220.0, 280.0, 220.0, 500.0},
+
+            // LIANA 4: Entre plataforma superior y nueva plataforma
+            // X=440 (en el espacio entre las dos plataformas superiores)
+            // Solo conecta de Y=130 a Y=160 (corta)
+            {370.0, 130.0, 370.0, 470.0},
+
+            // LIANA 5: Desde nueva plataforma (Y=160) hasta abajo
+            // X=480 (sobre la nueva plataforma superior derecha)
+            {480.0, 160.0, 480.0, 400.0},
+
+            // ────────────────────────────────────────────────────────
+            // LADO DERECHO (4 lianas)
+            // ────────────────────────────────────────────────────────
+
+            // LIANA 6: Desde nueva plataforma (Y=160), pegada al inicio
+            // X=670 (cerca del borde derecho de la plataforma)
+            {570.0, 160.0, 670.0, 430.0},
+
+            // LIANA 7: Desde nueva plataforma (Y=160), separada
+            // X=730 (separada ~60px de la liana 6)
+            {660.0, 160.0, 730.0, 410.0},
+
+            // LIANA 8: Liana larga desde ARRIBA (sin conectar a plataforma)
+            // X=810, empieza desde Y=50 (arriba de todo)
+            {760.0, 50.0, 810.0, 430.0},
+
+            // LIANA 9: Otra liana larga desde ARRIBA
+            // X=880, empieza desde Y=50 (arriba de todo)
+            {890.0, 50.0, 880.0, 430.0}
     };
 
-    // Plataformas: cada elemento {x, y, width, height}
+    // ════════════════════════════════════════════════════════════════
+    // GUÍA PARA AJUSTAR LIANAS:
+    // ════════════════════════════════════════════════════════════════
+    // Cada liana: {X_inicio, Y_inicio, X_fin, Y_fin}
+    //
+    // Mover HORIZONTALMENTE: cambiar primer y tercer valor
+    // Cambiar ALTURA INICIO: cambiar segundo valor (Y_inicio)
+    // Cambiar ALTURA FIN: cambiar cuarto valor (Y_fin)
+    //
+    // ALTURAS DE REFERENCIA:
+    // Y=50  → Por encima de todo
+    // Y=130 → Plataforma superior izquierda
+    // Y=160 → Plataforma superior derecha
+    // Y=230 → Plataforma derecha media
+    // Y=280 → Primera escalonada
+    // Y=380 → Segunda escalonada
+    // Y=470 → Islitas
+    // Y=515 → Cerca del suelo
+    // ════════════════════════════════════════════════════════════════
+
+    //PLATAFORMAS - 12 en total
     public static final Double[][] PLATFORMS = {
-            {100.0, 525.0, 760.0, 15.0},  // suelo
-            {150.0, 420.0, 600.0, 10.0},  // media 1
-            {250.0, 320.0, 400.0, 10.0},  // media 2
-            {100.0, 220.0, 500.0, 10.0},  // media 3
-            {0.0, 120.0, 300.0, 10.0}     // superior
+            {0.0,   130.0, 440.0, 12.0},  // Superior izquierda
+            {420.0, 160.0, 240.0, 12.0},  // Superior derecha
+            {150.0, 280.0, 150.0, 12.0},  // Media arriba (izq)
+            {200.0, 380.0, 150.0, 12.0},  // Media abajo (izq)
+            {680.0, 330.0, 280.0, 12.0},  // Derecha
+            {50.0,  520.0, 80.0,  12.0},  // Base izq 1
+            {140.0, 520.0, 80.0,  12.0},  // Base izq 2
+            {230.0, 520.0, 80.0,  12.0},  // Base izq 3
+            {500.0, 470.0, 70.0,  12.0},  // Islita 1
+            {600.0, 470.0, 70.0,  12.0},  // Islita 2
+            {700.0, 470.0, 70.0,  12.0},  // Islita 3
+            {800.0, 470.0, 70.0,  12.0}   // Islita 4
     };
 
-    /* --- Límites de cámara (por seguridad) --- */
+    /* --- Límites de cámara --- */
     public static final Double MIN_X = 0.0;
     public static final Double MAX_X = WIN_WIDTH - PLAYER_WIDTH.doubleValue();
     public static final Double MIN_Y = 0.0;
