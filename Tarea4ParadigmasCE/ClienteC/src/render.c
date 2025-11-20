@@ -313,6 +313,74 @@ int gfx_init(Gfx* g) {
         printf("[WARN] ✗ scoreholder.png no encontrado: %s\n", IMG_GetError());
     }
 
+    printf("\n>>> Cargando sprites de (DK, Mario, Lianas, Plataformas)...\n");
+
+    // Donkey Kong (dentro de la jaula)
+    temp = IMG_Load("assets/dk.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_donkey_kong = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_donkey_kong) {
+            printf("[OK] ✓ Donkey Kong (dk.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Donkey Kong: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_donkey_kong = NULL;
+        printf("[WARN] ✗ dk.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Mario (el villano)
+    temp = IMG_Load("assets/mario.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_mario = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_mario) {
+            printf("[OK] ✓ Mario (mario.png) cargado\n");
+        } else {
+            printf("[ERROR] ✗ Mario: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_mario = NULL;
+        printf("[WARN] ✗ mario.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Textura de Liana
+    temp = IMG_Load("assets/liana.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_liana = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_liana) {
+            printf("[OK] ✓ Liana (liana.png) cargada\n");
+        } else {
+            printf("[ERROR] ✗ Liana: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_liana = NULL;
+        printf("[WARN] ✗ liana.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Textura de Plataforma
+    temp = IMG_Load("assets/platform.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_platform = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_platform) {
+            printf("[OK] ✓ Plataforma (platform.png) cargada\n");
+        } else {
+            printf("[ERROR] ✗ Plataforma: Falló crear textura: %s\n", SDL_GetError());
+        }
+    } else {
+        g->tex_platform = NULL;
+        printf("[WARN] ✗ platform.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    printf("*** SPRITES CARGADOS ***\n");
+
     // Cargar fuente para texto
     const char* font_files[] = {
         "assets/arial.ttf",
@@ -353,6 +421,10 @@ void gfx_shutdown(Gfx* g) {
     if (g->spritesheet) SDL_DestroyTexture(g->spritesheet);
     if (g->ren) SDL_DestroyRenderer(g->ren);
     if (g->win) SDL_DestroyWindow(g->win);
+    if (g->tex_platform) SDL_DestroyTexture(g->tex_platform);
+    if (g->tex_liana) SDL_DestroyTexture(g->tex_liana);
+    if (g->tex_mario) SDL_DestroyTexture(g->tex_mario);
+    if (g->tex_donkey_kong) SDL_DestroyTexture(g->tex_donkey_kong);
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -368,32 +440,81 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
     SDL_SetRenderDrawColor(r, COLOR_BG);
     SDL_RenderClear(r);
 
-    // Plataformas (azules)
-    SDL_SetRenderDrawColor(r, COLOR_PLATFORM);
-    for (int i = 0; i < N_PLAT; ++i) {
-        SDL_Rect rect = {
-            (int)PLATFORMS[i][0],
-            (int)PLATFORMS[i][1],
-            (int)PLATFORMS[i][2],
-            (int)PLATFORMS[i][3]
-        };
-        SDL_RenderFillRect(r, &rect);
+    // PLATAFORMAS CON TEXTURA
+    if (g->tex_platform) {
+        // Usar textura de plataforma
+        for (int i = 0; i < N_PLAT; ++i) {
+            int plat_x = (int)PLATFORMS[i][0];
+            int plat_y = (int)PLATFORMS[i][1];
+            int plat_w = (int)PLATFORMS[i][2];
+            int plat_h = (int)PLATFORMS[i][3];
+
+            // Repetir la textura horizontalmente para cubrir toda la plataforma
+            int tex_w, tex_h;
+            SDL_QueryTexture(g->tex_platform, NULL, NULL, &tex_w, &tex_h);
+
+            // Dibujar la textura repetida
+            for (int x = plat_x; x < plat_x + plat_w; x += tex_w) {
+                int remaining_w = (plat_x + plat_w) - x;
+                int draw_w = (remaining_w < tex_w) ? remaining_w : tex_w;
+
+                SDL_Rect src = {0, 0, draw_w, tex_h};
+                SDL_Rect dst = {x, plat_y, draw_w, plat_h};
+                SDL_RenderCopy(r, g->tex_platform, &src, &dst);
+            }
+        }
+    } else {
+        // Fallback: Plataformas azules
+        SDL_SetRenderDrawColor(r, COLOR_PLATFORM);
+        for (int i = 0; i < N_PLAT; ++i) {
+            SDL_Rect rect = {
+                (int)PLATFORMS[i][0],
+                (int)PLATFORMS[i][1],
+                (int)PLATFORMS[i][2],
+                (int)PLATFORMS[i][3]
+            };
+            SDL_RenderFillRect(r, &rect);
+        }
     }
 
-    // Lianas (verdes, triple línea para grosor)
-    SDL_SetRenderDrawColor(r, COLOR_LIANA);
-    for (int i = 0; i < N_LIANA; ++i) {
-        int x = (int)LIANAS[i][0];
-        int y1 = (int)LIANAS[i][1];
-        int y2 = (int)LIANAS[i][3];
-        SDL_RenderDrawLine(r, x-1, y1, x-1, y2);
-        SDL_RenderDrawLine(r, x,   y1, x,   y2);
-        SDL_RenderDrawLine(r, x+1, y1, x+1, y2);
+    //LIANAS CON TEXTURA
+    if (g->tex_liana) {
+        // Usar textura de liana
+        int tex_w, tex_h;
+        SDL_QueryTexture(g->tex_liana, NULL, NULL, &tex_w, &tex_h);
+
+        for (int i = 0; i < N_LIANA; ++i) {
+            int liana_x = (int)LIANAS[i][0];
+            int liana_y1 = (int)LIANAS[i][1];
+            int liana_y2 = (int)LIANAS[i][3];
+            int liana_height = liana_y2 - liana_y1;
+
+            // Repetir la textura verticalmente para cubrir toda la liana
+            for (int y = liana_y1; y < liana_y2; y += tex_h) {
+                int remaining_h = liana_y2 - y;
+                int draw_h = (remaining_h < tex_h) ? remaining_h : tex_h;
+
+                SDL_Rect src = {0, 0, tex_w, draw_h};
+                SDL_Rect dst = {liana_x - tex_w/2, y, tex_w, draw_h};
+                SDL_RenderCopy(r, g->tex_liana, &src, &dst);
+            }
+        }
+    } else {
+        // Fallback: Lianas verdes
+        SDL_SetRenderDrawColor(r, COLOR_LIANA);
+        for (int i = 0; i < N_LIANA; ++i) {
+            int x = (int)LIANAS[i][0];
+            int y1 = (int)LIANAS[i][1];
+            int y2 = (int)LIANAS[i][3];
+            SDL_RenderDrawLine(r, x-1, y1, x-1, y2);
+            SDL_RenderDrawLine(r, x,   y1, x,   y2);
+            SDL_RenderDrawLine(r, x+1, y1, x+1, y2);
+        }
     }
 
-    // Jaula de Donkey Kong (objetivo)
+    // JAULA CON DONKEY KONG Y MARIO
+    // Dibujar jaula
     if (g->tex_jail) {
-        // Dibujar sprite de la jaula
         int w, h;
         SDL_QueryTexture(g->tex_jail, NULL, NULL, &w, &h);
         SDL_Rect dst = {CAGE_X, CAGE_Y, CAGE_W, CAGE_H};
@@ -415,13 +536,45 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         SDL_RenderFillRect(r, &bottomBar);
     }
 
+    // DONKEY KONG DENTRO DE LA JAULA
+    if (g->tex_donkey_kong) {
+        int dk_w, dk_h;
+        SDL_QueryTexture(g->tex_donkey_kong, NULL, NULL, &dk_w, &dk_h);
+
+        // Posicionar DK centrado dentro de la jaula
+        // La jaula está en (CAGE_X, CAGE_Y) con tamaño (CAGE_W, CAGE_H)
+        int dk_size = 35;  // Tamaño del sprite de DK
+        SDL_Rect dk_dst = {
+            CAGE_X + (CAGE_W - dk_size) / 2,  // Centrar horizontalmente
+            CAGE_Y + (CAGE_H - dk_size) / 2,  // Centrar verticalmente
+            dk_size,
+            dk_size
+        };
+        SDL_RenderCopy(r, g->tex_donkey_kong, NULL, &dk_dst);
+    }
+
+    //MARIO (EL VILLANO)
+    if (g->tex_mario) {
+        int mario_w, mario_h;
+        SDL_QueryTexture(g->tex_mario, NULL, NULL, &mario_w, &mario_h);
+
+        // Posicionar Mario a la derecha de la jaula
+        int mario_size = 40;  // Tamaño del sprite de Mario
+        SDL_Rect mario_dst = {
+            CAGE_X + CAGE_W + 15,  // A la derecha de la jaula
+            CAGE_Y - 5,             // Ligeramente arriba
+            mario_size,
+            mario_size
+        };
+        SDL_RenderCopy(r, g->tex_mario, NULL, &mario_dst);
+    }
+
     // Frutas
     for (int i = 0; i < gs->fruitsCount; ++i) {
         Fruit f = gs->fruits[i];
         if (!f.active) continue;
 
         // Usar texturas individuales PNG
-        // El servidor envía: "Banana", "Naranja", "Cereza" (mayúscula inicial)
         if ((strstr(f.type, "Banana") || strstr(f.type, "BANANA")) && g->tex_fruit_banana) {
             draw_texture(r, g->tex_fruit_banana, f.x, f.y, 1.2f);
         } else if ((strstr(f.type, "Naranja") || strstr(f.type, "NARANJA")) && g->tex_fruit_orange) {
@@ -439,22 +592,19 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // Cocodrilos (con animación de escala)
+    // Cocodrilos
     for (int i = 0; i < gs->crocsCount; ++i) {
         Croc c = gs->crocs[i];
         if (!c.alive) continue;
 
-        // Animación simple: alternar escala ligeramente
         int frame = (anim_frame / 15) % 2;
         float scale = frame ? 1.5f : 1.4f;
 
-        // Usar texturas individuales PNG
         if (c.isRed && g->tex_croc_red) {
             draw_texture(r, g->tex_croc_red, c.x, c.y, scale);
         } else if (!c.isRed && g->tex_croc_blue) {
             draw_texture(r, g->tex_croc_blue, c.x, c.y, scale);
         } else {
-            // Fallback a rectángulos de colores
             if (c.isRed)
                 draw_rect(r, c.x - 14, c.y - 9, 28, 18, COLOR_CROC_RED);
             else
@@ -462,29 +612,23 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // Jugador (DK Jr)
+    // Jugador
     if (g->tex_player) {
-        // El servidor envía Y como la parte SUPERIOR del hitbox (altura 28px)
-        // La parte inferior del hitbox está en Y + 28
-        // Usar draw_texture_bottom para alinear el sprite por su base
         draw_texture_bottom(r, g->tex_player, gs->player.x, gs->player.y + 28, 1.5f);
     } else {
-        // Fallback: rectángulo representando hitbox real (24x28)
         draw_rect(r, gs->player.x - 12, gs->player.y, 24, 28, COLOR_PLAYER);
     }
 
-    // HUD Visual en pantalla
-    // Dibujar scoreholder (panel de puntuación)
+    // HUD Visual
     if (g->tex_scoreholder) {
-        SDL_Rect score_dst = {10, 10, 200, 50};  // Esquina superior izquierda
+        SDL_Rect score_dst = {10, 10, 200, 50};
         SDL_RenderCopy(r, g->tex_scoreholder, NULL, &score_dst);
 
-        // Dibujar puntuación como texto dentro del scoreholder
         if (g->font) {
             char score_text[32];
             snprintf(score_text, sizeof(score_text), "Score: %d", gs->player.score);
 
-            SDL_Color text_color = {255, 255, 255, 255};  // Blanco
+            SDL_Color text_color = {255, 255, 255, 255};
             SDL_Surface* text_surface = TTF_RenderText_Solid(g->font, score_text, text_color);
 
             if (text_surface) {
@@ -499,14 +643,13 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // Dibujar vidas con corazones
+    // Vidas con corazones
     if (g->tex_heart) {
         int heart_size = 30;
         int heart_spacing = 35;
-        int start_x = WIN_W - 120;  // Esquina superior derecha
+        int start_x = WIN_W - 120;
         int start_y = 10;
 
-        // Dibujar un corazón por cada vida
         for (int i = 0; i < gs->player.lives; i++) {
             SDL_Rect heart_dst = {
                 start_x + (i * heart_spacing),
@@ -518,7 +661,7 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // HUD en consola (Score y vidas)
+    // HUD en consola
     if (gs->player.hasWon) {
         printf("\r🎉 ¡VICTORIA! Score: %d   Lives: %d   *** GANASTE ***   ",
                gs->player.score, gs->player.lives);
