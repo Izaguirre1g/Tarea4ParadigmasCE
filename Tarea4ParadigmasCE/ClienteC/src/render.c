@@ -173,7 +173,7 @@ int gfx_init(Gfx* g) {
     }
 
     printf("[OK] Textura GPU creada\n");
-    printf("\n*** ✅ SPRITES CARGADOS EXITOSAMENTE ***\n");
+    printf("\n***SPRITES CARGADOS EXITOSAMENTE ***\n");
     printf("==========================================\n\n");
 
     // Cargar sprites individuales para cocodrilos y frutas
@@ -203,7 +203,7 @@ int gfx_init(Gfx* g) {
         SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
         g->tex_croc_red = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
-        printf("[OK] ✓ Cocodrilo rojo cargado\n");
+        printf("[OK] Cocodrilo rojo cargado\n");
     } else {
         g->tex_croc_red = NULL;
         printf("[WARN] ✗ kremling_red.png no encontrado\n");
@@ -215,7 +215,7 @@ int gfx_init(Gfx* g) {
         SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
         g->tex_croc_blue = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
-        printf("[OK] ✓ Cocodrilo azul cargado\n");
+        printf("[OK] Cocodrilo azul cargado\n");
     } else {
         g->tex_croc_blue = NULL;
         printf("[WARN] ✗ kremling_blue.png no encontrado\n");
@@ -228,13 +228,13 @@ int gfx_init(Gfx* g) {
         g->tex_fruit_banana = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
         if (g->tex_fruit_banana) {
-            printf("[OK] ✓ Banana cargada\n");
+            printf("[OK] Banana cargada\n");
         } else {
-            printf("[ERROR] ✗ Banana: Falló crear textura: %s\n", SDL_GetError());
+            printf("[ERROR] Banana: Falló crear textura: %s\n", SDL_GetError());
         }
     } else {
         g->tex_fruit_banana = NULL;
-        printf("[WARN] ✗ fruit_bananas.png no encontrado: %s\n", IMG_GetError());
+        printf("[WARN] fruit_bananas.png no encontrado: %s\n", IMG_GetError());
     }
 
     // Naranja
@@ -244,13 +244,13 @@ int gfx_init(Gfx* g) {
         g->tex_fruit_orange = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
         if (g->tex_fruit_orange) {
-            printf("[OK] ✓ Naranja cargada\n");
+            printf("[OK] Naranja cargada\n");
         } else {
-            printf("[ERROR] ✗ Naranja: Falló crear textura: %s\n", SDL_GetError());
+            printf("[ERROR] Naranja: Falló crear textura: %s\n", SDL_GetError());
         }
     } else {
         g->tex_fruit_orange = NULL;
-        printf("[WARN] ✗ fruit_oranges.png no encontrado: %s\n", IMG_GetError());
+        printf("[WARN] fruit_oranges.png no encontrado: %s\n", IMG_GetError());
     }
 
     // Fresa/Cereza
