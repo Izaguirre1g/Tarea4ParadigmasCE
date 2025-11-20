@@ -752,21 +752,44 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // Vidas
+    // Vidas (con animación cuando gana vida)
     if (g->tex_heart) {
+        // Variables estáticas para animación
+        static int blink_timer = 0;
+        static int last_lives = 0;
+
+        // Detectar si ganó vida
+        if (gs->player.gainedLife && gs->player.lives > last_lives) {
+            blink_timer = 30;  // Parpadear 30 frames (~0.5 seg)
+        }
+        last_lives = gs->player.lives;
+
         int heart_size = 25;
         int heart_spacing = 30;
         int start_x = WIN_W - 110;
         int start_y = 12;
 
-        for (int i = 0; i < gs->player.lives && i < 3; i++) {
+        for (int i = 0; i < gs->player.lives && i < 9; i++) {
             SDL_Rect heart_dst = {
                 start_x + (i * heart_spacing),
                 start_y,
-                heart_size, heart_size
+                heart_size,
+                heart_size
             };
-            SDL_RenderCopy(r, g->tex_heart, NULL, &heart_dst);
+
+            // Si es el último corazón Y está parpadeando
+            if (i == gs->player.lives - 1 && blink_timer > 0) {
+                // Parpadear (visible cada 4 frames)
+                if ((blink_timer / 4) % 2 == 0) {
+                    SDL_RenderCopy(r, g->tex_heart, NULL, &heart_dst);
+                }
+            } else {
+                // Corazón normal
+                SDL_RenderCopy(r, g->tex_heart, NULL, &heart_dst);
+            }
         }
+
+        if (blink_timer > 0) blink_timer--;
     }
 
     if (gs->player.hasWon) {

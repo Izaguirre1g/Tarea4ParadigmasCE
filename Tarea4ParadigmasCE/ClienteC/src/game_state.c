@@ -5,11 +5,23 @@
 
 void gs_apply_line(GameState* gs, const char* line) {
     if (strncmp(line, "PLAYER", 6) == 0) {
-        // Intentar leer con won, si no está presente será 0 por defecto
+        // Intentar leer con won y gained_life
         int won = 0;
-        int matched = sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d",
-               &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won);
+        int gainedLife = 0;  // ← NUEVO
+
+        // Primero intentar leer con gained_life
+        int matched = sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d gained_life=%d",
+               &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won, &gainedLife);
+
+        // Si no tiene gained_life (formato antiguo), usar 0
+        if (matched < 6) {
+            sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d",
+                   &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won);
+            gainedLife = 0;
+        }
+
         gs->player.hasWon = won;
+        gs->player.gainedLife = gainedLife;  // ← NUEVO
     }
     else if (strncmp(line, "CAGE", 4) == 0) {
         // El servidor envía info de la jaula (ya está en constants.h)

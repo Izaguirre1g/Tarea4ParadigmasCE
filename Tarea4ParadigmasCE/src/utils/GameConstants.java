@@ -19,7 +19,7 @@ public final class GameConstants {
     public static final Integer WIN_HEIGHT = 540;
 
     /* --- Jugador --- */
-    public static final Double PLAYER_START_X = 105.0;
+    public static final Double PLAYER_START_X = 150.0;
     public static final Double PLAYER_START_Y = 490.0;
     public static final Integer PLAYER_WIDTH  = 24;
     public static final Integer PLAYER_HEIGHT = 28;
@@ -28,6 +28,7 @@ public final class GameConstants {
     public static final Double PLAYER_SPEED_Y = 3.0;
     public static final Double PLAYER_JUMP_VELOCITY = 5.0;
     public static final Integer PLAYER_START_LIVES = 3;
+    public static final Integer PLAYER_MAX_LIVES = 9;
 
     /* --- Física --- */
     public static final Double GRAVITY = 0.25;

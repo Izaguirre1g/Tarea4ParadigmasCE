@@ -4,7 +4,8 @@
 typedef struct {
     float x, y;
     int lives, score;
-    int hasWon;  // 0 = jugando, 1 = victoria
+    int hasWon;        // 0 = jugando, 1 = victoria
+    int gainedLife;    // 0 = normal, 1 = acaba de ganar vida
 } Player;
 
 typedef struct {

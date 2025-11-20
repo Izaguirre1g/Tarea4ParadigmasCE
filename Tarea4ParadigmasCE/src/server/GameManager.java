@@ -123,6 +123,11 @@ public class GameManager {
         checkCollisions();
         checkAbyssfall();
         broadcast();
+
+        // Resetear flag de vida extra después de enviar
+        if (state.getJustGainedLife()) {
+            state.setJustGainedLife(false);
+        }
     }
 
     /* =========================================================
@@ -419,17 +424,27 @@ public class GameManager {
         // Agregar puntos de victoria
         state.setScore(state.getScore() + WIN_SCORE_BONUS);
 
-        //OTORGAR VIDA EXTRA
-        state.setLives(state.getLives() + 1);
+        // OTORGAR VIDA EXTRA (con límite)
+        Integer currentLives = state.getLives();
+
+        if (currentLives < PLAYER_MAX_LIVES) {
+            state.setLives(currentLives + 1);
+            state.setJustGainedLife(true);  // ← NUEVO: Activar animación
+            System.out.println("💚 ¡VIDA EXTRA OTORGADA! Vidas: " + state.getLives());
+        } else {
+            // Si ya tiene máximo de vidas, dar bonus de puntos
+            Integer bonusPuntos = 500;
+            state.setScore(state.getScore() + bonusPuntos);
+            System.out.println("Máximo de vidas alcanzado! Bonus: +" + bonusPuntos + " pts");
+        }
 
         System.out.println("¡VICTORIA! Has rescatado a Donkey Kong!");
         System.out.println("Bonus: +" + WIN_SCORE_BONUS + " puntos");
-        System.out.println("Vida extra otorgada! Vidas: " + state.getLives());
         System.out.println("Puntuación: " + state.getScore());
 
-        //INCREMENTAR NIVEL Y VELOCIDAD
+        // INCREMENTAR NIVEL Y VELOCIDAD
         currentLevel++;
-        speedMultiplier += 0.15;  // Incrementar 15% cada nivel
+        speedMultiplier += 0.15;
 
         System.out.println("¡Nivel " + currentLevel + "! Velocidad de enemigos: x" +
                 String.format("%.2f", speedMultiplier));
@@ -441,7 +456,7 @@ public class GameManager {
             Thread.currentThread().interrupt();
         }
 
-        //REINICIAR NIVEL
+        // REINICIAR NIVEL
         System.out.println("Reiniciando nivel...");
         restartLevel();
     }
@@ -542,10 +557,12 @@ public class GameManager {
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format(
-                    "PLAYER 0 x=%.0f y=%.0f lives=%d score=%d won=%d\n",
+                    "PLAYER 0 x=%.0f y=%.0f lives=%d score=%d won=%d gained_life=%d\n",
                     state.getPlayerX(), state.getPlayerY(),
-                    state.getLives(), state.getScore(),
-                    state.hasWon() ? 1 : 0));
+                    state.getLives(),
+                    state.getScore(),
+                    state.hasWon() ? 1 : 0,
+                    state.getJustGainedLife() ? 1 : 0));  // ← NUEVO
 
             sb.append(String.format("CAGE x=%.0f y=%.0f w=%d h=%d\n",
                     CAGE_X, CAGE_Y, CAGE_WIDTH, CAGE_HEIGHT));

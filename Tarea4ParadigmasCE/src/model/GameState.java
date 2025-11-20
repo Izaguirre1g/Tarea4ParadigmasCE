@@ -1,5 +1,6 @@
 package model;
 
+
 import entities.Cocodrilo;
 import entities.Fruta;
 
@@ -24,6 +25,8 @@ public class GameState {
     private Boolean jumping;
     private Boolean onLiana;
     private Boolean hasWon;  // indica si el jugador ganó el nivel
+    private Boolean justGainedLife = false;
+
 
     // Entidades del juego
     private List<Cocodrilo> cocodrilos;
@@ -74,6 +77,14 @@ public class GameState {
 
     public Boolean hasWon() { return hasWon; }
     public void setHasWon(Boolean hasWon) { this.hasWon = hasWon; }
+
+    public Boolean getJustGainedLife() {
+        return justGainedLife;
+    }
+
+    public void setJustGainedLife(Boolean justGainedLife) {
+        this.justGainedLife = justGainedLife;
+    }
 
     // Getters y Setters - Entidades
 
