@@ -29,8 +29,9 @@
 #define COLOR_CAGE_BARS  80,60,40,255
 
 // --- Jaula de Donkey Kong ---
-#define CAGE_X 140
-#define CAGE_Y 75
+#define CAGE_X 20
+#define CAGE_Y 85
+
 #define CAGE_W 70
 #define CAGE_H 45
 
@@ -54,7 +55,7 @@ static const float PLATFORMS[N_PLAT][4] = {
 // LIANAS - 9 en total
 // Formato: {X, Y_inicio, X, Y_fin}
 #define N_LIANA 9
-static const float LIANAS[N_LIANA][4] = {
+static const float LIANAS[N_LIANA][9] = {
     // ════════════════════════════════════════════════════════════════
     // LADO IZQUIERDO (2 lianas)
     // ════════════════════════════════════════════════════════════════

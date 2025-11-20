@@ -8,6 +8,7 @@ import model.Posicion;
 import patterns.factory.GameObjectFactory;
 import patterns.factory.GameObjectFactoryImpl;
 import patterns.observer.GameObservable;
+import utils.GameConstants;
 import utils.GameStateSerializer;
 import utils.TipoFruta;
 import utils.TipoCocodrilo;
@@ -44,6 +45,11 @@ public class GameManager {
     private Integer currentLevel = 1;           // Nivel actual (incrementa al ganar)
     private Double speedMultiplier = 1.0;       // Multiplicador de velocidad de cocodrilos
 
+    // Estado de invencibilidad temporal
+    private boolean isInvincible = false;
+    private long invincibilityEndTime = 0;
+    private static final long INVINCIBILITY_DURATION = 2000; // 2 segundos en milisegundos
+
     // Modo de comunicación con los clientes
     public enum CommunicationMode {
         TEXT,   // Protocolo de texto actual
@@ -79,18 +85,20 @@ public class GameManager {
         // Cocodrilos iniciales de ejemplo
         state.getCocodrilos().add(
                 factory.crearCocodrilo(TipoCocodrilo.ROJO,
-                        new Posicion(160.0, 300.0)));
+                        new Posicion(GameConstants.getLianaX(1), 300.0))); // Liana 1, X=85
+
         state.getCocodrilos().add(
                 factory.crearCocodrilo(TipoCocodrilo.AZUL,
-                        new Posicion(400.0, 200.0)));
+                        new Posicion(GameConstants.getLianaX(5), 200.0))); // Liana 5, X=480
 
         // Frutas iniciales
         state.getFrutas().add(
                 factory.crearFruta(TipoFruta.BANANA,
-                        new Posicion(240.0, 250.0)));
+                        new Posicion(GameConstants.getLianaX(3), 250.0))); // Liana 3, X=220
+
         state.getFrutas().add(
                 factory.crearFruta(TipoFruta.CEREZA,
-                        new Posicion(640.0, 350.0)));
+                        new Posicion(GameConstants.getLianaX(7), 350.0))); // Liana 7, X=695
 
         // Jugador
         state.setPlayerX(PLAYER_START_X);
@@ -111,7 +119,9 @@ public class GameManager {
     private void tick() {
         updatePlayer();
         updateCrocs();
+        updateInvincibility();  //Actualizar invencibilidad
         checkCollisions();
+        checkAbyssfall();
         broadcast();
     }
 
@@ -174,11 +184,11 @@ public class GameManager {
         }
 
         // Si el jugador cayó fuera de la pantalla (abajo)
-        if (state.getPlayerY() > MAX_Y + 50) {  // 50 píxeles de margen
-            System.out.println("¡Caíste al abismo!");
-            playerDeath();
-            return;  // salir para no seguir procesando
-        }
+        //if (state.getPlayerY() > 500) {  // Más cerca del fondo visible
+        //    System.out.println("¡Caíste al abismo!");
+        //    playerDeath();
+        //    return;
+        //}
 
         // --- Movimiento vertical ---
         if (state.isOnLiana()) {
@@ -219,6 +229,61 @@ public class GameManager {
         }
 
         state.setPlayerY(clamp(state.getPlayerY(), MIN_Y, MAX_Y));
+    }
+
+    /**
+     * Verifica si el jugador está cayendo al abismo sin plataforma debajo.
+     * Solo se activa si el jugador está:
+     * 1. NO es invencible
+     * 2. Cayendo (velocidad Y positiva)
+     * 3. En la zona baja (Y > 500)
+     * 4. Sin plataforma debajo en los próximos 100 píxeles
+     */
+    private void checkAbyssfall() {
+        // NO verificar si es invencible
+        if (isInvincible) {
+            return;  // ← NUEVO: Protección durante invencibilidad
+        }
+
+        // Solo verificar si está cayendo
+        if (state.getVelocityY() <= 0) {
+            return;  // Subiendo o quieto
+        }
+
+        // Solo verificar si está en zona baja
+        if (state.getPlayerY() < 500) {
+            return;  // Zona segura arriba
+        }
+
+        // Verificar si hay plataforma debajo
+        boolean hasPlatformBelow = false;
+        double playerBottomY = state.getPlayerY() + PLAYER_HEIGHT;
+        double playerCenterX = state.getPlayerX() + PLAYER_WIDTH / 2.0;
+
+        for (Double[] plat : PLATFORMS) {
+            double px = plat[0];
+            double py = plat[1];
+            double pw = plat[2];
+
+            // Plataforma horizontalmente alineada?
+            boolean horizontalMatch =
+                    (playerCenterX >= px) && (playerCenterX <= px + pw);
+
+            // Plataforma debajo (dentro de 100px)?
+            boolean verticalMatch =
+                    (py >= playerBottomY) && (py <= playerBottomY + 100);
+
+            if (horizontalMatch && verticalMatch) {
+                hasPlatformBelow = true;
+                break;
+            }
+        }
+
+        // Cayendo sin plataforma = ABISMO
+        if (!hasPlatformBelow) {
+            System.out.println("¡Caíste al abismo!");
+            playerDeath();
+        }
     }
 
     private Double getPlatformLandingY(double x, double yActual, double yNext) {
@@ -313,6 +378,11 @@ public class GameManager {
     }
 
     private void checkCrocs() {
+        // Si es invencible, no verificar colisiones
+        if (isInvincible) {
+            return;  //Protección contra cocodrilos
+        }
+
         for (Cocodrilo c : state.getCocodrilos()) {
             if (!c.isActivo()) continue;
 
@@ -416,7 +486,7 @@ public class GameManager {
             System.out.println("Puntuación final: " + state.getScore());
             System.out.println("Nivel alcanzado: " + currentLevel);
 
-            // REINICIAR TODO (vidas, score, nivel, velocidad)
+            // REINICIAR TODO
             state.setLives(PLAYER_START_LIVES);
             state.setScore(0);
             state.setHasWon(false);
@@ -426,10 +496,19 @@ public class GameManager {
             initLevel();
 
             System.out.println("Juego reiniciado desde el nivel 1");
+
+            // Desactivar invencibilidad en game over
+            isInvincible = false;
             return;
         }
 
-        //SOLO REPOSICIONAR AL JUGADOR (mantener todo lo demás)
+        // ACTIVAR INVENCIBILIDAD TEMPORAL
+        isInvincible = true;
+        invincibilityEndTime = System.currentTimeMillis() + INVINCIBILITY_DURATION;
+        System.out.println("Invencibilidad activada por " +
+                (INVINCIBILITY_DURATION / 1000) + " segundos");
+
+        // REPOSICIONAR AL JUGADOR
         state.setPlayerX(PLAYER_START_X);
         state.setPlayerY(PLAYER_START_Y);
         state.setVelocityX(0.0);
@@ -437,6 +516,20 @@ public class GameManager {
         state.setJumping(false);
 
         System.out.println("Jugador reposicionado en el inicio");
+    }
+
+    /**
+     * Actualiza el estado de invencibilidad temporal.
+     * Desactiva la invencibilidad cuando expira el tiempo.
+     */
+    private void updateInvincibility() {
+        if (isInvincible) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime >= invincibilityEndTime) {
+                isInvincible = false;
+                System.out.println("Invencibilidad terminada");
+            }
+        }
     }
 
     /* =========================================================
@@ -492,18 +585,17 @@ public class GameManager {
     /**
      * Crea un cocodrilo en una posición específica (comando ADMIN)
      * @param tipo "ROJO" o "AZUL"
-     * @param lianaNum Número de liana (1-6)
+     * @param lianaNum Número de liana (1-9) ← CAMBIO: antes era 1-6
      * @param altura Altura en píxeles (0-540)
      */
     public void crearCocodriloAdmin(String tipo, int lianaNum, int altura) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
-
-        if (lianaNum < 1 || lianaNum > 6) {
+        // Validar rango 1-9
+        if (lianaNum < 1 || lianaNum > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaNum);
             return;
         }
 
-        double x = lianasX[lianaNum - 1];
+        double x = GameConstants.getLianaX(lianaNum);
         double y = (double) altura;
 
         Posicion pos = new Posicion(x, y);
@@ -518,12 +610,11 @@ public class GameManager {
             return;
         }
 
-        // Asignar liana si el cocodrilo tiene el método setLiana
+        // Asignar liana
         if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
             try {
                 croc.setLiana(state.getLianas().get(lianaNum - 1));
             } catch (Exception e) {
-                // Si el método no existe, simplemente continuar
                 System.out.println("[GameManager] Advertencia: No se pudo asignar liana al cocodrilo");
             }
         }
@@ -532,25 +623,26 @@ public class GameManager {
 
         System.out.println("[GameManager] Cocodrilo creado → ID: " + croc.getId() +
                 ", Tipo: " + tipo + ", Liana: " + lianaNum +
-                ", Altura: " + altura);
+                ", X: " + x + ", Altura: " + altura);
     }
 
     /**
      * Crea una fruta en una posición específica (comando ADMIN)
      * @param tipo "BANANA", "NARANJA" o "CEREZA"
-     * @param lianaNum Número de liana (1-6)
+     * @param lianaNum Número de liana (1-9) ← CAMBIO: antes era 1-6
      * @param altura Altura en píxeles (0-540)
      * @param puntos Puntos que otorga (10-100)
      */
     public void crearFrutaAdmin(String tipo, int lianaNum, int altura, int puntos) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
 
-        if (lianaNum < 1 || lianaNum > 6) {
+        // Validar rango 1-9
+        if (lianaNum < 1 || lianaNum > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaNum);
             return;
         }
 
-        double x = lianasX[lianaNum - 1];
+        // USAR getLianaX()
+        double x = GameConstants.getLianaX(lianaNum);
         double y = (double) altura;
 
         Posicion pos = new Posicion(x, y);
@@ -574,12 +666,11 @@ public class GameManager {
         Fruta fruta = factory.crearFruta(tipoFruta, pos);
         fruta.setPuntos(puntos);
 
-        // Asignar liana si la fruta tiene el método setLiana
+        // Asignar liana
         if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
             try {
                 fruta.setLiana(state.getLianas().get(lianaNum - 1));
             } catch (Exception e) {
-                // Si el método no existe, simplemente continuar
                 System.out.println("[GameManager] Advertencia: No se pudo asignar liana a la fruta");
             }
         }
@@ -588,24 +679,24 @@ public class GameManager {
 
         System.out.println("[GameManager] Fruta creada → ID: " + fruta.getId() +
                 ", Tipo: " + tipo + ", Liana: " + lianaNum +
-                ", Altura: " + altura + ", Puntos: " + puntos);
+                ", X: " + x + ", Altura: " + altura + ", Puntos: " + puntos);
     }
 
     /**
      * Elimina una fruta en una posición específica (comando ADMIN)
-     * @param lianaNum Número de liana (1-6)
+     * @param lianaNum Número de liana (1-9) ← CAMBIO: antes era 1-6
      * @param altura Altura en píxeles (0-540)
      * @return true si se eliminó, false si no se encontró
      */
     public boolean eliminarFrutaAdmin(int lianaNum, int altura) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
-
-        if (lianaNum < 1 || lianaNum > 6) {
+        // Validar rango 1-9
+        if (lianaNum < 1 || lianaNum > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaNum);
             return false;
         }
 
-        double targetX = lianasX[lianaNum - 1];
+        // USAR getLianaX()
+        double targetX = GameConstants.getLianaX(lianaNum);
         double targetY = (double) altura;
         double tolerance = 30.0;
 
@@ -620,7 +711,7 @@ public class GameManager {
                 state.getFrutas().remove(i);
 
                 System.out.println("[GameManager] Fruta eliminada → ID: " + frutaId +
-                        ", Liana: " + lianaNum + ", Altura: " + altura);
+                        ", Liana: " + lianaNum + ", X: " + targetX + ", Altura: " + altura);
                 return true;
             }
         }
@@ -638,10 +729,8 @@ public class GameManager {
      * @return true si se creó exitosamente, false si hubo error
      */
     public Boolean crearCocodrilo(TipoCocodrilo tipo, Integer lianaId, Double altura) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
-
-        // Validar liana
-        if (lianaId < 1 || lianaId > 6) {
+        //  Validar liana 1-9
+        if (lianaId < 1 || lianaId > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaId);
             return false;
         }
@@ -653,7 +742,7 @@ public class GameManager {
         }
 
         try {
-            double x = lianasX[lianaId - 1];
+            double x = GameConstants.getLianaX(lianaId);
             double y = altura;
             Posicion pos = new Posicion(x, y);
 
@@ -669,7 +758,7 @@ public class GameManager {
 
             System.out.println("[GameManager] Cocodrilo creado → ID: " + croc.getId() +
                     ", Tipo: " + tipo + ", Liana: " + lianaId +
-                    ", Altura: " + altura);
+                    ", X: " + x + ", Altura: " + altura);
 
             return true;
 
@@ -711,10 +800,8 @@ public class GameManager {
      * @return true si se creó exitosamente, false si hubo error
      */
     public Boolean crearFruta(TipoFruta tipo, Integer lianaId, Double altura) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
-
-        // Validar liana
-        if (lianaId < 1 || lianaId > 6) {
+        // Validar liana 1-9
+        if (lianaId < 1 || lianaId > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaId);
             return false;
         }
@@ -726,7 +813,7 @@ public class GameManager {
         }
 
         try {
-            double x = lianasX[lianaId - 1];
+            double x = GameConstants.getLianaX(lianaId);
             double y = altura;
             Posicion pos = new Posicion(x, y);
 
@@ -742,7 +829,7 @@ public class GameManager {
 
             System.out.println("[GameManager] Fruta creada → ID: " + fruta.getId() +
                     ", Tipo: " + tipo + ", Liana: " + lianaId +
-                    ", Altura: " + altura + ", Puntos: " + fruta.getPuntos());
+                    ", X: " + x + ", Altura: " + altura + ", Puntos: " + fruta.getPuntos());
 
             return true;
 
@@ -759,10 +846,10 @@ public class GameManager {
      * @return true si se eliminó, false si no se encontró
      */
     public Boolean eliminarFruta(Integer lianaId, Double altura) {
-        double[] lianasX = {160.0, 240.0, 400.0, 480.0, 640.0, 720.0};
+        double[] lianasX = {20.0, 100.0, 220.0, 370.0, 480.0, 570.0,660.0, 760.0, 890.0};
 
         // Validar liana
-        if (lianaId < 1 || lianaId > 6) {
+        if (lianaId < 1 || lianaId > 9) {
             System.out.println("[GameManager] Error: liana inválida " + lianaId);
             return false;
         }

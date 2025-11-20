@@ -19,7 +19,7 @@ public final class GameConstants {
     public static final Integer WIN_HEIGHT = 540;
 
     /* --- Jugador --- */
-    public static final Double PLAYER_START_X = 150.0;
+    public static final Double PLAYER_START_X = 105.0;
     public static final Double PLAYER_START_Y = 490.0;
     public static final Integer PLAYER_WIDTH  = 24;
     public static final Integer PLAYER_HEIGHT = 28;
@@ -44,8 +44,8 @@ public final class GameConstants {
     public static final Integer FRUIT_SCORE_CEREZA  = 50;
 
     /* --- Jaula de DK --- */
-    public static final Double CAGE_X = 140.0;
-    public static final Double CAGE_Y = 75.0;
+    public static final Double CAGE_X = 20.0;
+    public static final Double CAGE_Y = 85.0;
     public static final Integer CAGE_WIDTH = 70;
     public static final Integer CAGE_HEIGHT = 45;
     public static final Integer WIN_SCORE_BONUS = 1000;
@@ -106,6 +106,53 @@ public final class GameConstants {
             // X=880, empieza desde Y=50 (arriba de todo)
             {890.0, 50.0, 880.0, 430.0}
     };
+
+    /**
+     * Coordenadas X de cada liana para colocar cocodrilos y frutas correctamente.
+     *
+     * IMPORTANTE: Basadas en las coordenadas reales de las lianas diagonales/verticales.
+     * Para lianas diagonales se usa el promedio de X_inicio y X_fin.
+     * Para lianas verticales se usa directamente la X.
+     *
+     * Índice 0 = Liana 1, Índice 1 = Liana 2, ... Índice 8 = Liana 9
+     */
+    public static final Double[] LIANA_X_POSITIONS = {
+            85.0,   // Liana 1: promedio de (20 + 150) / 2 = 85
+            125.0,  // Liana 2: promedio de (100 + 150) / 2 = 125
+            220.0,  // Liana 3: vertical en X=220
+            370.0,  // Liana 4: vertical en X=370
+            480.0,  // Liana 5: vertical en X=480
+            620.0,  // Liana 6: promedio de (570 + 670) / 2 = 620
+            695.0,  // Liana 7: promedio de (660 + 730) / 2 = 695
+            785.0,  // Liana 8: promedio de (760 + 810) / 2 = 785
+            885.0   // Liana 9: promedio de (890 + 880) / 2 = 885
+    };
+
+    /**
+     * Obtener la coordenada X de una liana específica.
+     *
+     * @param lianaNumber Número de liana (1-9)
+     * @return Coordenada X donde se debe colocar el objeto
+     * @throws IllegalArgumentException si el número de liana es inválido
+     */
+    public static Double getLianaX(int lianaNumber) {
+        if (lianaNumber < 1 || lianaNumber > 9) {
+            throw new IllegalArgumentException(
+                    "Número de liana debe estar entre 1 y 9, recibido: " + lianaNumber
+            );
+        }
+        return LIANA_X_POSITIONS[lianaNumber - 1];
+    }
+
+    /**
+     * Validar si un número de liana es válido.
+     *
+     * @param lianaNumber Número a validar
+     * @return true si es válido (1-9), false en caso contrario
+     */
+    public static boolean isValidLianaNumber(int lianaNumber) {
+        return lianaNumber >= 1 && lianaNumber <= 9;
+    }
 
     // ════════════════════════════════════════════════════════════════
     // GUÍA PARA AJUSTAR LIANAS:
