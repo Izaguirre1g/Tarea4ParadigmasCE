@@ -164,7 +164,7 @@ void admin_ui_init_state(AdminUIState* state) {
 
     // Input fields
     state->crocLiana = (InputField){
-        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (0-8):"
     };
     state->crocAltura = (InputField){
         {leftX + 100, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
@@ -189,7 +189,7 @@ void admin_ui_init_state(AdminUIState* state) {
 
     // Input fields (primera fila)
     state->fruitLiana = (InputField){
-        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {leftX, yOffset + 70, 80, 30}, "", 2, 0, "Liana (0-8):"
     };
     state->fruitAltura = (InputField){
         {leftX + 100, yOffset + 70, 100, 30}, "", 4, 0, "Altura (0-540):"
@@ -211,7 +211,7 @@ void admin_ui_init_state(AdminUIState* state) {
 
     // ===== SECCIÓN ELIMINAR FRUTA (Columna Derecha) =====
     state->delFruitLiana = (InputField){
-        {rightX, yOffset + 40, 80, 30}, "", 2, 0, "Liana (1-6):"
+        {rightX, yOffset + 40, 80, 30}, "", 2, 0, "Liana (0-8):"
     };
     state->delFruitAltura = (InputField){
         {rightX + 100, yOffset + 40, 100, 30}, "", 4, 0, "Altura (0-540):"
@@ -651,8 +651,8 @@ void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
         int liana = atoi(state->crocLiana.text);
         int altura = atoi(state->crocAltura.text);
 
-        if (liana < 1 || liana > 6) {
-            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+        if (liana < 1 || liana > 9) {
+            printf("[ADMIN] Error: Liana debe estar entre 1-9\n");
             return;
         }
 
@@ -702,8 +702,8 @@ void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
         int altura = atoi(state->fruitAltura.text);
         int puntos = atoi(state->fruitPuntos.text);
 
-        if (liana < 1 || liana > 6) {
-            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+        if (liana < 1 || liana > 9) {
+            printf("[ADMIN] Error: Liana debe estar entre 1-9\n");
             return;
         }
 
@@ -765,8 +765,8 @@ void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
         int liana = atoi(state->delFruitLiana.text);
         int altura = atoi(state->delFruitAltura.text);
 
-        if (liana < 1 || liana > 6) {
-            printf("[ADMIN] Error: Liana debe estar entre 1-6\n");
+        if (liana < 0 || liana > 8) {
+            printf("[ADMIN] Error: Liana debe estar entre 0-8\n");
             return;
         }
 

@@ -6,6 +6,10 @@ typedef struct {
     int lives, score;
     int hasWon;        // 0 = jugando, 1 = victoria
     int gainedLife;    // 0 = normal, 1 = acaba de ganar vida
+    int animFrame;     // Frame de animación
+    float vx, vy;      // Velocidades para detectar estado
+    int onLiana;       // 1 si está en liana, 0 si no
+    int jumping;       // 1 si está saltando
 } Player;
 
 typedef struct {

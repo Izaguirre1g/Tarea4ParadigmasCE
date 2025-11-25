@@ -608,12 +608,15 @@ public class GameManager {
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format(
-                    "PLAYER 0 x=%.0f y=%.0f lives=%d score=%d won=%d gained_life=%d\n",
+                    "PLAYER 0 x=%.0f y=%.0f vx=%.2f vy=%.2f lives=%d score=%d jumping=%d onliana=%d won=%d gained_life=%d\n",
                     state.getPlayerX(), state.getPlayerY(),
+                    state.getVelocityX(), state.getVelocityY(),
                     state.getLives(),
                     state.getScore(),
+                    state.isJumping() ? 1 : 0,
+                    state.isOnLiana() ? 1 : 0,
                     state.hasWon() ? 1 : 0,
-                    state.getJustGainedLife() ? 1 : 0));  // ← NUEVO
+                    state.getJustGainedLife() ? 1 : 0));
 
             sb.append(String.format("CAGE x=%.0f y=%.0f w=%d h=%d\n",
                     CAGE_X, CAGE_Y, CAGE_WIDTH, CAGE_HEIGHT));
@@ -757,19 +760,19 @@ public class GameManager {
 
     /**
      * Elimina una fruta en una posición específica (comando ADMIN)
-     * @param lianaNum Número de liana (1-9) ← CAMBIO: antes era 1-6
+     * @param lianaNum Número de liana (0-8)
      * @param altura Altura en píxeles (0-540)
      * @return true si se eliminó, false si no se encontró
      */
     public boolean eliminarFrutaAdmin(int lianaNum, int altura) {
-        // Validar rango 1-9
-        if (lianaNum < 1 || lianaNum > 9) {
+        // Validar rango 0-8
+        if (lianaNum < 0 || lianaNum > 8) {
             System.out.println("[GameManager] Error: liana inválida " + lianaNum);
             return false;
         }
 
-        // USAR getLianaX()
-        double targetX = GameConstants.getLianaX(lianaNum);
+        // Convertir índice 0-8 a 1-9 para getLianaX
+        double targetX = GameConstants.getLianaX(lianaNum + 1);
         double targetY = (double) altura;
         double tolerance = 30.0;
 

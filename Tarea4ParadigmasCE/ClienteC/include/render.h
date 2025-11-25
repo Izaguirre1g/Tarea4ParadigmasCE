@@ -16,6 +16,14 @@ typedef struct {
     SDL_Texture*  tex_fruit_orange;
     SDL_Texture*  tex_fruit_strawberry;
 
+    // Animación de DK Jr. - 7 frames
+    SDL_Texture*  tex_jr1;
+    SDL_Texture*  tex_jr2;
+    SDL_Texture*  tex_jr4;
+    SDL_Texture*  tex_jr5;
+    SDL_Texture*  tex_jr6;
+    SDL_Texture*  tex_jr7;
+
     // Texturas para HUD y objetivos
     SDL_Texture*  tex_jail;          // Jaula de DK
     SDL_Texture*  tex_heart;         // Corazón para vidas

@@ -197,6 +197,72 @@ int gfx_init(Gfx* g) {
         printf("[WARN] ✗ dkjr.png no encontrado: %s\n", IMG_GetError());
     }
 
+    // Animación DK Jr - Frame 1
+    temp = IMG_Load("assets/jr1.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr1 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr1) printf("[OK] ✓ DK Jr frame 1 cargado\n");
+    } else {
+        g->tex_jr1 = NULL;
+    }
+
+    // Frame 2
+    temp = IMG_Load("assets/jr2.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr2 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr2) printf("[OK] ✓ DK Jr frame 2 cargado\n");
+    } else {
+        g->tex_jr2 = NULL;
+    }
+
+    // Frame 4
+    temp = IMG_Load("assets/jr4.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr4 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr4) printf("[OK] ✓ DK Jr frame 4 cargado\n");
+    } else {
+        g->tex_jr4 = NULL;
+    }
+
+    // Frame 5
+    temp = IMG_Load("assets/jr5.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr5 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr5) printf("[OK] ✓ DK Jr frame 5 cargado\n");
+    } else {
+        g->tex_jr5 = NULL;
+    }
+
+    // Frame 6
+    temp = IMG_Load("assets/jr6.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr6 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr6) printf("[OK] ✓ DK Jr frame 6 cargado\n");
+    } else {
+        g->tex_jr6 = NULL;
+    }
+
+    // Frame 7
+    temp = IMG_Load("assets/jr7.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_jr7 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_jr7) printf("[OK] ✓ DK Jr frame 7 cargado\n");
+    } else {
+        g->tex_jr7 = NULL;
+    }
+
     // Cocodrilo rojo
     temp = IMG_Load("assets/kremling_red.png");
     if (temp) {
@@ -480,6 +546,15 @@ void gfx_shutdown(Gfx* g) {
     if (g->tex_croc_blue) SDL_DestroyTexture(g->tex_croc_blue);
     if (g->tex_croc_red) SDL_DestroyTexture(g->tex_croc_red);
     if (g->tex_player) SDL_DestroyTexture(g->tex_player);
+
+    // Liberar texturas de animación DK Jr
+    if (g->tex_jr1) SDL_DestroyTexture(g->tex_jr1);
+    if (g->tex_jr2) SDL_DestroyTexture(g->tex_jr2);
+    if (g->tex_jr4) SDL_DestroyTexture(g->tex_jr4);
+    if (g->tex_jr5) SDL_DestroyTexture(g->tex_jr5);
+    if (g->tex_jr6) SDL_DestroyTexture(g->tex_jr6);
+    if (g->tex_jr7) SDL_DestroyTexture(g->tex_jr7);
+
     if (g->spritesheet) SDL_DestroyTexture(g->spritesheet);
     if (g->ren) SDL_DestroyRenderer(g->ren);
     if (g->win) SDL_DestroyWindow(g->win);
@@ -741,10 +816,87 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
         }
     }
 
-    // Jugador
-    if (g->tex_player) {
-        draw_texture_bottom(r, g->tex_player, gs->player.x, gs->player.y + 28, 1.5f);
+    // Jugador con animación contextual
+    SDL_Texture* player_tex = g->tex_jr1;  // Por defecto: quieto
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+    static int walk_anim_counter = 0;
+    static float last_x = 0, last_y = 0;
+    static int debug_counter = 0;
+    walk_anim_counter++;
+    debug_counter++;
+
+    // Calcular velocidades basadas en cambio de posición si no están disponibles
+    float vx = gs->player.vx;
+    float vy = gs->player.vy;
+
+    // Si las velocidades son 0, calcular desde cambio de posición
+    if (vx == 0.0f && vy == 0.0f) {
+        vx = gs->player.x - last_x;
+        vy = gs->player.y - last_y;
+    }
+
+    float abs_vx = (vx >= 0) ? vx : -vx;
+    float abs_vy = (vy >= 0) ? vy : -vy;
+
+    // Debug: Imprimir estado cada 60 frames (1 segundo aproximadamente)
+    if (debug_counter % 60 == 0) {
+        printf("[DEBUG] onLiana=%d, vx=%.2f, vy=%.2f, jumping=%d\n",
+               gs->player.onLiana, vx, vy, gs->player.jumping);
+    }
+
+    // Determinar dirección para flip horizontal
+    if (vx < -0.1f) {
+        flip = SDL_FLIP_HORIZONTAL;  // Moviéndose a la izquierda
+    } else if (vx > 0.1f) {
+        flip = SDL_FLIP_NONE;  // Moviéndose a la derecha
+    }
+
+    // ESTADO 1: Cayendo (jr7)
+    if (vy > 2.0f && !gs->player.onLiana) {
+        if (g->tex_jr7) player_tex = g->tex_jr7;
+    }
+    // ESTADO 2: En liana (jr5) - CUALQUIER actividad en liana
+    else if (gs->player.onLiana) {
+        if (g->tex_jr5) player_tex = g->tex_jr5;
+    }
+    // ESTADO 3: Moviéndose horizontalmente (jr2 y jr4 en ciclo)
+    else if (abs_vx > 0.5f) {
+        int walk_frame = (walk_anim_counter / 8) % 2;
+        if (walk_frame == 0 && g->tex_jr2) {
+            player_tex = g->tex_jr2;
+        } else if (walk_frame == 1 && g->tex_jr4) {
+            player_tex = g->tex_jr4;
+        }
+    }
+    // ESTADO 4: Saltando entre lianas (jr6)
+    else if (gs->player.jumping && !gs->player.onLiana) {
+        if (g->tex_jr6) player_tex = g->tex_jr6;
+    }
+    // ESTADO 5: Quieto (jr1)
+    else {
+        if (g->tex_jr1) player_tex = g->tex_jr1;
+    }
+
+    // Guardar posición para próximo frame
+    last_x = gs->player.x;
+    last_y = gs->player.y;
+
+    // Dibujar jugador con escala reducida (0.35) y flip según dirección
+    if (player_tex) {
+        int w, h;
+        SDL_QueryTexture(player_tex, NULL, NULL, &w, &h);
+
+        SDL_Rect dst = {
+            (int)(gs->player.x - (w * 0.35f) / 2),
+            (int)(gs->player.y + 28 - (h * 0.35f)),
+            (int)(w * 0.35f),
+            (int)(h * 0.35f)
+        };
+
+        SDL_RenderCopyEx(r, player_tex, NULL, &dst, 0, NULL, flip);
     } else {
+        // Fallback a rectángulo si no hay sprites
         draw_rect(r, gs->player.x - 12, gs->player.y, 24, 28, COLOR_PLAYER);
     }
 

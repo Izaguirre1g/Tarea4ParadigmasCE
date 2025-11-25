@@ -175,12 +175,12 @@ public class ClientHandler implements Observer, Runnable {
 
                 try {
                     String tipo = p[2].toUpperCase();     // ROJO o AZUL
-                    int liana = Integer.parseInt(p[3]);   // 1-6
+                    int liana = Integer.parseInt(p[3]);   // 0-8
                     int altura = Integer.parseInt(p[4]);  // 0-540
 
                     // Validar parámetros
-                    if (liana < 1 || liana > 6) {
-                        out.println("ERR liana debe estar entre 1-6");
+                    if (liana < 0 || liana > 8) {
+                        out.println("ERR liana debe estar entre 0-8");
                         return;
                     }
 
@@ -216,13 +216,13 @@ public class ClientHandler implements Observer, Runnable {
 
                 try {
                     String tipo = p[2].toUpperCase();     // BANANA, NARANJA, CEREZA
-                    int liana = Integer.parseInt(p[3]);   // 1-6
+                    int liana = Integer.parseInt(p[3]);   // 0-8
                     int altura = Integer.parseInt(p[4]);  // 0-540
                     int puntos = Integer.parseInt(p[5]);  // 10-100
 
                     // Validar parámetros
-                    if (liana < 1 || liana > 6) {
-                        out.println("ERR liana debe estar entre 1-6");
+                    if (liana < 0 || liana > 8) {
+                        out.println("ERR liana debe estar entre 0-8");
                         return;
                     }
 
@@ -264,12 +264,12 @@ public class ClientHandler implements Observer, Runnable {
                 }
 
                 try {
-                    int liana = Integer.parseInt(p[2]);   // 1-6
+                    int liana = Integer.parseInt(p[2]);   // 0-8
                     int altura = Integer.parseInt(p[3]);  // 0-540
 
                     // Validar parámetros
-                    if (liana < 1 || liana > 6) {
-                        out.println("ERR liana debe estar entre 1-6");
+                    if (liana < 0 || liana > 8) {
+                        out.println("ERR liana debe estar entre 0-8");
                         return;
                     }
 

@@ -5,23 +5,47 @@
 
 void gs_apply_line(GameState* gs, const char* line) {
     if (strncmp(line, "PLAYER", 6) == 0) {
-        // Intentar leer con won y gained_life
-        int won = 0;
-        int gainedLife = 0;  // ← NUEVO
-
-        // Primero intentar leer con gained_life
-        int matched = sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d gained_life=%d",
-               &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won, &gainedLife);
-
-        // Si no tiene gained_life (formato antiguo), usar 0
-        if (matched < 6) {
-            sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d",
-                   &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won);
-            gainedLife = 0;
+        // Debug: Mostrar la línea completa que llega
+        static int debug_count = 0;
+        debug_count++;
+        if (debug_count % 60 == 0) {  // Cada 60 líneas (aprox 1 segundo)
+            printf("[DEBUG PARSER] Línea recibida: %s\n", line);
         }
 
+        // Leer estado completo del jugador incluyendo velocidades
+        int won = 0;
+        int gainedLife = 0;
+        int jumping = 0;
+        int onLiana = 0;
+        float vx = 0.0f, vy = 0.0f;
+
+        // Intentar leer formato completo
+        int matched = sscanf(line, "PLAYER %*d x=%f y=%f vx=%f vy=%f lives=%d score=%d jumping=%d onliana=%d won=%d gained_life=%d",
+               &gs->player.x, &gs->player.y, &vx, &vy,
+               &gs->player.lives, &gs->player.score,
+               &jumping, &onLiana, &won, &gainedLife);
+
+        // Debug: Mostrar cuántos campos se parsearon
+        if (debug_count % 60 == 0) {
+            printf("[DEBUG PARSER] Campos parseados: %d, onLiana leído: %d\n", matched, onLiana);
+        }
+
+        // Si no tiene velocidades (formato antiguo), usar valores por defecto
+        if (matched < 8) {
+            sscanf(line, "PLAYER %*d x=%f y=%f lives=%d score=%d won=%d gained_life=%d",
+                   &gs->player.x, &gs->player.y, &gs->player.lives, &gs->player.score, &won, &gainedLife);
+            vx = 0.0f;
+            vy = 0.0f;
+            jumping = 0;
+            onLiana = 0;
+        }
+
+        gs->player.vx = vx;
+        gs->player.vy = vy;
+        gs->player.jumping = jumping;
+        gs->player.onLiana = onLiana;
         gs->player.hasWon = won;
-        gs->player.gainedLife = gainedLife;  // ← NUEVO
+        gs->player.gainedLife = gainedLife;
     }
     else if (strncmp(line, "CAGE", 4) == 0) {
         // El servidor envía info de la jaula (ya está en constants.h)
