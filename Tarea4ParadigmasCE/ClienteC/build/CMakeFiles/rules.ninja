@@ -99,7 +99,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC -BC:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
+  command = C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC -BC:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build
   description = Re-running CMake...
   generator = 1
 

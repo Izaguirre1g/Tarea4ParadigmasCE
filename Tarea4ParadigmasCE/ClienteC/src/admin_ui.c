@@ -14,6 +14,19 @@
 static AdminUIState g_state = {0};
 static int g_sock = -1;
 
+// Coordenadas de las lianas (Y_inicio, Y_fin)
+static const float LIANA_RANGES[9][2] = {
+    {130.0, 515.0},  // Liana 0
+    {130.0, 490.0},  // Liana 1
+    {280.0, 500.0},  // Liana 2
+    {130.0, 470.0},  // Liana 3
+    {160.0, 400.0},  // Liana 4
+    {160.0, 430.0},  // Liana 5
+    {160.0, 410.0},  // Liana 6
+    {50.0, 430.0},   // Liana 7
+    {50.0, 430.0}    // Liana 8
+};
+
 // Radio buttons para tipo de cocodrilo
 static RadioButton g_crocRadios[2] = {
     {{0}, "Rojo", 1},   // Seleccionado por defecto
@@ -26,6 +39,28 @@ static RadioButton g_fruitRadios[3] = {
     {{0}, "Naranja", 0},
     {{0}, "Cereza", 0}
 };
+
+/* ======================================================
+                 FUNCIONES AUXILIARES
+   ====================================================== */
+
+// Actualiza el texto informativo del rango de una liana
+void update_liana_range_text(char* buffer, size_t bufferSize, const char* lianaText) {
+    if (strlen(lianaText) == 0) {
+        snprintf(buffer, bufferSize, "");
+        return;
+    }
+
+    int liana = atoi(lianaText);
+    if (liana < 0 || liana > 8) {
+        snprintf(buffer, bufferSize, "Liana invalida");
+        return;
+    }
+
+    int minY = (int)LIANA_RANGES[liana][0];
+    int maxY = (int)LIANA_RANGES[liana][1];
+    snprintf(buffer, bufferSize, "Rango: Y=%d a Y=%d", minY, maxY);
+}
 
 /* ======================================================
                  FUNCIONES AUXILIARES DE DIBUJO
@@ -76,6 +111,51 @@ void draw_input_field(SDL_Renderer* ren, TTF_Font* font, const InputField* field
     // Label
     SDL_Color labelColor = {200, 200, 200, 255};
     draw_text(ren, font, field->label, field->rect.x, field->rect.y - 20, labelColor);
+
+    // Fondo del input
+    if (field->isActive) {
+        SDL_SetRenderDrawColor(ren, 80, 80, 120, 255);  // Azul oscuro si está activo
+    } else {
+        SDL_SetRenderDrawColor(ren, 50, 50, 50, 255);   // Gris oscuro
+    }
+    SDL_RenderFillRect(ren, &field->rect);
+
+    // Borde
+    if (field->isActive) {
+        SDL_SetRenderDrawColor(ren, 100, 150, 255, 255);  // Azul brillante
+    } else {
+        SDL_SetRenderDrawColor(ren, 150, 150, 150, 255);
+    }
+    SDL_RenderDrawRect(ren, &field->rect);
+
+    // Texto del input
+    if (strlen(field->text) > 0) {
+        SDL_Color textColor = {255, 255, 255, 255};
+        draw_text(ren, font, field->text,
+                  field->rect.x + 5,
+                  field->rect.y + 5,
+                  textColor);
+    }
+
+    // Cursor parpadeante si está activo
+    if (field->isActive) {
+        static int cursorBlink = 0;
+        cursorBlink = (cursorBlink + 1) % 60;
+        if (cursorBlink < 30) {
+            int textWidth = (int)strlen(field->text) * 10;  // Aproximado
+            SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+            SDL_Rect cursor = {field->rect.x + 5 + textWidth, field->rect.y + 5, 2, 20};
+            SDL_RenderFillRect(ren, &cursor);
+        }
+    }
+}
+
+// Versión con label personalizado (para mostrar rangos dinámicos)
+void draw_input_field_with_label(SDL_Renderer* ren, TTF_Font* font, const InputField* field, const char* customLabel) {
+    // Label personalizado (o el original si customLabel está vacío)
+    SDL_Color labelColor = {100, 200, 255, 255}; // Azul claro para labels dinámicos
+    const char* labelToShow = (customLabel && strlen(customLabel) > 0) ? customLabel : field->label;
+    draw_text(ren, font, labelToShow, field->rect.x, field->rect.y - 20, labelColor);
 
     // Fondo del input
     if (field->isActive) {
@@ -223,6 +303,11 @@ void admin_ui_init_state(AdminUIState* state) {
     };
 
     state->activeInput = NULL;
+
+    // Inicializar textos de rango de lianas
+    state->crocLianaRangeText[0] = '\0';
+    state->fruitLianaRangeText[0] = '\0';
+    state->delFruitLianaRangeText[0] = '\0';
 }
 
 
@@ -388,7 +473,7 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
 
     // Input fields
     draw_input_field(ren, font, &state->crocLiana);
-    draw_input_field(ren, font, &state->crocAltura);
+    draw_input_field_with_label(ren, font, &state->crocAltura, state->crocLianaRangeText);
 
     // Botón
     draw_button(ren, font, &state->btnCrearCroc);
@@ -406,7 +491,7 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
 
     // Input fields
     draw_input_field(ren, font, &state->fruitLiana);
-    draw_input_field(ren, font, &state->fruitAltura);
+    draw_input_field_with_label(ren, font, &state->fruitAltura, state->fruitLianaRangeText);
     draw_input_field(ren, font, &state->fruitPuntos);
 
     // Botón
@@ -421,7 +506,7 @@ void admin_ui_render(AdminUI* ui, AdminUIState* state) {
 
     // Input fields
     draw_input_field(ren, font, &state->delFruitLiana);
-    draw_input_field(ren, font, &state->delFruitAltura);
+    draw_input_field_with_label(ren, font, &state->delFruitAltura, state->delFruitLianaRangeText);
 
     // Botón
     draw_button(ren, font, &state->btnEliminarFruta);
@@ -802,6 +887,21 @@ void admin_ui_handle_keypress(AdminUIState* state, SDL_Event* e) {
             int len = strlen(state->activeInput->text);
             if (len > 0) {
                 state->activeInput->text[len - 1] = '\0';
+
+                // Actualizar texto de rango si es un campo de liana
+                if (state->activeInput == &state->crocLiana) {
+                    update_liana_range_text(state->crocLianaRangeText,
+                                          sizeof(state->crocLianaRangeText),
+                                          state->crocLiana.text);
+                } else if (state->activeInput == &state->fruitLiana) {
+                    update_liana_range_text(state->fruitLianaRangeText,
+                                          sizeof(state->fruitLianaRangeText),
+                                          state->fruitLiana.text);
+                } else if (state->activeInput == &state->delFruitLiana) {
+                    update_liana_range_text(state->delFruitLianaRangeText,
+                                          sizeof(state->delFruitLianaRangeText),
+                                          state->delFruitLiana.text);
+                }
             }
         }
         else if (e->key.keysym.sym == SDLK_RETURN || e->key.keysym.sym == SDLK_ESCAPE) {
@@ -816,6 +916,21 @@ void admin_ui_handle_keypress(AdminUIState* state, SDL_Event* e) {
             // Solo permitir números
             if (e->text.text[0] >= '0' && e->text.text[0] <= '9') {
                 strncat(state->activeInput->text, e->text.text, 1);
+
+                // Actualizar texto de rango si es un campo de liana
+                if (state->activeInput == &state->crocLiana) {
+                    update_liana_range_text(state->crocLianaRangeText,
+                                          sizeof(state->crocLianaRangeText),
+                                          state->crocLiana.text);
+                } else if (state->activeInput == &state->fruitLiana) {
+                    update_liana_range_text(state->fruitLianaRangeText,
+                                          sizeof(state->fruitLianaRangeText),
+                                          state->fruitLiana.text);
+                } else if (state->activeInput == &state->delFruitLiana) {
+                    update_liana_range_text(state->delFruitLianaRangeText,
+                                          sizeof(state->delFruitLianaRangeText),
+                                          state->delFruitLiana.text);
+                }
             }
         }
     }

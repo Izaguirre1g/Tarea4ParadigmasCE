@@ -58,21 +58,24 @@ typedef struct {
 
     // Sección COCODRILOS
     RadioGroup crocTypeGroup;  // Rojo o Azul
-    InputField crocLiana;      // 1-6
+    InputField crocLiana;      // 0-8
     InputField crocAltura;     // 0-540
     Button btnCrearCroc;
+    char crocLianaRangeText[64];  // Texto informativo del rango de la liana
 
     // Sección FRUTAS
     RadioGroup fruitTypeGroup; // Banana, Naranja, Cereza
-    InputField fruitLiana;     // 1-6
+    InputField fruitLiana;     // 0-8
     InputField fruitAltura;    // 0-540
     InputField fruitPuntos;    // 10-100
     Button btnCrearFruta;
+    char fruitLianaRangeText[64]; // Texto informativo del rango de la liana
 
     // Sección ELIMINAR FRUTA
-    InputField delFruitLiana;  // 1-6
+    InputField delFruitLiana;  // 0-8
     InputField delFruitAltura; // 0-540
     Button btnEliminarFruta;
+    char delFruitLianaRangeText[64]; // Texto informativo del rango de la liana
 
     // Botón actualizar lista
     Button btnActualizarLista;
@@ -94,6 +97,7 @@ void admin_ui_run(int sock);
 void draw_text(SDL_Renderer* ren, TTF_Font* font, const char* text, int x, int y, SDL_Color color);
 void draw_button(SDL_Renderer* ren, TTF_Font* font, const Button* btn);
 void draw_input_field(SDL_Renderer* ren, TTF_Font* font, const InputField* field);
+void draw_input_field_with_label(SDL_Renderer* ren, TTF_Font* font, const InputField* field, const char* customLabel);
 void draw_radio_button(SDL_Renderer* ren, TTF_Font* font, const RadioButton* radio);
 void draw_section_title(SDL_Renderer* ren, TTF_Font* font, const char* title, int x, int y);
 

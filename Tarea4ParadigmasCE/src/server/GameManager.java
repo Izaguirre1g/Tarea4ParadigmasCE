@@ -694,7 +694,10 @@ public class GameManager {
         // Asignar liana
         if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
             try {
-                croc.setLiana(state.getLianas().get(lianaNum - 1));
+                Liana liana = state.getLianas().get(lianaNum - 1);
+                croc.setLiana(liana);
+
+                System.out.println("[GameManager] Cocodrilo asignado a liana " + lianaNum + " en X=" + x);
             } catch (Exception e) {
                 System.out.println("[GameManager] Advertencia: No se pudo asignar liana al cocodrilo");
             }
@@ -750,7 +753,10 @@ public class GameManager {
         // Asignar liana
         if (lianaNum >= 1 && lianaNum <= state.getLianas().size()) {
             try {
-                fruta.setLiana(state.getLianas().get(lianaNum - 1));
+                Liana liana = state.getLianas().get(lianaNum - 1);
+                fruta.setLiana(liana);
+
+                System.out.println("[GameManager] Fruta asignada a liana " + lianaNum + " en X=" + x);
             } catch (Exception e) {
                 System.out.println("[GameManager] Advertencia: No se pudo asignar liana a la fruta");
             }

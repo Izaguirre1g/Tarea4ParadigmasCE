@@ -34,7 +34,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/
+cmake_ninja_workdir = C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target dkj_client
 
@@ -44,46 +44,46 @@ cmake_ninja_workdir = C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4Pa
 
 build cmake_object_order_depends_target_dkj_client: phony || .
 
-build CMakeFiles/dkj_client.dir/src/game_state.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_dkj_client
+build CMakeFiles/dkj_client.dir/src/game_state.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_dkj_client
   DEP_FILE = CMakeFiles\dkj_client.dir\src\game_state.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_client.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
   TARGET_PDB = bin\dkj_client.pdb
 
-build CMakeFiles/dkj_client.dir/src/json_parse.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_dkj_client
+build CMakeFiles/dkj_client.dir/src/json_parse.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_dkj_client
   DEP_FILE = CMakeFiles\dkj_client.dir\src\json_parse.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_client.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
   TARGET_PDB = bin\dkj_client.pdb
 
-build CMakeFiles/dkj_client.dir/src/main.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c || cmake_object_order_depends_target_dkj_client
+build CMakeFiles/dkj_client.dir/src/main.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c || cmake_object_order_depends_target_dkj_client
   DEP_FILE = CMakeFiles\dkj_client.dir\src\main.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_client.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
   TARGET_PDB = bin\dkj_client.pdb
 
-build CMakeFiles/dkj_client.dir/src/net.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_dkj_client
+build CMakeFiles/dkj_client.dir/src/net.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_dkj_client
   DEP_FILE = CMakeFiles\dkj_client.dir\src\net.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_client.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
   TARGET_PDB = bin\dkj_client.pdb
 
-build CMakeFiles/dkj_client.dir/src/render.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_dkj_client
+build CMakeFiles/dkj_client.dir/src/render.c.obj: C_COMPILER__dkj_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_dkj_client
   DEP_FILE = CMakeFiles\dkj_client.dir\src\render.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_client.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
@@ -100,7 +100,7 @@ build CMakeFiles/dkj_client.dir/src/render.c.obj: C_COMPILER__dkj_client_unscann
 build bin/dkj_client.exe: C_EXECUTABLE_LINKER__dkj_client_ CMakeFiles/dkj_client.dir/src/game_state.c.obj CMakeFiles/dkj_client.dir/src/json_parse.c.obj CMakeFiles/dkj_client.dir/src/main.c.obj CMakeFiles/dkj_client.dir/src/net.c.obj CMakeFiles/dkj_client.dir/src/render.c.obj
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lSDL2_image  -lmingw32  -lSDL2main  -lSDL2  -lSDL2_ttf  -lmingw32  -lSDL2main  -lSDL2  -lws2_32  -lSDL2_image  -lSDL2_ttf  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\dkj_client.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\dkj_client.dir\
   TARGET_FILE = bin\dkj_client.exe
@@ -116,91 +116,91 @@ build bin/dkj_client.exe: C_EXECUTABLE_LINKER__dkj_client_ CMakeFiles/dkj_client
 
 build cmake_object_order_depends_target_dkj_unified: phony || .
 
-build CMakeFiles/dkj_unified.dir/src/launcher.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/launcher.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/launcher.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/launcher.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\launcher.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/main.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/main.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/main.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\main.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/spectator_main.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/spectator_main.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\spectator_main.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/spectator_ui.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/spectator_ui.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\spectator_ui.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/admin_ui.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/admin_ui.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\admin_ui.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/render.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/render.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\render.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/game_state.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/game_state.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\game_state.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/net.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/net.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\net.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_PDB = bin\dkj_unified.pdb
 
-build CMakeFiles/dkj_unified.dir/src/json_parse.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_dkj_unified
+build CMakeFiles/dkj_unified.dir/src/json_parse.c.obj: C_COMPILER__dkj_unified_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_dkj_unified
   DEFINES = -DADMIN_CLIENT -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\dkj_unified.dir\src\json_parse.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
   OBJECT_FILE_DIR = CMakeFiles\dkj_unified.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
@@ -217,7 +217,7 @@ build CMakeFiles/dkj_unified.dir/src/json_parse.c.obj: C_COMPILER__dkj_unified_u
 build bin/dkj_unified.exe: C_EXECUTABLE_LINKER__dkj_unified_ CMakeFiles/dkj_unified.dir/src/launcher.c.obj CMakeFiles/dkj_unified.dir/src/main.c.obj CMakeFiles/dkj_unified.dir/src/spectator_main.c.obj CMakeFiles/dkj_unified.dir/src/spectator_ui.c.obj CMakeFiles/dkj_unified.dir/src/admin_ui.c.obj CMakeFiles/dkj_unified.dir/src/render.c.obj CMakeFiles/dkj_unified.dir/src/game_state.c.obj CMakeFiles/dkj_unified.dir/src/net.c.obj CMakeFiles/dkj_unified.dir/src/json_parse.c.obj
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lSDL2_image  -lmingw32  -lSDL2main  -lSDL2  -lSDL2_ttf  -lmingw32  -lSDL2main  -lSDL2  -lws2_32  -lSDL2_image  -lSDL2_ttf  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\dkj_unified.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\dkj_unified.dir\
   TARGET_FILE = bin\dkj_unified.exe
@@ -233,51 +233,51 @@ build bin/dkj_unified.exe: C_EXECUTABLE_LINKER__dkj_unified_ CMakeFiles/dkj_unif
 
 build cmake_object_order_depends_target_admin_client: phony || .
 
-build CMakeFiles/admin_client.dir/src/admin_main.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c || cmake_object_order_depends_target_admin_client
+build CMakeFiles/admin_client.dir/src/admin_main.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_main.c || cmake_object_order_depends_target_admin_client
   DEFINES = -DADMIN_CLIENT
   DEP_FILE = CMakeFiles\admin_client.dir\src\admin_main.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\admin_client.dir
   OBJECT_FILE_DIR = CMakeFiles\admin_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\admin_client.dir\
   TARGET_PDB = bin\admin_client.pdb
 
-build CMakeFiles/admin_client.dir/src/admin_ui.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c || cmake_object_order_depends_target_admin_client
+build CMakeFiles/admin_client.dir/src/admin_ui.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/admin_ui.c || cmake_object_order_depends_target_admin_client
   DEFINES = -DADMIN_CLIENT
   DEP_FILE = CMakeFiles\admin_client.dir\src\admin_ui.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\admin_client.dir
   OBJECT_FILE_DIR = CMakeFiles\admin_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\admin_client.dir\
   TARGET_PDB = bin\admin_client.pdb
 
-build CMakeFiles/admin_client.dir/src/net.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_admin_client
+build CMakeFiles/admin_client.dir/src/net.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_admin_client
   DEFINES = -DADMIN_CLIENT
   DEP_FILE = CMakeFiles\admin_client.dir\src\net.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\admin_client.dir
   OBJECT_FILE_DIR = CMakeFiles\admin_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\admin_client.dir\
   TARGET_PDB = bin\admin_client.pdb
 
-build CMakeFiles/admin_client.dir/src/json_parse.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_admin_client
+build CMakeFiles/admin_client.dir/src/json_parse.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_admin_client
   DEFINES = -DADMIN_CLIENT
   DEP_FILE = CMakeFiles\admin_client.dir\src\json_parse.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\admin_client.dir
   OBJECT_FILE_DIR = CMakeFiles\admin_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\admin_client.dir\
   TARGET_PDB = bin\admin_client.pdb
 
-build CMakeFiles/admin_client.dir/src/game_state.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_admin_client
+build CMakeFiles/admin_client.dir/src/game_state.c.obj: C_COMPILER__admin_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_admin_client
   DEFINES = -DADMIN_CLIENT
   DEP_FILE = CMakeFiles\admin_client.dir\src\game_state.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include -IC:/msys64/mingw64/include/SDL2 -IC:/msys64/mingw64/include/libpng16 -IC:/msys64/mingw64/include/rav1e -IC:/msys64/mingw64/include/svt-av1 -IC:/msys64/mingw64/include/webp -IC:/msys64/mingw64/include/freetype2 -IC:/msys64/mingw64/include/harfbuzz -IC:/msys64/mingw64/include/glib-2.0 -IC:/msys64/mingw64/lib/glib-2.0/include
   OBJECT_DIR = CMakeFiles\admin_client.dir
   OBJECT_FILE_DIR = CMakeFiles\admin_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\admin_client.dir\
@@ -310,61 +310,61 @@ build bin/admin_client.exe: C_EXECUTABLE_LINKER__admin_client_ CMakeFiles/admin_
 
 build cmake_object_order_depends_target_spectator_client: phony || .
 
-build CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/spectator_main.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_main.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\spectator_main.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_PDB = bin\spectator_client.pdb
 
-build CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/spectator_ui.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\spectator_ui.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_PDB = bin\spectator_client.pdb
 
-build CMakeFiles/spectator_client.dir/src/net.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/net.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/net.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\net.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_PDB = bin\spectator_client.pdb
 
-build CMakeFiles/spectator_client.dir/src/game_state.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/game_state.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/game_state.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\game_state.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_PDB = bin\spectator_client.pdb
 
-build CMakeFiles/spectator_client.dir/src/json_parse.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/json_parse.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/json_parse.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\json_parse.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_PDB = bin\spectator_client.pdb
 
-build CMakeFiles/spectator_client.dir/src/render.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_spectator_client
+build CMakeFiles/spectator_client.dir/src/render.c.obj: C_COMPILER__spectator_client_unscanned_ C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/src/render.c || cmake_object_order_depends_target_spectator_client
   DEFINES = -DSPECTATOR_CLIENT
   DEP_FILE = CMakeFiles\spectator_client.dir\src\render.c.obj.d
   FLAGS = -std=gnu11
-  INCLUDES = -IC:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
+  INCLUDES = -IC:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/include
   OBJECT_DIR = CMakeFiles\spectator_client.dir
   OBJECT_FILE_DIR = CMakeFiles\spectator_client.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
@@ -381,7 +381,7 @@ build CMakeFiles/spectator_client.dir/src/render.c.obj: C_COMPILER__spectator_cl
 build bin/spectator_client.exe: C_EXECUTABLE_LINKER__spectator_client_ CMakeFiles/spectator_client.dir/src/spectator_main.c.obj CMakeFiles/spectator_client.dir/src/spectator_ui.c.obj CMakeFiles/spectator_client.dir/src/net.c.obj CMakeFiles/spectator_client.dir/src/game_state.c.obj CMakeFiles/spectator_client.dir/src/json_parse.c.obj CMakeFiles/spectator_client.dir/src/render.c.obj
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lSDL2_image  -lmingw32  -lSDL2main  -lSDL2  -lSDL2_ttf  -lmingw32  -lSDL2main  -lSDL2  -lws2_32  -lSDL2_image  -lSDL2_ttf  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\spectator_client.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E copy_directory C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/assets C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/bin/assets"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\spectator_client.dir\
   TARGET_FILE = bin\spectator_client.exe
@@ -393,7 +393,7 @@ build bin/spectator_client.exe: C_EXECUTABLE_LINKER__spectator_client_ CMakeFile
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -404,7 +404,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC -BC:\Users\Usuario\IdeaProjects\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC -BC:\Users\kenfe\OneDrive\Documentos\Progra\Tarea4ParadigmasCE\Tarea4ParadigmasCE\ClienteC\build"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -436,7 +436,7 @@ build spectator_client.exe: phony bin/spectator_client.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build
+# Folder: C:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build
 
 build all: phony bin/dkj_client.exe bin/dkj_unified.exe bin/admin_client.exe bin/spectator_client.exe
 
@@ -447,14 +447,14 @@ build all: phony bin/dkj_client.exe bin/dkj_unified.exe bin/admin_client.exe bin
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/cmake_install.cmake: RERUN_CMAKE | C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompilerABI.c C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
+build build.ninja C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/build/cmake_install.cmake: RERUN_CMAKE | C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompilerABI.c C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/Usuario/IdeaProjects/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompilerABI.c C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
+build C$:/Users/kenfe/OneDrive/Documentos/Progra/Tarea4ParadigmasCE/Tarea4ParadigmasCE/ClienteC/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCCompilerABI.c C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCompilerIdDetection.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeFindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeNinjaFindMake.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCCompiler.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystem.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestCompilerCommon.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeTestRCCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/FeatureTesting.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
 
 
 #############################################

@@ -14,7 +14,6 @@ import model.Posicion;
 public class RedCrocStrategy implements MovementStrategy {
 
     private static final Double VERTICAL_SPEED = 1.2;  // Velocidad vertical
-    private static final Double ADJUSTMENT_SPEED = 2.0;  // Velocidad para ajuste inicial
 
     @Override
     public void move(Cocodrilo cocodrilo) {
@@ -30,59 +29,33 @@ public class RedCrocStrategy implements MovementStrategy {
         // Obtener límites verticales de la liana
         double lianaMinY = Math.min(liana.getPosicionInicio().y, liana.getPosicionFin().y);
         double lianaMaxY = Math.max(liana.getPosicionInicio().y, liana.getPosicionFin().y);
-        double lianaMinX = Math.min(liana.getPosicionInicio().x, liana.getPosicionFin().x);
-        double lianaMaxX = Math.max(liana.getPosicionInicio().x, liana.getPosicionFin().x);
 
         // Tamaño del sprite del cocodrilo
         final double CROC_HEIGHT = 30.0;
 
         // Ajustar límites verticales con márgenes
         double minY = lianaMinY + 15;  // Margen superior
-        double maxY = lianaMaxY - CROC_HEIGHT - 15;  // Margen inferior reducido
+        double maxY = lianaMaxY - CROC_HEIGHT;  // Sin margen inferior adicional
 
-        // FASE 1: Ajustar posición X si está fuera de la liana
-        if (!cocodrilo.getIsAligned()) {
-            double lianaCenterX = (lianaMinX + lianaMaxX) / 2.0;
+        // Obtener dirección vertical actual
+        Integer direccion = cocodrilo.getDireccion();
 
-            // Si está muy lejos horizontalmente, mover hacia el centro
-            if (Math.abs(pos.x - lianaCenterX) > 5.0) {
-                if (pos.x < lianaCenterX) {
-                    pos.x += ADJUSTMENT_SPEED;
-                } else {
-                    pos.x -= ADJUSTMENT_SPEED;
-                }
-            } else {
-                pos.x = lianaCenterX;
-                cocodrilo.setIsAligned(true);
-
-                // Inicializar dirección vertical si no está establecida
-                if (cocodrilo.getDireccion() == 0) {
-                    cocodrilo.setDireccion(1); // Empezar bajando
-                }
-            }
+        // Si la dirección es 0, establecer una dirección inicial
+        if (direccion == 0) {
+            direccion = 1;
+            cocodrilo.setDireccion(direccion);
         }
 
-        // FASE 2: Movimiento vertical con rebote
-        if (cocodrilo.getIsAligned()) {
-            Integer direccion = cocodrilo.getDireccion();
+        // Movimiento vertical continuo
+        pos.y += VERTICAL_SPEED * direccion;
 
-            // Si la dirección es 0, establecer una dirección inicial
-            if (direccion == 0) {
-                direccion = 1;
-                cocodrilo.setDireccion(direccion);
-            }
-
-            // Movimiento vertical
-            pos.y += VERTICAL_SPEED * direccion;
-
-            // Rebote en los límites verticales
-            if (pos.y <= minY) {
-                pos.y = minY;
-                cocodrilo.setDireccion(1); // Cambiar a bajar
-            } else if (pos.y >= maxY) {
-                pos.y = maxY;
-                cocodrilo.setDireccion(-1); // Cambiar a subir
-            }
+        // Rebote en los límites verticales
+        if (pos.y <= minY) {
+            pos.y = minY;
+            cocodrilo.setDireccion(1); // Cambiar a bajar
+        } else if (pos.y >= maxY) {
+            pos.y = maxY;
+            cocodrilo.setDireccion(-1); // Cambiar a subir
         }
     }
 

@@ -111,22 +111,21 @@ public final class GameConstants {
     /**
      * Coordenadas X de cada liana para colocar cocodrilos y frutas correctamente.
      *
-     * IMPORTANTE: Basadas en las coordenadas reales de las lianas diagonales/verticales.
-     * Para lianas diagonales se usa el promedio de X_inicio y X_fin.
-     * Para lianas verticales se usa directamente la X.
+     * IMPORTANTE: Basadas en las coordenadas donde se RENDERIZA cada liana.
+     * El cliente C usa LIANAS[i][0] para renderizar, así que usamos esa coordenada.
      *
      * Índice 0 = Liana 1, Índice 1 = Liana 2, ... Índice 8 = Liana 9
      */
     public static final Double[] LIANA_X_POSITIONS = {
-            85.0,   // Liana 1: promedio de (20 + 150) / 2 = 85
-            125.0,  // Liana 2: promedio de (100 + 150) / 2 = 125
-            220.0,  // Liana 3: vertical en X=220
-            370.0,  // Liana 4: vertical en X=370
-            480.0,  // Liana 5: vertical en X=480
-            620.0,  // Liana 6: promedio de (570 + 670) / 2 = 620
-            695.0,  // Liana 7: promedio de (660 + 730) / 2 = 695
-            785.0,  // Liana 8: promedio de (760 + 810) / 2 = 785
-            885.0   // Liana 9: promedio de (890 + 880) / 2 = 885
+            20.0,   // Liana 1: X inicial (donde se renderiza)
+            100.0,  // Liana 2: X inicial
+            220.0,  // Liana 3: X inicial (vertical)
+            370.0,  // Liana 4: X inicial (vertical)
+            480.0,  // Liana 5: X inicial (vertical)
+            570.0,  // Liana 6: X inicial
+            660.0,  // Liana 7: X inicial
+            760.0,  // Liana 8: X inicial
+            890.0   // Liana 9: X inicial
     };
 
     /**
