@@ -29,9 +29,9 @@ public class ClientHandler implements Observer, Runnable {
     private final PrintWriter out;
     private BufferedReader in;
 
-    private boolean isGameClient = false;   // true si es jugador, false si es admin
+    private Boolean isGameClient = false;   // true si es jugador, false si es admin
     private Integer adminTargetPlayerId = null; // jugador seleccionado en admin
-    private boolean isSpectator = false;
+    private Boolean isSpectator = false;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;

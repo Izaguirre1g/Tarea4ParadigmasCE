@@ -382,19 +382,32 @@ int gfx_init(Gfx* g) {
     printf("\n>>> Cargando sprites de (DK, Mario, Lianas, Plataformas)...\n");
 
     // Donkey Kong (dentro de la jaula)
-    temp = IMG_Load("assets/dk.png");
+    // Donkey Kong - Frame 1 (brazos arriba)
+    temp = IMG_Load("assets/dk1.png");
     if (temp) {
         SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
-        g->tex_donkey_kong = SDL_CreateTextureFromSurface(g->ren, temp);
+        g->tex_donkey_kong_1 = SDL_CreateTextureFromSurface(g->ren, temp);
         SDL_FreeSurface(temp);
-        if (g->tex_donkey_kong) {
-            printf("[OK] ✓ Donkey Kong (dk.png) cargado\n");
-        } else {
-            printf("[ERROR] ✗ Donkey Kong: Falló crear textura: %s\n", SDL_GetError());
+        if (g->tex_donkey_kong_1) {
+            printf("[OK] ✓ Donkey Kong frame 1 cargado\n");
         }
     } else {
-        g->tex_donkey_kong = NULL;
-        printf("[WARN] ✗ dk.png no encontrado: %s\n", IMG_GetError());
+        g->tex_donkey_kong_1 = NULL;
+        printf("[WARN] ✗ dk1.png no encontrado: %s\n", IMG_GetError());
+    }
+
+    // Donkey Kong - Frame 2 (brazos abajo)
+    temp = IMG_Load("assets/dk2.png");
+    if (temp) {
+        SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 255, 255, 255));
+        g->tex_donkey_kong_2 = SDL_CreateTextureFromSurface(g->ren, temp);
+        SDL_FreeSurface(temp);
+        if (g->tex_donkey_kong_2) {
+            printf("[OK] ✓ Donkey Kong frame 2 cargado\n");
+        }
+    } else {
+        g->tex_donkey_kong_2 = NULL;
+        printf("[WARN] ✗ dk2.png no encontrado: %s\n", IMG_GetError());
     }
 
     // Mario (el villano)
@@ -564,7 +577,8 @@ void gfx_shutdown(Gfx* g) {
     if (g->tex_mario_2) SDL_DestroyTexture(g->tex_mario_2);
     if (g->tex_mario_3) SDL_DestroyTexture(g->tex_mario_3);
     if (g->tex_mario_4) SDL_DestroyTexture(g->tex_mario_4);
-    if (g->tex_donkey_kong) SDL_DestroyTexture(g->tex_donkey_kong);
+    if (g->tex_donkey_kong_1) SDL_DestroyTexture(g->tex_donkey_kong_1);
+    if (g->tex_donkey_kong_2) SDL_DestroyTexture(g->tex_donkey_kong_2);
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -739,14 +753,32 @@ void gfx_draw_env(Gfx* g, const GameState* gs) {
     }
 
     // Donkey Kong
-    if (g->tex_donkey_kong) {
+    if (g->tex_donkey_kong_1 && g->tex_donkey_kong_2) {
+        static int dk_frame = 0;
+        dk_frame++;
+
+        // Alternar entre frame 1 y 2 cada 20 frames (~333ms a 60fps)
+        SDL_Texture* dk_tex = ((dk_frame / 20) % 2 == 0) ?
+                              g->tex_donkey_kong_1 :
+                              g->tex_donkey_kong_2;
+
         int dk_size = 35;
         SDL_Rect dk_dst = {
             CAGE_X + (CAGE_W - dk_size) / 2,
             CAGE_Y + (CAGE_H - dk_size) / 2,
             dk_size, dk_size
         };
-        SDL_RenderCopy(r, g->tex_donkey_kong, NULL, &dk_dst);
+
+        SDL_RenderCopy(r, dk_tex, NULL, &dk_dst);
+    } else if (g->tex_donkey_kong_1) {
+        // Fallback: si solo hay un sprite
+        int dk_size = 35;
+        SDL_Rect dk_dst = {
+            CAGE_X + (CAGE_W - dk_size) / 2,
+            CAGE_Y + (CAGE_H - dk_size) / 2,
+            dk_size, dk_size
+        };
+        SDL_RenderCopy(r, g->tex_donkey_kong_1, NULL, &dk_dst);
     }
 
     // Mario (móvil con animación)

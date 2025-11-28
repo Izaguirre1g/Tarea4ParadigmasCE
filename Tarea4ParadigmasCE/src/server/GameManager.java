@@ -14,6 +14,7 @@ import utils.GameStateSerializer;
 import utils.TipoFruta;
 import utils.TipoCocodrilo;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -47,9 +48,9 @@ public class GameManager {
     private Double speedMultiplier = 1.0;       // Multiplicador de velocidad de cocodrilos
 
     // Estado de invencibilidad temporal
-    private boolean isInvincible = false;
-    private long invincibilityEndTime = 0;
-    private static final long INVINCIBILITY_DURATION = 2000; // 2 segundos en milisegundos
+    private Boolean isInvincible = false;
+    private Long invincibilityEndTime = 0L;
+    private static final Long INVINCIBILITY_DURATION = 2000L;  // 2 segundos en milisegundos
 
     // Modo de comunicación con los clientes
     public enum CommunicationMode {
@@ -475,7 +476,7 @@ public class GameManager {
         if (currentLives < PLAYER_MAX_LIVES) {
             state.setLives(currentLives + 1);
             state.setJustGainedLife(true);  // ← NUEVO: Activar animación
-            System.out.println("💚 ¡VIDA EXTRA OTORGADA! Vidas: " + state.getLives());
+            System.out.println("¡VIDA EXTRA OTORGADA! Vidas: " + state.getLives());
         } else {
             // Si ya tiene máximo de vidas, dar bonus de puntos
             Integer bonusPuntos = 500;
@@ -543,8 +544,9 @@ public class GameManager {
     }
 
     private void playerDeath() {
+        System.out.println("[DEBUG] playerDeath llamado - Vidas ANTES: " + state.getLives());
         state.setLives(state.getLives() - 1);
-        System.out.println("Jugador perdió una vida. Vidas restantes: " + state.getLives());
+        System.out.println("[DEBUG] playerDeath - Vidas DESPUÉS: " + state.getLives());
 
         if (state.getLives() <= 0) {
             // GAME OVER COMPLETO
@@ -609,7 +611,8 @@ public class GameManager {
             return GameStateSerializer.toJson(state);
         } else {
             StringBuilder sb = new StringBuilder();
-            sb.append(String.format(
+
+            sb.append(String.format(Locale.US,
                     "PLAYER 0 x=%.0f y=%.0f vx=%.2f vy=%.2f lives=%d score=%d jumping=%d onliana=%d won=%d gained_life=%d\n",
                     state.getPlayerX(), state.getPlayerY(),
                     state.getVelocityX(), state.getVelocityY(),
