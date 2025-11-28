@@ -37,8 +37,8 @@ public class RedCrocStrategy implements MovementStrategy {
         final double CROC_HEIGHT = 30.0;
 
         // Ajustar límites verticales con márgenes
-        double minY = lianaMinY + 20;  // Margen superior
-        double maxY = lianaMaxY - CROC_HEIGHT - 20;  // Margen inferior
+        double minY = lianaMinY + 15;  // Margen superior
+        double maxY = lianaMaxY - CROC_HEIGHT - 15;  // Margen inferior reducido
 
         // FASE 1: Ajustar posición X si está fuera de la liana
         if (!cocodrilo.getIsAligned()) {
