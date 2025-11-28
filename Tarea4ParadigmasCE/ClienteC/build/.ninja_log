@@ -1,11 +1,11 @@
 # ninja log v7
-113	2079	7857722392821094	CMakeFiles/dkj_unified.dir/src/json_parse.c.obj	56ac014f705ea05d
-25	8534	7857722391915791	CMakeFiles/dkj_unified.dir/src/main.c.obj	7220ecbe73d2a8d7
-43	8549	7857722392091099	CMakeFiles/dkj_unified.dir/src/spectator_ui.c.obj	ada156dbabc3b7e7
-71	8551	7857722392381105	CMakeFiles/dkj_unified.dir/src/game_state.c.obj	f8f1fc6060d354fd
-51	8569	7857722392181074	CMakeFiles/dkj_unified.dir/src/admin_ui.c.obj	a4ae9c33e6c882b1
-10	8583	7857722391805642	CMakeFiles/dkj_unified.dir/src/launcher.c.obj	ba945397973f053a
-59	8623	7857722392281094	CMakeFiles/dkj_unified.dir/src/render.c.obj	c50f8399c4101198
-35	8644	7857722392015810	CMakeFiles/dkj_unified.dir/src/spectator_main.c.obj	f51543c5dbf0dd84
-97	9608	7857722392641081	CMakeFiles/dkj_unified.dir/src/net.c.obj	4924930a6a2d1a3c
-9612	10572	7857722487795400	bin/dkj_unified.exe	a0cd3b9fca952a41
+64	440	7860123535945890	CMakeFiles/dkj_unified.dir/src/json_parse.c.obj	56ac014f705ea05d
+47	4785	7860123535775902	CMakeFiles/dkj_unified.dir/src/game_state.c.obj	f8f1fc6060d354fd
+19	4902	7860123535495897	CMakeFiles/dkj_unified.dir/src/spectator_main.c.obj	f51543c5dbf0dd84
+32	4935	7860123535625861	CMakeFiles/dkj_unified.dir/src/admin_ui.c.obj	a4ae9c33e6c882b1
+13	5033	7860123535430619	CMakeFiles/dkj_unified.dir/src/main.c.obj	7220ecbe73d2a8d7
+25	5120	7860123535565890	CMakeFiles/dkj_unified.dir/src/spectator_ui.c.obj	ada156dbabc3b7e7
+6	5167	7860123535380580	CMakeFiles/dkj_unified.dir/src/launcher.c.obj	ba945397973f053a
+40	5313	7860123535705897	CMakeFiles/dkj_unified.dir/src/render.c.obj	c50f8399c4101198
+56	6831	7860123535865887	CMakeFiles/dkj_unified.dir/src/net.c.obj	4924930a6a2d1a3c
+6838	10057	7860123603882239	bin/dkj_unified.exe	a0cd3b9fca952a41

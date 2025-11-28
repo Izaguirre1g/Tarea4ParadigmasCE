@@ -651,8 +651,8 @@ void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
         int liana = atoi(state->crocLiana.text);
         int altura = atoi(state->crocAltura.text);
 
-        if (liana < 1 || liana > 9) {
-            printf("[ADMIN] Error: Liana debe estar entre 1-9\n");
+        if (liana < 0 || liana > 8) {
+            printf("[ADMIN] Error: Liana debe estar entre 0-8\n");
             return;
         }
 
@@ -702,8 +702,8 @@ void admin_ui_handle_click(AdminUIState* state, int x, int y, int sock) {
         int altura = atoi(state->fruitAltura.text);
         int puntos = atoi(state->fruitPuntos.text);
 
-        if (liana < 1 || liana > 9) {
-            printf("[ADMIN] Error: Liana debe estar entre 1-9\n");
+        if (liana < 0 || liana > 8) {
+            printf("[ADMIN] Error: Liana debe estar entre 0-8\n");
             return;
         }
 

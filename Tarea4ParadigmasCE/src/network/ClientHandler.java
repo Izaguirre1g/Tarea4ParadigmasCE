@@ -175,7 +175,7 @@ public class ClientHandler implements Observer, Runnable {
 
                 try {
                     String tipo = p[2].toUpperCase();     // ROJO o AZUL
-                    int liana = Integer.parseInt(p[3]);   // 0-8
+                    int liana = Integer.parseInt(p[3]);   // 0-8 (del cliente)
                     int altura = Integer.parseInt(p[4]);  // 0-540
 
                     // Validar parámetros
@@ -194,10 +194,13 @@ public class ClientHandler implements Observer, Runnable {
                         return;
                     }
 
+                    // Convertir índice 0-8 a 1-9 para GameManager
+                    int lianaNum = liana + 1;
+
                     // Crear cocodrilo en la posición especificada
-                    targetGame.crearCocodriloAdmin(tipo, liana, altura);
+                    targetGame.crearCocodriloAdmin(tipo, lianaNum, altura);
                     out.println("OK cocodrilo " + tipo + " creado en liana " + liana + " altura " + altura);
-                    System.out.println("[ADMIN CMD] → ADMIN CROC " + tipo + " " + liana + " " + altura);
+                    System.out.println("[ADMIN CMD] → ADMIN CROC " + tipo + " liana:" + liana + " altura:" + altura);
 
                 } catch (NumberFormatException e) {
                     out.println("ERR parámetros numéricos inválidos");
@@ -216,7 +219,7 @@ public class ClientHandler implements Observer, Runnable {
 
                 try {
                     String tipo = p[2].toUpperCase();     // BANANA, NARANJA, CEREZA
-                    int liana = Integer.parseInt(p[3]);   // 0-8
+                    int liana = Integer.parseInt(p[3]);   // 0-8 (del cliente)
                     int altura = Integer.parseInt(p[4]);  // 0-540
                     int puntos = Integer.parseInt(p[5]);  // 10-100
 
@@ -241,11 +244,14 @@ public class ClientHandler implements Observer, Runnable {
                         return;
                     }
 
+                    // Convertir índice 0-8 a 1-9 para GameManager
+                    int lianaNum = liana + 1;
+
                     // Crear fruta
-                    targetGame.crearFrutaAdmin(tipo, liana, altura, puntos);
+                    targetGame.crearFrutaAdmin(tipo, lianaNum, altura, puntos);
                     out.println("OK fruta " + tipo + " creada en liana " + liana +
                             " altura " + altura + " con " + puntos + " puntos");
-                    System.out.println("[ADMIN CMD] → ADMIN FRUIT " + tipo + " " + liana +
+                    System.out.println("[ADMIN CMD] → ADMIN FRUIT " + tipo + " liana:" + liana +
                             " " + altura + " " + puntos);
 
                 } catch (NumberFormatException e) {

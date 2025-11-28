@@ -17,6 +17,10 @@ public class Cocodrilo {
     private MovementStrategy strategy;
     private Liana liana;
 
+    // Estado para cocodrilos rojos (movimiento horizontal)
+    private Boolean isAligned = false;  // Si ya está alineado verticalmente con la liana
+    private Integer horizontalDirection = 1;  // 1 = derecha, -1 = izquierda
+
     public Cocodrilo(Posicion posicion, Double velocidad, MovementStrategy strategy) {
         this.id = nextId++;
         this.posicion = posicion;
@@ -53,6 +57,12 @@ public class Cocodrilo {
 
     public Liana getLiana() { return liana; }
     public void setLiana(Liana liana) { this.liana = liana; }
+
+    public Boolean getIsAligned() { return isAligned; }
+    public void setIsAligned(Boolean isAligned) { this.isAligned = isAligned; }
+
+    public Integer getHorizontalDirection() { return horizontalDirection; }
+    public void setHorizontalDirection(Integer horizontalDirection) { this.horizontalDirection = horizontalDirection; }
 
     public String toNetworkString() {
         String tipo = (strategy instanceof patterns.strategy.RedCrocStrategy) ? "RED" : "BLUE";

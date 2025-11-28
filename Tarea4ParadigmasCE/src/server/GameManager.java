@@ -89,13 +89,15 @@ public class GameManager {
         System.out.println("[GameManager] Mario creado con velocidad: " + marioSpeed);
 
         // Cocodrilos iniciales de ejemplo
-        state.getCocodrilos().add(
-                factory.crearCocodrilo(TipoCocodrilo.ROJO,
-                        new Posicion(GameConstants.getLianaX(1), 300.0))); // Liana 1, X=85
+        Cocodrilo crocRojo = factory.crearCocodrilo(TipoCocodrilo.ROJO,
+                new Posicion(GameConstants.getLianaX(1), 300.0)); // Liana 1, X=85
+        crocRojo.setLiana(state.getLianas().get(0)); // Asignar Liana 1 (índice 0)
+        state.getCocodrilos().add(crocRojo);
 
-        state.getCocodrilos().add(
-                factory.crearCocodrilo(TipoCocodrilo.AZUL,
-                        new Posicion(GameConstants.getLianaX(5), 200.0))); // Liana 5, X=480
+        Cocodrilo crocAzul = factory.crearCocodrilo(TipoCocodrilo.AZUL,
+                new Posicion(GameConstants.getLianaX(5), 200.0)); // Liana 5, X=480
+        crocAzul.setLiana(state.getLianas().get(4)); // Asignar Liana 5 (índice 4)
+        state.getCocodrilos().add(crocAzul);
 
         // Frutas iniciales
         state.getFrutas().add(
